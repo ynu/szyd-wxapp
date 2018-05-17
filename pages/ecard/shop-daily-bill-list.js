@@ -21,6 +21,12 @@ Page({
       mask: true,
     });
     ecardApi.dailyBills(options.shopId).then(bills => {
+      // 按日期降序排列
+      bills.sort((a, b) => {
+        if (a.accDate > b.accDate) return -1;
+        else if (a.accDate < b.accDate) return 1;
+        else return 0;
+      });
       this.setData({
         bills: bills.map(bill => {
           bill.crAmtText = formatMoney(bill.crAmt, '￥');
