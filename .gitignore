@@ -61,3 +61,5 @@ typings/
 .next
 *.config.json
 project.config.json
+
+utils/utils.js
