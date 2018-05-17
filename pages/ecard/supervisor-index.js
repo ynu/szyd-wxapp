@@ -1,4 +1,5 @@
-// pages/ecard/supervisor-index.js.js
+const { appId, weixinApi } = require('../../utils/utils.js');
+
 Page({
 
   /**
@@ -19,6 +20,22 @@ Page({
     wx.redirectTo({
       url: '/pages/ecard/daily-bill-list',
     })
+  },
+  toApply() {
+    wx.showLoading({
+      title: '正在加载',
+      mask: true,
+    })
+    weixinApi.getOpenId().then(openid => {
+      console.log(openid);
+      wx.hideLoading();
+      wx.navigateToMiniProgram({
+        appId: 'wx63b32180ec6de471',
+        path: `pages/index/apply?appName=数字云大&appId=${appId}&userId=${openid}&remark=申请一卡通权限`,
+        extraData: {},
+      });
+    });
+    
   },
 
   /**
