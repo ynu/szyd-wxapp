@@ -1,49 +1,60 @@
 <view class="page">
     <view class="page__hd">
-        <view class="page__title">云南大学日账单</view>
-        <view class="page__desc">2018年5月10日</view>
+        <view class="page__title">【{{name}}】日账单</view>
+        <view class="page__desc">{{date}}</view>
     </view>
     <view class="page__bd">
         <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">合计金额</view>
-                    <view class="weui-form-preview__value_in-hd">¥2400.00</view>
+                    <view class="weui-form-preview__value_in-hd">{{bill.amtText}}</view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">刷卡金额</view>
-                    <view class="weui-form-preview__value">￥345,665.00</view>
+                    <view class="weui-form-preview__value">{{bill.crAmtText}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">冲正金额</view>
-                    <view class="weui-form-preview__value">0.00</view>
+                    <view class="weui-form-preview__value">{{bill.drAmtText}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">消费次数</view>
-                    <view class="weui-form-preview__value">123433笔</view>
+                    <view class="weui-form-preview__value">{{bill.transCntText}}笔</view>
                 </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="/pages/ecard/shop-daily-bill-list?shopId={{shopId}}&name={{name}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">全部日账单</navigator>
             </view>
         </view>
 
-        <view class="weui-cells__title">子商户(30)</view>
-        <view class="weui-cells weui-cells_after-title">
-            <navigator url="/pages/ecard/shop-daily-bill-detail?shopId=1&accdate=20180510" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cells__title">子商户({{subShopCount}})</view>
+        <view wx:if="{{subShopCount}}" class="weui-cells weui-cells_after-title">
+            <navigator wx:for="{{subShopBills}}" url="/pages/ecard/shop-daily-bill-detail?shopId={{item.shopId}}&date={{date}}&name={{item.shopName}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">
-                  水控——呈贡楠苑——A栋
-                  <view class="weui-badge" style="margin-left: 5px;">3452笔</view>
+                  {{item.shopName}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
                 </view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">￥359,734.33</view>
-            </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">2018年5月19日</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">￥359,734.33</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{item.amtText}}</view>
             </navigator>
         </view>
+        <view wx:else class="weui-loadmore weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
 
-        <view class="weui-cells__title">设备(30)</view>
-        <view class="weui-loadmore weui-loadmore_line">
+        <view class="weui-cells__title">设备({{deviceCount}})</view>
+        <view wx:if="{{deviceCount}}" class="weui-cells weui-cells_after-title">
+            <view wx:for="{{deviceBills}}" class="weui-cell">
+                <view class="weui-cell__bd">
+                  {{item.deviceName}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                </view>
+                <view class="weui-cell__ft">{{item.amtText}}</view>
+            </view>
+        </view>
+        <view wx:else class="weui-loadmore weui-loadmore_line">
             <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
         </view>
     </view>
