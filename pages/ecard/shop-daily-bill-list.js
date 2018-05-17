@@ -1,18 +1,35 @@
-// pages/ecard/shop-daily-bill.js
+const { ecardApi } = require('../../utils/utils.js');
+const { formatMoney } = require('../../lib/accounting.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    billsCount: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.setData(options);
+
+    wx.showLoading({
+      title: '正在加载',
+      mask: true,
+    });
+    ecardApi.dailyBills(options.shopId).then(bills => {
+      this.setData({
+        bills: bills.map(bill => {
+          bill.crAmtText = formatMoney(bill.crAmt, '￥');
+          return bill;
+        }),
+        billsCount: bills.length,
+      });
+      wx.hideLoading();
+    });
   },
 
   /**
