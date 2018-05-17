@@ -1,6 +1,13 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/ecard/daily-bill-list",
+    "pages/ecard/supervisor-index",
+    "pages/ecard/shop-daily-bill-detail",
+    
+    
+    "pages/index/index",
+    "pages/ecard/shop-daily-bill-list"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
