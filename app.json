@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/ecard/supervisor-index",
     "pages/ecard/daily-bill-list",
     "pages/ecard/shop-daily-bill-list",
-    
-    "pages/ecard/supervisor-index",
     "pages/ecard/shop-daily-bill-detail",
+    
+    
     
     
     "pages/index/index"
@@ -14,7 +15,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "数字ITC+",
+    "navigationBarTitleText": "数字云大",
     "navigationBarTextStyle": "black"
   }
 }
