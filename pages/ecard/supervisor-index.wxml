@@ -7,6 +7,7 @@
         <view class="button-sp-area">
           <!-- <button class="weui-btn" type="default" plain="true" bindtap='toUir'>用户查询</button> -->
           <button class="weui-btn" type="default" plain="true" bindtap='toDailyBill'>日账单查询</button>
+          <button class="weui-btn" type="default" plain="true" bindtap='toOperatorBill'>操作员账单</button>
           <button class="weui-btn" type="default" plain="true" bindtap='toApply'>功能申请</button>
         </view>
         <view wx:if="{{loadingOpenId}}" class="weui-loadmore">

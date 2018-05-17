@@ -1,0 +1,63 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">操作员日账单</view>
+        <view class="page__desc">{{date}}</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">合计金额</view>
+                    <view class="weui-form-preview__value_in-hd">{{bill.amtText}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">收入金额</view>
+                    <view class="weui-form-preview__value">{{bill.inAmtText}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">支出金额</view>
+                    <view class="weui-form-preview__value">{{bill.outAmtText}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">交易次数</view>
+                    <view class="weui-form-preview__value">{{bill.transCntText}}笔</view>
+                </view>
+            </view>
+        </view>
+
+        <view wx:for="{{bills}}" style="margin-top:20px">
+          <view class="weui-form-preview">
+              <view class="weui-form-preview__hd">
+                  <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label">操作员</view>
+                      <view class="weui-form-preview__value_in-hd">{{item.operName}}</view>
+                  </view>
+              </view>
+              <view class="weui-form-preview__bd">
+                  <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label">项目</view>
+                      <view class="weui-form-preview__value">{{item.subjName}}</view>
+                  </view>
+                  <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label">项目</view>
+                      <view class="weui-form-preview__value">{{item.summary}}</view>
+                  </view>
+                  <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label">收入金额</view>
+                      <view class="weui-form-preview__value">{{item.inAmtText}}</view>
+                  </view>
+                  <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label">支出金额</view>
+                      <view class="weui-form-preview__value">{{item.outAmtText}}</view>
+                  </view>
+                  <view class="weui-form-preview__item">
+                      <view class="weui-form-preview__label">交易次数</view>
+                      <view class="weui-form-preview__value">{{item.transCntText}}笔</view>
+                  </view>
+              </view>
+          </view>
+        </view>
+    </view>
+</view>

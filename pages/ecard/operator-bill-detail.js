@@ -1,47 +1,48 @@
-const { appId, weixinApi } = require('../../utils/utils.js');
-
+const { ecardApi } = require('../../utils/utils.js');
+const { formatMoney, formatNumber } = require('../../lib/accounting.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    bills: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
-  },
-
-  toDailyBill() {
-    wx.redirectTo({
-      url: '/pages/ecard/daily-bill-list',
-    });
-  },
-  toOperatorBill() {
-    wx.redirectTo({
-      url: '/pages/ecard/operator-bill-list',
-    });
-  },
-  
-  toApply() {
+    const { date } = options;
+    this.setData(options);
     wx.showLoading({
       title: '正在加载',
       mask: true,
-    })
-    weixinApi.getOpenId().then(openid => {
-      console.log(openid);
-      wx.hideLoading();
-      wx.navigateToMiniProgram({
-        appId: 'wx63b32180ec6de471',
-        path: `pages/index/apply?appName=数字云大&appId=${appId}&userId=${openid}&remark=申请一卡通权限`,
-        extraData: {},
-      });
     });
-    
+
+    Promise.all([
+      // 获取合并的账单
+      ecardApi.mergedOperatorBillByDate(date),
+      // 获取单个操作员账单
+      ecardApi.operatorBillsByDate(date)
+    ]).then(([
+      bill,
+      bills
+    ]) => {
+      wx.hideLoading();
+      bill.amtText = formatMoney(bill.inAmt - bill.outAmt, '￥');
+      bill.inAmtText = formatMoney(bill.inAmt, '￥');
+      bill.outAmtText = formatMoney(bill.outAmt, '￥');
+      bill.transCntText = formatNumber(bill.transCnt);
+      this.setData({
+        bill,
+        bills: bills.map(bill => {
+          bill.inAmtText = formatMoney(bill.inAmt, '￥');
+          bill.outAmtText = formatMoney(bill.outAmt, '￥');
+          return bill;
+        }),
+      });
+    })
   },
 
   /**
