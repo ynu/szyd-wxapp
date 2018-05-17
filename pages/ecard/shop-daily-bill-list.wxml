@@ -1,0 +1,19 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">一卡通商户日账单</view>
+        <view class="page__desc">云南大学</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-cells__title">日账单列表(30)</view>
+        <view class="weui-cells weui-cells_after-title">
+            <navigator url="/pages/ecard/shop-daily-bill-detail?shopId=1&accdate=20180510" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">2018年5月10日</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">￥359,734.33</view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">2018年5月19日</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">￥359,734.33</view>
+            </navigator>
+        </view>
+    </view>
+</view>
