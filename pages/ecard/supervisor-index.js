@@ -17,14 +17,17 @@ Page({
   },
 
   toDailyBill() {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/ecard/daily-bill-list',
-    });
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
   toOperatorBill() {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/ecard/operator-bill-list',
-    });
+    })
   },
   
   toApply() {
