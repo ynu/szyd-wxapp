@@ -63,3 +63,5 @@ typings/
 project.config.json
 
 utils/utils.js
+
+config.js
