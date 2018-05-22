@@ -3,21 +3,12 @@
         <view class="page__title">数字ITC+</view>
         <view class="page__desc"></view>
     </view>
-    <view class="page__bd">
+    <view class="page__bd" bindtap='navigateToFc'>
         <view class="weui-cells__title">虚拟化平台</view>
         <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">集群</view>
-                <view class="weui-cell__ft">5个</view>
-            </view>
-            <view class="weui-cell">
-                <view class="weui-cell__bd">主机</view>
-                <view class="weui-cell__ft">14/14台</view>
-            </view>
-            <view class="weui-cell">
-                <view class="weui-cell__bd">虚拟机</view>
-                <view class="weui-cell__ft">339/398台</view>
-            </view>
+              <view class="weui-cell">
+                  <view class="weui-cell__bd">虚拟化平台</view>
+              </view>
         </view>
 
         <view class="weui-cells__title">站群系统</view>

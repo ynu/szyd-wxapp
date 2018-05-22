@@ -14,4 +14,10 @@ Page({
       url: '/pages/uir/app-list',
     });
   },
+
+  navigateToFc: () => {
+    wx.navigateTo({
+      url: '/pages/fc/index',
+    });
+  },
 });
