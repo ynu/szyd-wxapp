@@ -1,5 +1,6 @@
+import * as echarts from '../../lib/ec-canvas/echarts.js';
 const { ecardApi } = require('../../utils/utils.js');
-const { formatMoney } = require('../../lib/accounting.js');
+const { formatMoney, formatNumber } = require('../../lib/accounting.js');
 
 Page({
 
@@ -8,6 +9,9 @@ Page({
    */
   data: {
     billsCount: 0,
+    ec: {
+      lazyLoad: true,
+    },
   },
 
   /**
@@ -30,10 +34,12 @@ Page({
       this.setData({
         bills: bills.map(bill => {
           bill.crAmtText = formatMoney(bill.crAmt, '￥');
+          bill.transCntText = formatNumber(bill.transCnt);
           return bill;
         }),
         billsCount: bills.length,
       });
+      this.initChart();
       wx.hideLoading();
     });
   },
@@ -42,7 +48,63 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.ecComponent = this.selectComponent('#mychart-dom-bar');
+  },
+
+  initChart() {
+    const { bills, name } = this.data;
+    const option = {
+      title: {
+        text: `${name}日消费趋势`
+      },
+      legend: {
+        data: ['金额', '刷卡数']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          type: 'category',
+          boundaryGap: false,
+          data: bills.map(bill => bill.accDate).reverse(),
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        },
+      ],
+      series: [
+        {
+          name: '金额',
+          type: 'line',
+          areaStyle: { normal: {} },
+          data: bills.map(bill => bill.crAmt).reverse(),
+        },
+        {
+          name: '次数',
+          type: 'line',
+          areaStyle: { normal: {} },
+          data: bills.map(bill => bill.transCnt).reverse(),
+        },
+      ]
+    };
+    this.ecComponent.init((canvas, width, height) => {
+      const chart = echarts.init(canvas, null, {
+        width,
+        height,
+      });
+      canvas.setChart(chart);
+      chart.setOption(option);
+      this.setData({
+        isLoaded: true,
+      });
+      return chart;
+    });
   },
 
   /**

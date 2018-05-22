@@ -4,10 +4,16 @@
         <view class="page__desc">{{name}}</view>
     </view>
     <view class="page__bd">
+      <view class="ec-container">
+        <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
         <view class="weui-cells__title">日账单列表({{billsCount}})</view>
         <view class="weui-cells weui-cells_after-title">
-            <navigator wx:for="{{bills}}" url="/pages/ecard/shop-daily-bill-detail?shopId={{shopId}}&date={{item.accDate}}&name={{name}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">{{item.accDate}}</view>
+            <navigator wx:for="{{bills}}" wx:key="{{accDate}}" url="/pages/ecard/shop-daily-bill-detail?shopId={{shopId}}&date={{item.accDate}}&name={{name}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                  {{item.accDate}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">{{item.crAmtText}}</view>
             </navigator>
         </view>

@@ -4,6 +4,9 @@
         <view class="page__desc">{{date}}</view>
     </view>
     <view class="page__bd">
+      <view class="ec-container">
+        <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
         <view class="weui-form-preview">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">

@@ -1,1 +1,4 @@
-/* pages/ecard/shop-daily-bill.wxss */
+ec-canvas {
+  width: 90%;
+  height: 300px;
+}

@@ -3,6 +3,10 @@
         <view class="page__title">一卡通操作员日账单</view>
     </view>
     <view class="page__bd">
+      <view class="ec-container" hidden="{{loading}}">
+        <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
+      
         <view class="weui-cells__title">日账单列表({{billsCount}})</view>
         <view class="weui-cells weui-cells_after-title">
             <navigator wx:for="{{bills}}" wx:key="date" url="/pages/ecard/operator-bill-detail?date={{item.date}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">

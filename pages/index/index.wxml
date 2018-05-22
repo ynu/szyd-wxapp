@@ -1,6 +1,6 @@
 <view class="page">
     <view class="page__hd">
-        <view class="page__title">数字ITC+</view>
+        <view class="page__title">概况</view>
         <view class="page__desc"></view>
     </view>
     <view class="page__bd" bindtap='navigateToFc'>
@@ -11,7 +11,7 @@
               </view>
         </view>
 
-        <view class="weui-cells__title">站群系统</view>
+        <!-- <view class="weui-cells__title">站群系统</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">集群</view>
@@ -25,22 +25,35 @@
                 <view class="weui-cell__bd">虚拟机</view>
                 <view class="weui-cell__ft">339/398台</view>
             </view>
+        </view> -->
+
+        <view class="weui-panel">
+            <view class="weui-panel__hd">一卡通系统</view>
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+                    
+                    <view class="weui-media-box__desc">
+                    <view class="ec-container ">
+        <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
+                    </view>
+                    
+                    <view class="weui-media-box__info">
+                        <view class="weui-media-box__info__meta">
+                          <navigator url="/pages/ecard/supervisor-index">仪表盘</navigator>
+                        </view>
+                        
+                    </view>
+                </view>
+            </view>
         </view>
 
-        <view class="weui-cells__title">一卡通</view>
+        <!-- <view class="weui-cells__title">统一身份认证系统</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">标题文字</view>
                 <view class="weui-cell__ft">说明文字</view>
             </view>
-        </view>
-
-        <view class="weui-cells__title">统一身份认证系统</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">标题文字</view>
-                <view class="weui-cell__ft">说明文字</view>
-            </view>
-        </view>
+        </view> -->
     </view>
 </view>

@@ -1,6 +1,8 @@
+import * as echarts from '../../lib/ec-canvas/echarts.js';
 const { ecardApi } = require('../../utils/utils.js');
 const moment = require('../../lib/moment.js');
 const { formatMoney, formatNumber } = require('../../lib/accounting.js');
+
 
 Page({
 
@@ -11,6 +13,9 @@ Page({
     bills: [],
     billsCount: 0,
     loading: true,
+    ec: {
+      lazyLoad: true,
+    },
   },
 
   /**
@@ -54,6 +59,7 @@ Page({
         this.setData({
           loading: false,
         });
+        this.initChart();
       }
     };
 
@@ -66,7 +72,58 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.ecComponent = this.selectComponent('#mychart-dom-bar');
+  },
+
+  initChart() {
+    const bills = this.data.bills;
+    const option = {
+      title: {
+        text: '一卡通收入'
+      },
+      legend: {
+        data: ['操作员收入']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          type: 'category',
+          boundaryGap: false,
+          data: bills.map(bill => bill.date).reverse(),
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: '操作员收入',
+          type: 'line',
+          stack: '总量',
+          areaStyle: { normal: {} },
+          data: bills.map(bill => bill.inAmt).reverse(),
+        },
+      ]
+    };
+    this.ecComponent.init((canvas, width, height) => {
+      const chart = echarts.init(canvas, null, {
+        width,
+        height,
+      });
+      canvas.setChart(chart);
+      chart.setOption(option);
+      this.setData({
+        isLoaded: true,
+      });
+      return chart;
+    });
   },
 
   /**

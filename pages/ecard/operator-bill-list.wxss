@@ -1,1 +1,4 @@
-/* pages/ecard/operator-bill-list.wxss */
+ec-canvas {
+  width: 90%;
+  height: 300px;
+}

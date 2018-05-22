@@ -6,3 +6,8 @@
 .mini-btn{
     margin-right: 5px;
 }
+
+ec-canvas {
+  width: 90%;
+  height: 300px;
+}

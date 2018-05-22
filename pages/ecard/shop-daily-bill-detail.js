@@ -1,13 +1,12 @@
-const { ecardApi } = require('../../utils/utils.js');
-const { formatMoney, formatNumber } = require('../../lib/accounting.js');
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    ec: {
+      lazyLoad: true,
+    },
   },
 
   /**
@@ -51,6 +50,7 @@ Page({
         }),
         deviceCount: deviceBills.length,
       });
+      this.initChart();
       wx.hideLoading();
     });
 
@@ -60,9 +60,42 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.ecComponent = this.selectComponent('#mychart-dom-bar');
   },
 
+  initChart() {
+    const { subShopBills, deviceBills, name } = this.data;
+    const option = {
+      title: {
+        text: `${name}日消费`,
+      },
+      series: [{
+        label: {
+          normal: {
+            fontSize: 10,
+          },
+        },
+        type: 'pie',
+        radius: [0, '50%'],
+        data: subShopBills.filter(bill => bill.crAmt > 0).map(bill => ({
+          value: bill.crAmt,
+          name: bill.shopName,
+        })),
+      }],
+    };
+    this.ecComponent.init((canvas, width, height) => {
+      const chart = echarts.init(canvas, null, {
+        width,
+        height,
+      });
+      canvas.setChart(chart);
+      chart.setOption(option);
+      this.setData({
+        isLoaded: true,
+      });
+      return chart;
+    });
+  },
   /**
    * 生命周期函数--监听页面显示
    */
