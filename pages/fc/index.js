@@ -1,7 +1,4 @@
 var config = require('../../config')
-const App = getApp()
-
-// pages/fc/index.js
 
 //获取虚拟机总数
 function getAllMachineSum() {
