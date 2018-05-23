@@ -1,7 +1,6 @@
 <view class="weui-footer">
     <view class="weui-footer__links">
-        <navigator url="" class="weui-footer__link">YNU</navigator> | 
-        <navigator url="/pages/index/index" class="weui-footer__link">回到首页</navigator>
+        <navigator url="" class="weui-footer__link">云南大学信息技术中心</navigator>
     </view>
     <view class="weui-footer__text">Copyright © 2006-2018</view>
 </view>
