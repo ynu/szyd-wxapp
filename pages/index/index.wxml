@@ -3,29 +3,42 @@
         <view class="page__title">概况</view>
         <view class="page__desc"></view>
     </view>
-    <view class="page__bd" bindtap='navigateToFc'>
-        <view class="weui-cells__title">虚拟化平台</view>
+    <view class="page__bd">
+        <view class="weui-cells__title">服务器虚拟化平台</view>
         <view class="weui-cells weui-cells_after-title">
-              <view class="weui-cell">
-                  <view class="weui-cell__bd">虚拟化平台</view>
-              </view>
+          <navigator url="/pages/fc/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">集群</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{fc.clusterCount}}个</view>
+            </navigator>
+            <navigator url="/pages/fc/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">主机</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{fc.hostCount}}个</view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">虚拟机</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{fc.vmCount}}个</view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">管理员</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">进入</view>
+            </navigator>
         </view>
 
-        <!-- <view class="weui-cells__title">站群系统</view>
+        <view class="weui-cells__title">站群系统</view>
         <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">集群</view>
-                <view class="weui-cell__ft">5个</view>
-            </view>
-            <view class="weui-cell">
-                <view class="weui-cell__bd">主机</view>
-                <view class="weui-cell__ft">14/14台</view>
-            </view>
-            <view class="weui-cell">
-                <view class="weui-cell__bd">虚拟机</view>
-                <view class="weui-cell__ft">339/398台</view>
-            </view>
-        </view> -->
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">站点</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{zq.firmCount}}个</view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">文章</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{zq.newsCount}}篇</view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">管理员</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">进入</view>
+            </navigator>
+        </view>
 
         <view class="weui-panel">
             <view class="weui-panel__hd">一卡通系统</view>

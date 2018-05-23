@@ -1,6 +1,6 @@
 import * as echarts from '../../lib/ec-canvas/echarts.js';
 
-const { ecardApi } = require('../../utils/utils.js');
+const { ecardApi, zqApi, fcApi } = require('../../utils/utils.js');
 
 Page({
   data: {
@@ -29,6 +29,30 @@ Page({
       this.initChart();
       wx.hideLoading();
     });
+
+    Promise.all([
+      zqApi.firmCount(),
+      zqApi.newsCount(),
+      fcApi.vmCount(),
+      fcApi.clusters(),
+      fcApi.hostCount(),
+    ]).then(([
+      firmCount,
+      newsCount,
+      vmCount,
+      clusters,
+      hostCount,
+    ]) => this.setData({
+      zq: {
+        firmCount,
+        newsCount,
+      },
+      fc: {
+        vmCount,
+        clusterCount: clusters.length,
+        hostCount,
+      },
+    }));
   },
 
   /**
