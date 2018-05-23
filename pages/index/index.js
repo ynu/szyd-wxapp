@@ -1,4 +1,3 @@
-import * as echarts from '../../lib/ec-canvas/echarts.js';
 
 const { ecardApi, zqApi, fcApi } = require('../../utils/utils.js');
 
@@ -6,9 +5,21 @@ Page({
   data: {
     isUirManager: false,
     loadingOpenId: true,
-    ec: {
-      lazyLoad: true,
+
+    bills: [],
+    zq: {
+      firmCount: 141,
+      newsCount: 75334,
     },
+    fc: {
+      vmCount: 401,
+      clusterCount: 5,
+      hostCount: 14,
+    },
+    ecard: {
+      shops: [],
+      devices: [],
+    }
   },
 
   onLoad() {
@@ -16,50 +27,58 @@ Page({
       title: '正在加载',
       mask: true,
     });
-    ecardApi.dailyBills(1).then((bills) => {
-      // 按日期降序排列
-      bills.sort((a, b) => {
-        if (a.accDate > b.accDate) return -1;
-        else if (a.accDate < b.accDate) return 1;
-        return 0;
-      });
-      this.setData({
-        bills,
-      });
-      this.initChart();
-      wx.hideLoading();
-    });
 
     Promise.all([
+      ecardApi.dailyBills(1),
+      ecardApi.shops(),
       zqApi.firmCount(),
       zqApi.newsCount(),
       fcApi.vmCount(),
       fcApi.clusters(),
       fcApi.hostCount(),
     ]).then(([
+      bills,
+      shops,
       firmCount,
       newsCount,
       vmCount,
       clusters,
       hostCount,
-    ]) => this.setData({
-      zq: {
-        firmCount,
-        newsCount,
-      },
-      fc: {
-        vmCount,
-        clusterCount: clusters.length,
-        hostCount,
-      },
-    }));
+    ]) => {
+      wx.hideLoading();
+
+      // 按日期降序排列
+      bills.sort((a, b) => {
+        if (a.accDate > b.accDate) return -1;
+        else if (a.accDate < b.accDate) return 1;
+        return 0;
+      });
+
+      this.setData({
+        bills,
+        zq: {
+          firmCount,
+          newsCount,
+        },
+        fc: {
+          vmCount,
+          clusterCount: clusters.length,
+          hostCount,
+        },
+        ecard: {
+          shops,
+        }
+      });
+      this.initChart();
+    }).catch(error => {
+      wx.hideLoading();
+    });
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady () {
-    this.ecComponent = this.selectComponent('#mychart-dom-bar');
   },
 
   initChart() {
