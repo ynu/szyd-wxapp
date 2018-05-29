@@ -1,5 +1,5 @@
 
-const { ecardApi, zqApi, fcApi } = require('../../utils/utils.js');
+const { ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles } = require('../../utils/utils.js');
 
 Page({
   data: {
@@ -19,7 +19,9 @@ Page({
     ecard: {
       shops: [],
       devices: [],
-    }
+    },
+    isFcSupervisor: false,
+    isEcardSupervisor: false,
   },
 
   onLoad() {
@@ -28,14 +30,17 @@ Page({
       mask: true,
     });
 
+
+    // 为确保所有promise都能resolve，必须添加catch
     Promise.all([
-      ecardApi.dailyBills(1),
-      ecardApi.shops(),
-      zqApi.firmCount(),
-      zqApi.newsCount(),
-      fcApi.vmCount(),
-      fcApi.clusters(),
-      fcApi.hostCount(),
+      ecardApi.dailyBills(1).catch(() => []),
+      ecardApi.shops().catch(() => []),
+      zqApi.firmCount().catch(() => 0),
+      zqApi.newsCount().catch(() => 0),
+      fcApi.vmCount().catch(() => 0),
+      fcApi.clusters().catch(() => 0),
+      fcApi.hostCount().catch(() => 0),
+      weixinApi.getOpenId().catch(() => ''),
     ]).then(([
       bills,
       shops,
@@ -44,6 +49,7 @@ Page({
       vmCount,
       clusters,
       hostCount,
+      openId,
     ]) => {
       wx.hideLoading();
 
@@ -69,7 +75,16 @@ Page({
           shops,
         }
       });
-      this.initChart();
+
+      // 设置权限
+      uirApi.getUser(appId, openId).then(uir => {
+        if (uir && uir.roles && uir.roles.length) {
+          this.setData({
+            isFcSupervisor: uir.roles.includes(Roles.FcSupervisor),
+            isEcardSupervisor: uir.roles.includes(Roles.EcardSupervisor),
+          });
+        }
+      });
     }).catch(error => {
       wx.hideLoading();
     });
@@ -81,65 +96,18 @@ Page({
   onReady () {
   },
 
-  initChart() {
-    const { bills, name } = this.data;
-    const option = {
-      title: {
-        text: '一卡通日消费趋势',
-      },
-      legend: {
-        data: ['金额', '刷卡数'],
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-      },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
-          data: bills.map(bill => bill.accDate).reverse(),
-        },
-      ],
-      yAxis: [
-        {
-          type: 'value',
-        },
-      ],
-      series: [
-        {
-          name: '金额',
-          type: 'line',
-          areaStyle: { normal: {} },
-          data: bills.map(bill => bill.crAmt).reverse(),
-        },
-        {
-          name: '次数',
-          type: 'line',
-          areaStyle: { normal: {} },
-          data: bills.map(bill => bill.transCnt).reverse(),
-        },
-      ],
-    };
-    this.ecComponent.init((canvas, width, height) => {
-      const chart = echarts.init(canvas, null, {
-        width,
-        height,
+  toApply() {
+    wx.showLoading({
+      title: '正在加载',
+      mask: true,
+    })
+    weixinApi.getOpenId().then(openid => {
+      wx.hideLoading();
+      wx.navigateToMiniProgram({
+        appId: 'wx63b32180ec6de471',
+        path: `pages/index/apply?appName=数字云大&appId=${appId}&userId=${openid}&remark=申请权限`,
+        extraData: {},
       });
-      canvas.setChart(chart);
-      chart.setOption(option);
-      this.setData({
-        isLoaded: true,
-      });
-      return chart;
-    });
-  },
-
-  navigateToFc: () => {
-    wx.navigateTo({
-      url: '/pages/fc/index',
     });
   },
 });
