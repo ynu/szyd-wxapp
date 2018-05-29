@@ -41,6 +41,8 @@ Page({
       });
       this.initChart();
       wx.hideLoading();
+    }).catch(err => {
+      wx.hideLoading();
     });
   },
 
@@ -55,7 +57,7 @@ Page({
     const { bills, name } = this.data;
     const option = {
       title: {
-        text: `${name}日消费趋势`
+        text: `${name}最近15天消费趋势`
       },
       legend: {
         data: ['金额', '刷卡数']
@@ -70,7 +72,7 @@ Page({
         {
           type: 'category',
           boundaryGap: false,
-          data: bills.map(bill => bill.accDate).reverse(),
+          data: bills.map(bill => bill.accDate).slice(0, 15).reverse(),
         }
       ],
       yAxis: [
@@ -83,13 +85,13 @@ Page({
           name: '金额',
           type: 'line',
           areaStyle: { normal: {} },
-          data: bills.map(bill => bill.crAmt).reverse(),
+          data: bills.map(bill => bill.crAmt).slice(0, 15).reverse(),
         },
         {
           name: '次数',
           type: 'line',
           areaStyle: { normal: {} },
-          data: bills.map(bill => bill.transCnt).reverse(),
+          data: bills.map(bill => bill.transCnt).slice(0, 15).reverse(),
         },
       ]
     };

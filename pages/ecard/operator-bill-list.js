@@ -50,8 +50,13 @@ Page({
 
     const getPrevBill = (date) => {
       if (count--) {
+
+        // 这里不支持finally
         ecardApi.operatorBillsByDate(date).then(bills => {
           if (bills.length) setData(date, bills);
+          const prevDay = moment(date).subtract(1, 'days').format('YYYYMMDD');
+          getPrevBill(prevDay);
+        }).catch(err => {
           const prevDay = moment(date).subtract(1, 'days').format('YYYYMMDD');
           getPrevBill(prevDay);
         });
@@ -79,7 +84,7 @@ Page({
     const bills = this.data.bills;
     const option = {
       title: {
-        text: '一卡通收入'
+        text: '一卡通操作员最近15天日收入'
       },
       legend: {
         data: ['操作员收入']
@@ -94,7 +99,7 @@ Page({
         {
           type: 'category',
           boundaryGap: false,
-          data: bills.map(bill => bill.date).reverse(),
+          data: bills.map(bill => bill.date).slice(0, 15).reverse(),
         }
       ],
       yAxis: [
@@ -108,7 +113,7 @@ Page({
           type: 'line',
           stack: '总量',
           areaStyle: { normal: {} },
-          data: bills.map(bill => bill.inAmt).reverse(),
+          data: bills.map(bill => bill.inAmt).slice(0, 15).reverse(),
         },
       ]
     };
