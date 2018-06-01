@@ -26,7 +26,7 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                <navigator wx:if="{{false}}" url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+                <navigator wx:if="{{isFcSupervisor}}" url="../fc/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
             </view>
         </view>
 
@@ -74,7 +74,7 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                <navigator wx:if="{{false}}" url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+                <navigator wx:if="{{isEcardSupervisor}}" url="/pages/ecard/supervisor-index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
             </view>
         </view>
 
@@ -85,6 +85,10 @@
                 <view class="weui-cell__ft">说明文字</view>
             </view>
         </view> -->
+
+        <view class="button-sp-area">
+          <button class="weui-btn" type="default" plain="true" bindtap='toApply'>功能申请</button>
+        </view>
 
         
     </view>
