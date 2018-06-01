@@ -14,11 +14,6 @@ Page({
   onLoad: function (options) {
     var that = this
     let vmId = options.vmone.split(":")[4]
-    console.log(vmId)
-    // that.setData({
-    //   datas: JSON.parse(options.vmone)
-    // })
-    console.log(config.token)
     wx.request({
       url: `https://api.ynu.edu.cn/fc/v1/site/3F7B07E2/vmResource/${vmId}?token=${config.token}`,
       success: function (res) {
