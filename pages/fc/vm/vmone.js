@@ -15,7 +15,7 @@ Page({
     var that = this
     let vmId = options.vmone.split(":")[4]
     wx.request({
-      url: `https://api.ynu.edu.cn/fc/v1/site/3F7B07E2/vmResource/${vmId}?token=${config.token}`,
+      url: `${config.service.host}/site/3F7B07E2/vmResource/${vmId}?token=${config.token}`,
       success: function (res) {
         console.log(res.data.result)
         that.setData({
