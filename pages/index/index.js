@@ -1,5 +1,7 @@
 
-const { ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles } = require('../../utils/utils.js');
+const {
+  ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles,
+} = require('../../utils/utils.js');
 
 Page({
   data: {
@@ -24,7 +26,7 @@ Page({
     isEcardSupervisor: false,
   },
 
-  onLoad() {
+  initPage() {
     wx.showLoading({
       title: '正在加载',
       mask: true,
@@ -73,35 +75,47 @@ Page({
         },
         ecard: {
           shops,
-        }
+        },
       });
 
       // 设置权限
-      uirApi.getUser(appId, openId).then(uir => {
+      uirApi.getUser(appId, openId).then((uir) => {
         if (uir && uir.roles && uir.roles.length) {
           this.setData({
             isFcSupervisor: uir.roles.includes(Roles.FcSupervisor),
             isEcardSupervisor: uir.roles.includes(Roles.EcardSupervisor),
           });
         }
+      }).catch(() => {
+        wx.hideLoading();
       });
-    }).catch(error => {
+    }).catch((error) => {
       wx.hideLoading();
     });
+  },
+
+  onLoad() {
+    this.initPage();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady () {
+  onReady() {
+  },
+
+  onPullDownRefresh() {
+    console.log('dddddddddd');
+    this.initPage();
+    wx.stopPullDownRefresh();
   },
 
   toApply() {
     wx.showLoading({
       title: '正在加载',
       mask: true,
-    })
-    weixinApi.getOpenId().then(openid => {
+    });
+    weixinApi.getOpenId().then((openid) => {
       wx.hideLoading();
       wx.navigateToMiniProgram({
         appId: 'wx63b32180ec6de471',
