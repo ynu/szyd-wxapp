@@ -1,4 +1,21 @@
-var config = require('../../config')
+const config = require('../../config')
+const App = getApp()
+
+//创建虚拟机数组分为启动的和没有启动的
+function setvm(colony) {
+  var vm = []
+  var vmstart = []
+  var host = colony.host
+  for (let h of host) {
+
+    var vmstart = vmstart.concat(h.vm)
+  }
+  vm.push(vmstart)
+  vm.push(colony.vmstop)
+  return vm
+}
+
+// pages/fc/index.js
 
 //获取虚拟机总数
 function getAllMachineSum() {
@@ -27,27 +44,36 @@ function getAllMachineList(offset) {
 }
 
 //按规则合并所以列表
-function setdata(colony, host, vm) {
+const setdata = (colony, host, vm) => {
   for (var c in colony) {
     colony[c].host = []
-    colony[c].vm = []
+    colony[c].vmstop = []
+    colony[c].vmtotal = 0
     colony[c].hoststatic = 0
     colony[c].vmstatic = 0
     for (var v in vm) {
       if (colony[c].name == vm[v].clusterName) {
-        colony[c].vm.push(vm[v])
+        colony[c].vmtotal += 1
         if (vm[v].status == "running") {
           colony[c].vmstatic += 1
+        }
+        if (vm[v].status == "stopped") {
+          colony[c].vmstop.push(vm[v])
         }
       }
 
     }
     for (var h in host) {
-
+      host[h].vm = []
       if (colony[c].name == host[h].clusterName) {
         colony[c].host.push(host[h])
         if (host[h].status == "running") {
           colony[c].hoststatic += 1
+        }
+      }
+      for (var v in vm) {
+        if (vm[v].hostName == host[h].hostRealName) {
+          host[h].vm.push(vm[v])
         }
       }
     }
@@ -64,8 +90,20 @@ Page({
   data: {
   },
 
+  goToHost: function (event) {
 
-  onShow: function () {
+    wx.navigateTo({
+      url: `./host/host?host=${JSON.stringify(event.currentTarget.dataset.host)}`,
+    })
+  },
+
+  goToVm: function (event) {
+    wx.navigateTo({
+      url: `./vm/vm?colony=${JSON.stringify(setvm(event.currentTarget.dataset.vm))}`,
+    })
+  },
+
+  onLoad: function () {
     var vm = []
     var that = this
     var host = []
@@ -88,6 +126,7 @@ Page({
             wx.request({
               url: config.service.getjq,
               success: function (res) {
+                console.log(setdata(res.data.result, host, vm))
                 that.setData({
                   datas: setdata(res.data.result, host, vm)
                 })

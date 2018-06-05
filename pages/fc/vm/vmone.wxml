@@ -1,0 +1,57 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">{{datas.name}}</view>
+  </view>
+  <view class="page__bd">
+    <view>
+      <view class="weui-cells__title">基本信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">所在集群：</view>
+          <view class="weui-cell__ft ">{{datas.clusterName}}</view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">所在主机：</view>
+          <view class="weui-cell__ft ">{{datas.hostName}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title">硬件信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">CPU：</view>
+          <view class="weui-cell__ft ">{{datas.vmConfig.cpu.coresPerSocket}} 核</view>
+        </view>
+        <view  class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">内存：</view>
+          <view class="weui-cell__ft ">{{datas.vmConfig.memory.quantityMB/1024}} GB</view>
+        </view>
+        <view wx:for="{{datas.vmConfig.disks}}" wx:key="datas" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">硬盘：({{item.diskName}})</view>
+          <view class="weui-cell__ft ">{{item.quantityGB}} GB</view>
+        </view>
+        <view  wx:for="{{datas.vmConfig.nics}}" wx:key="datas" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">网卡：({{item.portGroupName}})</view>
+          <view class="weui-cell__ft ">{{item.ip}}</view>
+        </view>
+      </view>
+  </view>
+</view>
