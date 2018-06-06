@@ -21,6 +21,6 @@
     "enablePullDownRefresh": true
   },
   "networkTimeout": {
-    "request": 10000
+    "request": 30000
   }
 }

@@ -10,13 +10,13 @@ Page({
 
     bills: [],
     zq: {
-      firmCount: 141,
-      newsCount: 75334,
+      firmCount: '-',
+      newsCount: '-',
     },
     fc: {
-      vmCount: 401,
-      clusterCount: 5,
-      hostCount: 14,
+      vmCount: '-',
+      clusterCount: '-',
+      hostCount: '-',
     },
     ecard: {
       shops: [],
@@ -33,6 +33,7 @@ Page({
     });
 
 
+    // 获取各个系统的数据
     // 为确保所有promise都能resolve，必须添加catch
     Promise.all([
       ecardApi.dailyBills(1).catch(() => []),
@@ -51,7 +52,6 @@ Page({
       vmCount,
       clusters,
       hostCount,
-      openId,
     ]) => {
       wx.hideLoading();
 
@@ -77,7 +77,12 @@ Page({
           shops,
         },
       });
+    }).catch((error) => {
+      wx.hideLoading();
+    });
 
+    // 获取用户OpenId及权限
+    weixinApi.getOpenId().then(openId => {
       // 设置权限
       uirApi.getUser(appId, openId).then((uir) => {
         if (uir && uir.roles && uir.roles.length) {
@@ -86,11 +91,7 @@ Page({
             isEcardSupervisor: uir.roles.includes(Roles.EcardSupervisor),
           });
         }
-      }).catch(() => {
-        wx.hideLoading();
       });
-    }).catch((error) => {
-      wx.hideLoading();
     });
   },
 
@@ -105,7 +106,6 @@ Page({
   },
 
   onPullDownRefresh() {
-    console.log('dddddddddd');
     this.initPage();
     wx.stopPullDownRefresh();
   },
