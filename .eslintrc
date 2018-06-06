@@ -1,0 +1,6 @@
+{
+  "globals": {
+    "Page": false,
+    "wx": false
+  }
+}

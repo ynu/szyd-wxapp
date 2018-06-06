@@ -1,7 +1,6 @@
-const config = require('../../config')
-const App = getApp()
+const config = require('../../config');
 
-//创建虚拟机数组分为启动的和没有启动的
+// 创建虚拟机数组分为启动的和没有启动的
 function setvm(colony) {
   var vm = []
   var vmstart = []

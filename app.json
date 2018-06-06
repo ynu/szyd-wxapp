@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/fc/index",
+    
     "pages/index/index",
     "pages/ecard/supervisor-index",
     "pages/ecard/operator-bill-list",
@@ -8,6 +8,7 @@
     "pages/ecard/daily-bill-list",
     "pages/ecard/shop-daily-bill-list",
     "pages/ecard/shop-daily-bill-detail",
+    "pages/fc/index",
     "pages/fc/host/host",
     "pages/fc/vm/vm",
     "pages/fc/vm/vmone"
