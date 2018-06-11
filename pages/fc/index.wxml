@@ -14,7 +14,7 @@
                 <view class="weui-cell__ft weui-cell__ft_in-access">{{item.hostcount}}</view>
             </view>
 
-            <view bindtap='goToVm' data-vm="{{item.name}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view bindtap='goToVm' data-vm="{{item}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__hd">
                     <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
                 </view>
