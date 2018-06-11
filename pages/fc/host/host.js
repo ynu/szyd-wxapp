@@ -20,9 +20,9 @@ Page({
     Promise.all([ fcApi.SelectHostForClusters(options.host)]).then(hosts=>{
       that.setData({
         datas: hosts[0]
-      })
+      });
 
-    })
+    });
 
   },
   goToVm: function (event) {
