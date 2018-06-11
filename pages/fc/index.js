@@ -103,9 +103,8 @@ Page({
   },
 
   goToVm: function (event) {
-    console.log(event.currentTarget.dataset.vm.name);
     wx.navigateTo({
-      url: `./vm/vm?colony=${event.currentTarget.dataset.vm.name}`,
+      url: `./vm/vm?colony=${JSON.stringify(setvm(event.currentTarget.dataset.vm))}`,
     });
   },
 
