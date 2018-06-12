@@ -18,7 +18,7 @@ Page({
 
   goToVm: function (event) {
     wx.navigateTo({
-      url: `./vm/vm?colony=${event.currentTarget.dataset.vm.name}`,
+      url: `./vm/vm?colony=${event.currentTarget.dataset.vm.name}&select=colony`,
     });
   },
 
@@ -29,7 +29,7 @@ Page({
     Promise.all([fcApi.setlist()]).then(vm=>{
       that.setData({
         datas:vm[0]
-      })
+      });
     });
   },
 });

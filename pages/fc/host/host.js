@@ -16,17 +16,23 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    Promise.all([ fcApi.SelectHostForClusters(options.host)]).then(hosts=>{
-      that.setData({
-        datas: hosts[0]
-      })
-
-    })
+    Promise.all([fcApi.SelectHostForClusters(options.host)]).then(hosts => {
+      for (let host of hosts[0]) {
+        host.vmcount=0;
+        Promise.all([fcApi.SelectVmForHost(host.name)]).then(vm => {
+          host.vmcount = vm[0].length;
+          that.setData({
+            datas:hosts[0]
+          });
+        });
+      }
+    });
 
   },
   goToVm: function (event) {
+    console.log(event);
     wx.navigateTo({
-      url: `../vm/vm?colony=${JSON.stringify(setvm(event.currentTarget.dataset.vm))}`,
+      url: `../vm/vm?host=${event.currentTarget.dataset.host}&select=host`,
     });
   },
 

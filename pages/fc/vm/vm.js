@@ -15,14 +15,22 @@ Page({
    */
   onLoad: function (options) {
     const that =this;
+    if (options.select =="colony"){
     Promise.all([fcApi.SelectVmForClusters(options.colony)]).then(vm=>{
       Promise.all([fcApi.ShutdownVm(vm[0])]).then(vm=>{
-        this.setData({
+        that.setData({
           datas1:vm[0].start,
           datas2:vm[0].down
-        })
-      })
-    })
+        });
+      });
+    });
+  }else{
+      Promise.all([fcApi.SelectVmForHost(options.host)]).then(vm=>{
+        that.setData({
+          datas1:vm[0]
+        });
+      });
+  }
 
 
   },
