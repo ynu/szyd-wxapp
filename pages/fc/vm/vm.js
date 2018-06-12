@@ -1,4 +1,6 @@
-const fcApi = require('../../../utils/utils.js');
+const {
+  ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles,
+} = require('../../../utils/utils.js');
 Page({
 
   /**
@@ -12,19 +14,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.colony);
-    console.log(fcApi.SelectVmForClusters(options.colony))
-    // this.setData({ 
-    //   datas1: colony[0],
-    //   datas2: colony[1],
-      
-    //   });
+    const that =this;
+    Promise.all([fcApi.SelectVmForClusters(options.colony)]).then(vm=>{
+      Promise.all([fcApi.ShutdownVm(vm[0])]).then(vm=>{
+        this.setData({
+          datas1:vm[0].start,
+          datas2:vm[0].down
+        })
+      })
+    })
+
+
   },
   
-  // goToVmOne: function (event) {
-  //   console.log(event);
-  //   wx.navigateTo({
-  //     url: `./vmone?vmone=${event.currentTarget.dataset.vmone}`,
-  //   });
-  // },
 });

@@ -16,7 +16,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    console.log(options.host);
     Promise.all([ fcApi.SelectHostForClusters(options.host)]).then(hosts=>{
       that.setData({
         datas: hosts[0]
