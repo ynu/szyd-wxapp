@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/fc/index",
     "pages/index/index",
+    "pages/fc/index",
     "pages/ecard/supervisor-index",
     "pages/ecard/operator-bill-list",
     "pages/ecard/operator-bill-detail",
