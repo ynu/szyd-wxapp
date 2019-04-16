@@ -1,0 +1,4 @@
+/* pages/wg/index.wxss */
+.zq-article{
+  text-align: right;
+}

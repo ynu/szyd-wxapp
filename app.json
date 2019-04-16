@@ -10,7 +10,8 @@
     "pages/ecard/shop-daily-bill-detail",
     "pages/fc/host/host",
     "pages/fc/vm/vm",
-    "pages/fc/vm/vmone"
+    "pages/fc/vm/vmone",
+    "pages/wg/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -21,5 +22,6 @@
   },
   "networkTimeout": {
     "request": 10000
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
