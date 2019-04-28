@@ -5,9 +5,13 @@
     </view>
     <view class='weui-cells__title'>站群列表</view>
     <view class='weui-form-preview__bd'wx:for="{{datas}}" wx:key="datas" style='border-top: 1rpx solid #D5D5D6'>
-        <view class="weui-form-preview__item">
-                      <view class="weui-form-preview__label">站名</view>
-                      <view class="weui-form-preview__value">{{item.wbname}}</view>
+        <view wx:if="{{item.count==0}}" class="weui-form-preview__item">
+                      <view class="weui-form-preview__label" >站名</view>
+                      <view class="weui-form-preview__value" style='color: red'>{{item.wbname}}        </view>
+        </view>
+        <view wx:if="{{item.count!=0}}" class="weui-form-preview__item">
+                      <view class="weui-form-preview__label" >站名</view>
+                      <view class="weui-form-preview__value" style='color: green'>{{item.wbname}}        </view>
         </view>
         <view class="weui-form-preview__item">
                       <view class="weui-form-preview__label" >状态</view>
