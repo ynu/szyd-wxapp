@@ -25,7 +25,6 @@ Page({
   },
 
   onLoad: function () {
-    //this.setData({ datas: zqApi.data});
     var that = this;
     zqApi.webFirm().then(function (data) {
 
@@ -43,6 +42,7 @@ Page({
           }
         }
         that.setData({ datas: data });
+        
       });
 
     });
