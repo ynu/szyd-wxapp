@@ -7,7 +7,6 @@ Page({
   data: {
     isUirManager: false,
     loadingOpenId: true,
-
     bills: [],
     zq: {
       firmCount: 141,
@@ -86,8 +85,9 @@ Page({
             isEcardSupervisor: uir.roles.includes(Roles.EcardSupervisor),
           });
         }
-      }).catch(() => {
+      }).catch((err) => {
         wx.hideLoading();
+        console.error(err);
       });
     }).catch((error) => {
       wx.hideLoading();
@@ -119,7 +119,7 @@ Page({
       wx.hideLoading();
       wx.navigateToMiniProgram({
         appId: 'wx63b32180ec6de471',
-        path: `pages/index/apply?appName=数字云大&appId=${appId}&userId=${openid}&remark=申请权限`,
+        path: `pages/apply/apply?appName=数字云大&appId=${appId}&userId=${openid}&remark=申请权限`,
         extraData: {},
       });
     });

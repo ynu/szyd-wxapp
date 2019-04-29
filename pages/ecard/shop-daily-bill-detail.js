@@ -1,3 +1,11 @@
+import * as echarts from '../../lib/ec-canvas/echarts.js';
+const {
+  ecardApi,
+} = require('../../utils/utils.js');
+const {
+  formatMoney, formatNumber,
+} = require('../../lib/accounting.js');
+
 Page({
 
   /**
