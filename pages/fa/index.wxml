@@ -1,0 +1,59 @@
+<!--pages/fa/index.wxml-->
+<view class="page" style='background-color:white;'>
+  <view class="page__hd">
+    <view class="page__title">权限申请</view>
+    <view class="page__desc">
+    </view>
+  </view>
+  <view class="page__bd">
+    <form bindsubmit="submitAdd">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">姓名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input value="{{name}}" id="name" class="weui-input" name="name" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">所在单位</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input value="{{unit}}" id="unit" class="weui-input" name="unit" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">手机号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input value="{{mobile}}" id="mobile" class="weui-input" name="mobile" />
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input" style='background-color:white;'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">申请模块</view>
+          </view>
+          <view class="weui-cell__hd"style="margin:10rpx">
+              <picker-view
+                indicator-style="height: 50px;"
+                style="width: 750px; height: 150px;"
+                value="{{aaa}}"
+                bindchange="bindChange"
+              >
+                <picker-view-column>
+                  <view  class="weui-cell__hd" wx:for="{{modules}}" wx:key="" style="line-height: 50px;">{{item}}</view>
+                </picker-view-column>
+              </picker-view>
+            </view>
+        </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" form-type="submit">提交</button>
+      </view>
+    </form>
+    <include src="../footer.wxml" />
+  </view>
+</view>

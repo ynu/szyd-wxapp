@@ -10,7 +10,9 @@
     "pages/ecard/shop-daily-bill-detail",
     "pages/fc/host/host",
     "pages/fc/vm/vm",
-    "pages/fc/vm/vmone"
+    "pages/fc/vm/vmone",
+    "pages/wg/index",
+    "pages/fa/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

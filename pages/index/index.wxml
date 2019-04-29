@@ -48,7 +48,7 @@
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                <navigator wx:if="{{false}}" url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+                <navigator wx:if="{{isFaSupervisor}}" url="/pages/wg/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
             </view>
         </view>
 
