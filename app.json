@@ -11,8 +11,8 @@
     "pages/fc/host/host",
     "pages/fc/vm/vm",
     "pages/fc/vm/vmone",
-    "pages/wg/index",
-    "pages/fa/index"
+    "pages/zq/index",
+    "pages/application/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,6 +1,11 @@
-
 const {
-  ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles,
+  ecardApi,
+  zqApi,
+  fcApi,
+  uirApi,
+  weixinApi,
+  appId,
+  Roles,
 } = require('../../utils/utils.js');
 
 let openIdNew;
@@ -9,7 +14,6 @@ Page({
     isUirManager: false,
     loadingOpenId: true,
     openIdNew,
-
     bills: [],
     zq: {
       firmCount: 141,
@@ -33,7 +37,6 @@ Page({
       title: '正在加载',
       mask: true,
     });
-
 
     // 为确保所有promise都能resolve，必须添加catch
     Promise.all([
@@ -81,17 +84,17 @@ Page({
       });
 
       // 设置权限
-      uirApi.getUser(appId, openId).then((uir) => {
-        if (uir && uir.roles && uir.roles.length) {
-          // this.setData({
-          //   isFcSupervisor: uir.roles.includes(Roles.FcSupervisor),
-          //   isEcardSupervisor: uir.roles.includes(Roles.EcardSupervisor),
-          // });
-        }
-      }).catch((err) => {
-        wx.hideLoading();
-        console.error(err);
-      });
+      // uirApi.getUser(appId, openId).then((uir) => {
+      //   if (uir && uir.roles && uir.roles.length) {
+      //     // this.setData({
+      //     //   isFcSupervisor: uir.roles.includes(Roles.FcSupervisor),
+      //     //   isEcardSupervisor: uir.roles.includes(Roles.EcardSupervisor),
+      //     // });
+      //   }
+      // }).catch((err) => {
+      //   wx.hideLoading();
+      //   console.error(err);
+      // });
     }).catch((error) => {
       wx.hideLoading();
     });
@@ -100,21 +103,14 @@ Page({
   onLoad() {
     this.initPage();
     this.getPermission();
-    wx.cloud.callFunction({ // 调用云函数
-      name: 'fcApi', // 云函数名为http
-    }).then((res) => {
-      console.log('res,--------', res.result);
-    });
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
-  },
+  onReady() { },
 
   onPullDownRefresh() {
-    console.log('dddddddddd');
     this.initPage();
     wx.stopPullDownRefresh();
   },
@@ -125,29 +121,37 @@ Page({
       mask: true,
     });
     wx.navigateTo({
-      url: '/pages/fa/index',
+      url: '/pages/application/index',
     });
   },
 
   getPermission() {
     const that = this;
+    //通过云函数获取当前用户的OPENID
     wx.cloud.callFunction({
       name: 'getOpenId',
       complete: (res) => {
-        this.setData({ openIdNew: res.result.OPENID });
+        this.setData({
+          openIdNew: res.result.OPENID
+        });
       },
     });
+    //获取云端数据库判断当前用户拥有哪些模块的权限
     const db = wx.cloud.database();
     db.collection('user-permissions').doc(that.data.openIdNew).get().then((res) => {
-      // res.data 包含该记录的数据
-      console.log(res.data.roles);
       for (let i = 0; i < res.data.roles.length; i++) {
         if (res.data.roles[i] == '虚拟化平台') {
-          that.setData({ isFcSupervisor: true });
+          that.setData({
+            isFcSupervisor: true
+          });
         } else if (res.data.roles[i] == '站群系统') {
-          that.setData({ isFaSupervisor: true });
+          that.setData({
+            isFaSupervisor: true
+          });
         } else if (res.data.roles[i] == '一卡通') {
-          that.setData({ isEcardSupervisor: true });
+          that.setData({
+            isEcardSupervisor: true
+          });
         }
       }
     });
