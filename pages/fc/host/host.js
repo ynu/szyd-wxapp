@@ -1,5 +1,11 @@
 const {
-  ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles,
+  ecardApi,
+  zqApi,
+  fcApi,
+  uirApi,
+  weixinApi,
+  appId,
+  Roles,
 } = require('../../../utils/utils.js');
 
 Page({
@@ -14,22 +20,36 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
-    Promise.all([fcApi.SelectHostForClusters(options.host)]).then(hosts => {
-      for (let host of hosts[0]) {
-        host.vmcount=0;
-        Promise.all([fcApi.SelectVmForHost(host.name)]).then(vm => {
-          host.vmcount = vm[0].length;
-          that.setData({
-            datas:hosts[0]
-          });
-        });
+    wx.cloud.callFunction({
+      name: 'vmHost', //此云函数获取当前host类型的主机信息
+      data: {
+        clusterName: options.host
       }
-    });
-
+    }).then((res) => {
+      return res.result.vmHost
+    }).then((hosts) => {
+      for (let host of hosts) {
+        host.vmcount = 0;
+        wx.cloud.callFunction({
+          name: 'vmCount', //此云函数获取当前host的虚拟机数量
+          data: {
+            hostName: host.name
+          }
+        }).then(res => {
+          return res.result.count
+        }).then(vm => {
+          host.vmcount = vm.length;
+          that.setData({
+            datas: hosts
+          })
+        })
+      }
+    })
   },
-  goToVm: function (event) {
+
+  goToVm: function(event) {
     console.log(event);
     wx.navigateTo({
       url: `../vm/vm?host=${event.currentTarget.dataset.host}&select=host`,
