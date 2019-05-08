@@ -31,14 +31,5 @@ Page({
         datas:vm[0]
       });
     });
-
-
-    wx.cloud.callFunction({
-      name: 'fcApi',
-      complete: res => {
-        console.log('callFunction fcApi test result: ',res)
-      }
-    })
-
   },
 });

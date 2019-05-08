@@ -4,7 +4,7 @@ const request = require('request-promise');
 cloud.init()
 
 // 云函数入口函数
-exports.main = async (event, context) => {
+exports.main = async(event, context) => {
   const host = 'http://fc-api.ynu.edu.cn/';
   const token = `${process.env.token1}.${process.env.token2}.${process.env.token3}`;
   let siteId = process.env.siteId;
