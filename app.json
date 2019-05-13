@@ -22,7 +22,7 @@
     "enablePullDownRefresh": true
   },
   "networkTimeout": {
-    "request": 30000
+    "request": 10000
   },
   "sitemapLocation": "sitemap.json"
 }
