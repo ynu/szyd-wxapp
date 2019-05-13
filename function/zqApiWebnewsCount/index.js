@@ -7,8 +7,8 @@ cloud.init()
 exports.main = async(event, context) => {
   try {
     const host = 'http://zq-api.ynu.edu.cn';
-    //token是由环境变量token1,token2,token3,token4,token5以及.,-组成的，通过云开发控制台，配置此云函数,名分别为token1,token2,token3,token4,token5的键值对环境变量
-    const token = `${process.env.token1}.${process.env.token2}.${process.env.token3}-${process.env.token4}-${process.env.token5}`;
+    //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
+    const token = process.env.token;
     let options = {
       uri: `${host}/api/wbnews/latestDaysUpdateCounts/180?access_token=${token}`,
       json: true
