@@ -1,13 +1,13 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk');
 const request = require('request-promise');
-cloud.init()
+cloud.init();
 
 // 云函数入口函数
 exports.main = async(event, context) => {
+  const host = 'http://zq-api.ynu.edu.cn';
   //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
   const token = process.env.token;
-  const host = 'http://zq-api.ynu.edu.cn';
   let options = {
     uri: `${host}/api/wbfirm/count?access_token=${token}`,
     json: true
@@ -18,7 +18,6 @@ exports.main = async(event, context) => {
     return {
       ret: -1,
       msg: err,
-      token,
     }
   }
 }
