@@ -17,13 +17,13 @@ Page({
     openIdNew,
     bills: [],
     zq: {
-      firmCount: 141,
-      newsCount: 75334
+      firmCount: 0,
+      newsCount: 0
     },
     fc: {
-      vmCount: 401,
-      clusterCount: 5,
-      hostCount: 14
+      vmCount: 0,
+      clusterCount: 0,
+      hostCount: 0
     },
     ecard: {
       shops: [],
@@ -48,7 +48,6 @@ Page({
       fcApi.vmCount().catch(() => 0),
       fcApi.clusters().catch(() => 0),
       fcApi.hostCount().catch(() => 0),
-      weixinApi.getOpenId().catch(() => "")
     ])
       .then(
         ([
@@ -58,8 +57,7 @@ Page({
           newsCount,
           vmCount,
           clusters,
-          hostCount,
-          openId
+          hostCount
         ]) => {
           wx.hideLoading();
 
@@ -85,19 +83,6 @@ Page({
               shops
             }
           });
-
-          // 设置权限
-          // uirApi.getUser(appId, openId).then((uir) => {
-          //   if (uir && uir.roles && uir.roles.length) {
-          //     // this.setData({
-          //     //   isFcSupervisor: uir.roles.includes(Roles.FcSupervisor),
-          //     //   isEcardSupervisor: uir.roles.includes(Roles.EcardSupervisor),
-          //     // });
-          //   }
-          // }).catch((err) => {
-          //   wx.hideLoading();
-          //   console.error(err);
-          // });
         }
       )
       .catch(error => {
