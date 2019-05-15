@@ -1,26 +1,29 @@
 // pages/fa/index.js
-const moduleList = ["请选择模块", "虚拟化平台", "站群系统", "一卡通"];
 const modules = ["请选择模块", "虚拟化平台", "站群系统", "一卡通"];
+const permissions = ["", "szyd:fc-supervisor", "szyd:zq-supervisor", "szyd:ecard-supervisor"];
 let openId;
 let length;
 let datas;
 let _id;
+let permission;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    modules, //记录已经申请的模块
+    modules,
+    permission,//记录当前选择的模块对应的权限
     module: "请选择模块", //记录当前选择的模块，默认值为'请选择模块'
     openId, //当前用户的openId
     length, //记录当前用户的云数据库记录数
     _id,
-    datas: []
+    datas: [] //记录已经申请的模块
   },
   //当申请模块发生改变时触发此函数
   bindChange(e) {
     const val = e.detail.value;
     this.setData({
+      permission: permissions[val],
       module: this.data.modules[val]
     });
   },
@@ -76,7 +79,7 @@ Page({
     //当conditions为true时，即所有内容都填完，执行下面代码
     if (conditions) {
       for (let i = 0; i < that.data.datas.length; i++) {
-        if (that.data.datas[i] == that.data.module) {
+        if (that.data.datas[i] == that.data.permission) {
           count = 1;
           break;
         }
@@ -97,7 +100,7 @@ Page({
             .doc(that.setData._id)
             .update({
               data: {
-                module: _.push(this.data.module)
+                module: _.push(this.data.permission)
               }
             })
             .then(() => {
@@ -120,7 +123,7 @@ Page({
                 name: e.detail.value.name,
                 unit: e.detail.value.unit,
                 mobile: e.detail.value.mobile,
-                module: [this.data.module],
+                module: [this.data.permission],
                 roles: []
               }
             })
@@ -149,7 +152,9 @@ Page({
     wx.cloud.callFunction({
       name: "getOpenId",
       complete: res => {
-        this.setData({ openId: res.result.OPENID });
+        this.setData({
+          openId: res.result.OPENID
+        });
       }
     });
     const db = wx.cloud.database();

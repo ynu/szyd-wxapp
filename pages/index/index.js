@@ -41,14 +41,14 @@ Page({
 
     // 为确保所有promise都能resolve，必须添加catch
     Promise.all([
-      ecardApi.dailyBills(1).catch(() => []),
-      ecardApi.shops().catch(() => []),
-      zqApi.firmCount().catch(() => 0),
-      zqApi.newsCount().catch(() => 0),
-      fcApi.vmCount().catch(() => 0),
-      fcApi.clusters().catch(() => 0),
-      fcApi.hostCount().catch(() => 0),
-    ])
+        ecardApi.dailyBills(1).catch(() => []),
+        ecardApi.shops().catch(() => []),
+        zqApi.firmCount().catch(() => 0),
+        zqApi.newsCount().catch(() => 0),
+        fcApi.vmCount().catch(() => 0),
+        fcApi.clusters().catch(() => 0),
+        fcApi.hostCount().catch(() => 0),
+      ])
       .then(
         ([
           bills,
@@ -142,15 +142,15 @@ Page({
             .get()
             .then(res => {
               for (let i = 0; i < res.data[0].roles.length; i++) {
-                if (res.data[0].roles[i] == "虚拟化平台") {
+                if (res.data[0].roles[i] == "szyd:fc-supervisor") {
                   that.setData({
                     isFcSupervisor: true
                   });
-                } else if (res.data[0].roles[i] == "站群系统") {
+                } else if (res.data[0].roles[i] == "szyd:zq-supervisor") {
                   that.setData({
                     isFaSupervisor: true
                   });
-                } else if (res.data[0].roles[i] == "一卡通") {
+                } else if (res.data[0].roles[i] == "szyd:ecard-supervisor") {
                   that.setData({
                     isEcardSupervisor: true
                   });
