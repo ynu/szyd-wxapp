@@ -2,6 +2,7 @@
  * 用于根据用户名和密码获取堡垒机操作token。
  * 部署在云端时，需配置username和password两个环境变量。
  */
+
 const fetch = require('node-fetch');
 
 // 必须关闭证书认证，否则会报错

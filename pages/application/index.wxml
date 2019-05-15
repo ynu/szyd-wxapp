@@ -12,7 +12,7 @@
           <view class="weui-label">姓名</view>
         </view>
         <view class="weui-cell__bd">
-          <input value="{{name}}" id="name" class="weui-input" name="name" />
+          <input value="{{name}}" placeholder="请输入姓名" id="name" class="weui-input" name="name" />
         </view>
       </view>
       <view class="weui-cell weui-cell_input">
@@ -20,7 +20,7 @@
           <view class="weui-label">所在单位</view>
         </view>
         <view class="weui-cell__bd">
-          <input value="{{unit}}" id="unit" class="weui-input" name="unit" />
+          <input value="{{unit}}" placeholder="请输入所在单位" id="unit" class="weui-input" name="unit" />
         </view>
       </view>
 
@@ -29,9 +29,20 @@
           <view class="weui-label">手机号</view>
         </view>
         <view class="weui-cell__bd">
-          <input value="{{mobile}}" id="mobile" class="weui-input" name="mobile" />
+          <input value="{{mobile}}" id="mobile" placeholder="请输入手机号" class="weui-input" name="mobile" bindinput="mobileInput" />
         </view>
       </view>
+      <view class="weui-cell weui-cell_input weui-cell_vcode">
+            <view class="weui-cell__hd">
+                <view class="weui-label">验证码</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="请输入验证码" id="vcode" name="vcode" />
+            </view>
+            <view class="weui-cell__ft">
+                <view class="{{vcode.btnClass}}" bindtap="btnSendVcode" >{{vcode.btnText}}</view>
+            </view>
+        </view>
 
       <view class="weui-cell weui-cell_input" style='background-color:white;'>
         <view class="weui-cell__hd">
