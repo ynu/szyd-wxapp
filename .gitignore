@@ -62,7 +62,6 @@ typings/
 *.config.json
 project.config.json
 
-utils/utils.js
 
 config.js
 .eslintrc.js
