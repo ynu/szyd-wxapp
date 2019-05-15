@@ -78,6 +78,28 @@
             </view>
         </view>
 
+        <view class="weui-form-preview" style="margin-top:20px">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label"></view>
+                    <view class="weui-form-preview__value_in-hd">风控系统</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">用户</view>
+                    <view class="weui-form-preview__value">{{ecard.shops.length}}个</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">托管资产</view>
+                    <view class="weui-form-preview__value">543个</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator wx:if="{{isEcardSupervisor}}" url="/pages/ecard/supervisor-index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+            </view>
+        </view>
+
         <!-- <view class="weui-cells__title">统一身份认证系统</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">

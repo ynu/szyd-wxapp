@@ -2,7 +2,6 @@ const {
   ecardApi,
   zqApi,
   fcApi,
-  uirApi,
   weixinApi,
   appId,
   Roles
@@ -28,6 +27,11 @@ Page({
     ecard: {
       shops: [],
       devices: []
+    },
+    // 风控系统
+    ris: {
+      userCount: 0, // 用户数
+      devCount: 0, // 资产数
     },
     isFcSupervisor: false,
     isFaSupervisor: false,
