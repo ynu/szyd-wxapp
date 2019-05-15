@@ -1,30 +1,30 @@
 // pages/fa/index.js
-const modules = ["请选择模块", "虚拟化平台", "站群系统", "一卡通"];
-const permissions = ["", "szyd:fc-supervisor", "szyd:zq-supervisor", "szyd:ecard-supervisor"];
+let modules = [{ name: "虚拟化平台", value: "szyd:fc-supervisor", checked: false}, { name: "站群系统", value: "szyd:zq-supervisor", checked: false }, { name: "一卡通", value: "szyd:ecard-supervisor", checked: false}];
+let permissions;
 let openId;
 let length;
 let datas;
 let _id;
-let permission;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    modules,
-    permission,//记录当前选择的模块对应的权限
-    module: "请选择模块", //记录当前选择的模块，默认值为'请选择模块'
+    modules:[],
+    permissions: [],//记录当前选择的模块对应的权限
+    //module: "请选择模块", //记录当前选择的模块，默认值为'请选择模块'
     openId, //当前用户的openId
     length, //记录当前用户的云数据库记录数
     _id,
     datas: [] //记录已经申请的模块
   },
   //当申请模块发生改变时触发此函数
-  bindChange(e) {
+  checkboxChange(e) {
+    console.log("**********",e.detail.value)
     const val = e.detail.value;
     this.setData({
-      permission: permissions[val],
-      module: this.data.modules[val]
+      permissions: val,
+      //module: val
     });
   },
   //用来判断手机号码是否正确
@@ -68,7 +68,7 @@ Page({
         showCancel: false
       });
       //检验是否选择了模块
-    } else if (that.data.module == "请选择模块") {
+    } else if (that.data.permissions.length === 0) {
       conditions = false;
       wx.showModal({
         title: "提示",
@@ -78,29 +78,14 @@ Page({
     }
     //当conditions为true时，即所有内容都填完，执行下面代码
     if (conditions) {
-      for (let i = 0; i < that.data.datas.length; i++) {
-        if (that.data.datas[i] == that.data.permission) {
-          count = 1;
-          break;
-        }
-      }
-      //当前用户已经申请过了所提交的模块
-      if (count == 1) {
-        wx.showModal({
-          title: "提示",
-          content: "您已经申请过" + that.data.module + "请重新选择模块",
-          showCancel: false
-        });
-        //用户没有申过选择的模块
-      } else {
         //用户不是第一次申请
-        if (this.data.length == 1) {
+        if (that.data.length == 1) {
           const _ = db.command;
           db.collection("user-permissions")
             .doc(that.setData._id)
             .update({
               data: {
-                module: _.push(this.data.permission)
+                module: _.push.apply(that.data.datas,that.data.permissions)
               }
             })
             .then(() => {
@@ -123,7 +108,7 @@ Page({
                 name: e.detail.value.name,
                 unit: e.detail.value.unit,
                 mobile: e.detail.value.mobile,
-                module: [this.data.permission],
+                module: that.data.permissions,
                 roles: []
               }
             })
@@ -140,7 +125,7 @@ Page({
               });
             });
         }
-      }
+      
     }
   },
   /**
@@ -167,10 +152,21 @@ Page({
       .then(res => {
         console.log(res);
         that.setData({
-          length: res.data.length
+          length: res.data.length,
+          modules: modules
         });
         if (res.data.length != 0) {
+          console.log("+++++++++++++******",res.data)
+          for(let i = 0; i < res.data[0].module.length; i++){
+            for(let j = 0; j < modules.length; j++){
+              if(res.data[0].module[i] == modules[j].value){
+                modules[j].checked = true;
+                modules[j].disabled = true;
+              }            
+            }
+          }
           that.setData({
+            modules: modules,
             datas: res.data[0].module,
             _id: res.data[0]._id
           });
