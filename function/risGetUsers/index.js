@@ -13,18 +13,31 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
 // 云函数入口函数
 exports.main = async (event, context) => {
   const host = 'https://access.ynu.edu.cn/shterm/api';
-  try {
-    // 1. 获取token
-    const auth = await cloud.callFunction({
-      name: 'risGetAuthenticate',
-    });
-    // 如果不能正确获得token, 直接返回错误信息
-    if (!auth.result.ST_AUTH_TOKEN) return auth.result; 
+  // 从参数获取token
+  let { st_auth_token } = event;
 
+  if (!st_auth_token) { // 如果参数为提供token，则从远程获取
+    try {
+      // 获取token
+      const auth = await cloud.callFunction({
+        name: 'risGetAuthenticate',
+      });
+      // 如果不能正确获得token, 直接返回错误信息
+      if (!auth.result.ST_AUTH_TOKEN) return auth.result;
+      st_auth_token = auth.result.ST_AUTH_TOKEN;
+    } catch (err) {
+      return {
+        ret: -1,
+        msg: err,
+      }
+    }
+  }
+  // 获取用户列表
+  try {
     const result = await fetch(`${host}/user?${qs.stringify(event)}`, {
       headers: {
         // token要放到cookie中
-        cookie: [ qs.stringify(auth.result) ],
+        cookie: [ `ST_AUTH_TOKEN=${st_auth_token}` ],
       },
     });
     // 判断并输出结果 
@@ -33,7 +46,29 @@ exports.main = async (event, context) => {
         ret: result.status,
         msg: result.statusText,
       };
-    } else return result.json();
+    } else {
+      // 返回成功，数据内容太多，只返回需要的字段
+      users = await  result.json();
+      return {
+        ...users,
+        content: users.content.map(user => ({
+          id: user.id,
+          loginName: user.loginName,
+          userName: user.userName,
+          authType: {
+            id: user.authType.id,
+            name: user.authType.name,
+            type: user.authType.type,
+          },
+          role: {
+            id: user.role.id,
+            description: user.role.description,
+          },
+          state: user.state,
+          enabled: user.enabled,
+        })),
+      };
+    }
   } catch (err) {
     return {
       ret: -1,
