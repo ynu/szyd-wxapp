@@ -4,15 +4,15 @@ const QcloudSms = require('qcloudsms_js');
 cloud.init();
 
 // 云函数入口函数
-exports.main = async (event, context) => {
-  // 短信应用SDK AppID
-  let appid = process.env.appId;  // SDK AppID是1400开头
-  // 短信应用SDK AppKey
+exports.main = async(event, context) => {
+  // 短信应用SDK AppID，通过云开发控制台，配置此云函数名为appid的键值对环境变量
+  let appid = process.env.appId;
+  // 短信应用SDK AppKey，通过云开发控制台，配置此云函数名为appkey的键值对环境变量
   let appkey = process.env.appKey;
   // 需要发送短信的手机号码
   let phoneNumbers = [event.mobile];
-  // 短信模板ID，需要在短信应用中申请
-  let templateId = process.env.templateId;  
+  // 短信模板ID，需要在短信应用中申请，通过云开发控制台，配置此云函数名为templateId的键值对环境变量
+  let templateId = process.env.templateId;
   // 签名
   let smsSign = "云南大学";
   // 实例化QcloudSms
@@ -20,17 +20,17 @@ exports.main = async (event, context) => {
   let ssender = qcloudsms.SmsSingleSender();
   let code = event.code;
   let params = ["站群", code, 10];
-  function callback(err, res, resData) {
-    if (err) {
-      console.log("err: ", err);
-    } else {
-      console.log("request data: ", res.req);
-      console.log("response data: ", resData);
-    }
-  } 
-  ssender.sendWithParam(86, phoneNumbers[0], templateId,
-    params, smsSign, "", "", callback);  // 签名参数未提供或者为空时，会使用默认签名发送短信
-  return {
-    verificationCode: params[1]
-  }
+  return new Promise((resolve, reject) => {
+    ssender.sendWithParam(86, phoneNumbers[0], templateId,
+      params, smsSign, "", "",
+      (err, res, resData) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(resData);
+        }
+      }
+    );
+  })
+
 }
