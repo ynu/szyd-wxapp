@@ -110,10 +110,6 @@ Page({
   },
 
   toApply() {
-    wx.showLoading({
-      title: "正在加载",
-      mask: true
-    });
     wx.navigateTo({
       url: "/pages/application/index"
     });
