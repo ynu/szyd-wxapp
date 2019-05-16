@@ -24,7 +24,9 @@ const shopManagerRolePrefix = "ecard:shop-manager:";
 
 const Roles = {
   FcSupervisor: "szyd:fc-supervisor", // 角色权限：进入fc/index
-  EcardSupervisor: "szyd:ecard-supervisor" // 角色的权限：进入ecard/supervisor-index
+  EcardSupervisor: "szyd:ecard-supervisor", // 角色的权限：进入ecard/supervisor-index
+  ZqSupervisor: 'szyd:zq-supervisor',
+  RisSupervisor: 'szyd:ris-supervisor',
 };
 module.exports = {
   uirApi,
