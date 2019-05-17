@@ -17,17 +17,19 @@ Page({
     bills: [],
     zq: {
       firmCount: 0,
-      newsCount: 0
+      runningFirmCount: 0,//正在使用的站点数量
+      newsCount: 0,//站群的文章总数量
     },
     fc: {
-      vmCount: 0,
+      vmCount: 0,//虚拟机的总数量
       clusterCount: 0,
-      hostCount: 0
+      hostCount: 0,
+      runningFirmCount: 0,//正在运行着的虚拟机数量
     },
     ecard: {
       shops: [],
       devices_count:0,
-      card_count:0
+      card_count:0,
     },
     // 风控系统
     ris: {
@@ -52,10 +54,12 @@ Page({
         ecardApi.cardCount().catch(() => 0),
         ecardApi.deviceCount().catch(() => 0),
         zqApi.firmCount().catch(() => 0),
+        zqApi.runningCount().catch(() => 0),
         zqApi.newsCount().catch(() => 0),
         fcApi.vmCount().catch(() => 0),
         fcApi.clusters().catch(() => 0),
         fcApi.hostCount().catch(() => 0),
+        fcApi.runningVmCount().catch(() => 0),
       ])
       .then(
         ([
@@ -64,10 +68,12 @@ Page({
           card_count,
           devices_count,
           firmCount,
+          runningFirmCount,
           newsCount,
           vmCount,
           clusters,
-          hostCount
+          hostCount,
+          runningVmCount,
         ]) => {
           wx.hideLoading();
 
@@ -82,12 +88,14 @@ Page({
             bills,
             zq: {
               firmCount,
+              runningFirmCount,
               newsCount
             },
             fc: {
               vmCount,
               clusterCount: clusters.length,
-              hostCount
+              hostCount,
+              runningVmCount,
             },
             ecard: {
               shops,

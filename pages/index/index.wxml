@@ -22,7 +22,7 @@
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">虚拟机</view>
-                    <view class="weui-form-preview__value">{{fc.vmCount}}个</view>
+                    <view class="weui-form-preview__value">{{fc.runningVmCount}}/{{fc.vmCount}}个</view>
                 </view>
             </view>
             <view class="weui-form-preview__ft">
@@ -40,7 +40,7 @@
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">站点</view>
-                    <view class="weui-form-preview__value">{{zq.firmCount}}个</view>
+                    <view class="weui-form-preview__value">{{zq.runningFirmCount}}/{{zq.firmCount}}个</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">文章</view>
