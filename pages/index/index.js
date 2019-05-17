@@ -35,8 +35,9 @@ Page({
       devCount: 0, // 资产数
     },
     isFcSupervisor: false,
-    isFaSupervisor: false,
-    isEcardSupervisor: false
+    isZqSupervisor: false,
+    isEcardSupervisor: false,
+    isRisSupervisor: false,
   },
   initPage() {
     wx.showLoading({
@@ -146,21 +147,20 @@ Page({
             })
             .get()
             .then(res => {
-              for (let i = 0; i < res.data[0].roles.length; i++) {
-                if (res.data[0].roles[i] == "szyd:fc-supervisor") {
-                  that.setData({
-                    isFcSupervisor: true
-                  });
-                } else if (res.data[0].roles[i] == "szyd:zq-supervisor") {
-                  that.setData({
-                    isFaSupervisor: true
-                  });
-                } else if (res.data[0].roles[i] == "szyd:ecard-supervisor") {
-                  that.setData({
-                    isEcardSupervisor: true
-                  });
+              const roles = {};
+              res.data[0].roles.forEach(role => {
+                switch(role) {
+                  case Roles.FcSupervisor:
+                    roles.isFcSupervisor = true;
+                  case Roles.ZqSupervisor:
+                    roles.isZqSupervisor = true;
+                  case Roles.EcardSupervisor:
+                    roles.isEcardSupervisor = true;
+                  case Roles.RisSupervisor:
+                    roles.isRisSupervisor = true;
                 }
-              }
+              })
+              that.setData(roles);
             });
         }
       });

@@ -1,0 +1,17 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">风险防控系统</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area">
+           <button class="weui-btn" type="default" plain="true" bindtap='toUsers'>用户</button> 
+          <button class="weui-btn" type="default" plain="true" bindtap='toDevices'>资产</button>
+        </view>
+        <view wx:if="{{loadingOpenId}}" class="weui-loadmore">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view> 
+    </view>
+    <include src="../footer.wxml" />
+</view>
