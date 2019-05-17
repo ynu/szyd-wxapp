@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    datas: [],
+    datas1: [],
+    datas2: []
   },
   goToWebFirm: function (event) {
     wx.navigateTo({
@@ -22,6 +23,7 @@ Page({
   },
   onLoad: function () {
     var that = this;
+    //zqApi.ShutdownWeb();
     zqApi.webFirm().then(function (data) {
       //循环判断每一个站点的状态，并做属性赋值
       for (var i = 0; i < data.length; i++) {
@@ -38,7 +40,8 @@ Page({
             }
           }
         }
-        that.setData({ datas: data });
+        let {start,down} = zqApi.shutdownWeb(data);
+        that.setData({ datas1: start,datas2: down });
       });
     });
   },

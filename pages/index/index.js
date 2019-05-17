@@ -26,7 +26,8 @@ Page({
     },
     ecard: {
       shops: [],
-      devices: []
+      devices: [],
+      card: []
     },
     // 风控系统
     ris: {
@@ -47,6 +48,8 @@ Page({
     Promise.all([
         ecardApi.dailyBills(1).catch(() => []),
         ecardApi.shops().catch(() => []),
+        //ecardApi.cardInfo().catch(() => []),
+        //ecardApi.deviceInfo().catch(() => []),
         zqApi.firmCount().catch(() => 0),
         zqApi.newsCount().catch(() => 0),
         fcApi.vmCount().catch(() => 0),
@@ -57,6 +60,8 @@ Page({
         ([
           bills,
           shops,
+          //card,
+          //devices,
           firmCount,
           newsCount,
           vmCount,
@@ -110,10 +115,6 @@ Page({
   },
 
   toApply() {
-    wx.showLoading({
-      title: "正在加载",
-      mask: true
-    });
     wx.navigateTo({
       url: "/pages/application/index"
     });
