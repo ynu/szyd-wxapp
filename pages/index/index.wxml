@@ -66,11 +66,11 @@
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">POS机</view>
-                    <view class="weui-form-preview__value">543个</view>
+                    <view class="weui-form-preview__value">{{ecard.devices_count}}个</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">发卡量</view>
-                    <view class="weui-form-preview__value">34522张</view>
+                    <view class="weui-form-preview__value">{{ecard.card_count}}张</view>
                 </view>
             </view>
             <view class="weui-form-preview__ft">

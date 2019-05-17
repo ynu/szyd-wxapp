@@ -26,7 +26,8 @@ Page({
     },
     ecard: {
       shops: [],
-      devices: []
+      devices_count:0,
+      card_count:0
     },
     // 风控系统
     ris: {
@@ -48,6 +49,8 @@ Page({
     Promise.all([
         ecardApi.dailyBills(1).catch(() => []),
         ecardApi.shops().catch(() => []),
+        ecardApi.cardCount().catch(() => 0),
+        ecardApi.deviceCount().catch(() => 0),
         zqApi.firmCount().catch(() => 0),
         zqApi.newsCount().catch(() => 0),
         fcApi.vmCount().catch(() => 0),
@@ -58,6 +61,8 @@ Page({
         ([
           bills,
           shops,
+          card_count,
+          devices_count,
           firmCount,
           newsCount,
           vmCount,
@@ -85,7 +90,9 @@ Page({
               hostCount
             },
             ecard: {
-              shops
+              shops,
+              card_count,
+              devices_count,
             }
           });
         }
