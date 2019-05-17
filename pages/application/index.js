@@ -53,7 +53,6 @@ Page({
     const {
       mobile
     } = this.data;
-    console.log("*********++++++", mobile)
     if (this.isPoneAvailable(mobile)) {
       wx.showModal({
         title: '手机号码错误',
@@ -64,7 +63,6 @@ Page({
     }
     // 生成验证码
     const code = [0, 0, 0, 0].reduce((acc, cur) => {
-      console.log(Math.floor(Math.random() * 10))
       return acc + Math.floor(Math.random() * 10);
     }, '');
     // 保存验证码
@@ -81,7 +79,6 @@ Page({
         }
       })
       .then(result => {
-        console.log("rerererererererer*********", result)
         // 发送成功
         wx.showToast({
           title: '发送成功',
@@ -99,9 +96,6 @@ Page({
           },
         });
       });
-
-    console.log(code);
-    console.log(this.data.sendedCode);
 
     // 设置倒计时
     const countDown = timer => {
@@ -135,7 +129,6 @@ Page({
   },
   //当申请模块发生改变时触发此函数
   checkboxChange(e) {
-    console.log("**********", e.detail.value)
     const val = e.detail.value;
     this.setData({
       permissions: val,
@@ -273,13 +266,11 @@ Page({
       })
       .get()
       .then(res => {
-        console.log(res);
         that.setData({
           length: res.data.length,
           modules: modules
         });
         if (res.data.length != 0) {
-          console.log("+++++++++++++******", res.data)
           for (let i = 0; i < res.data[0].module.length; i++) {
             for (let j = 0; j < modules.length; j++) {
               if (res.data[0].module[i] == modules[j].value) {
