@@ -4,7 +4,7 @@ const {
   fcApi,
   weixinApi,
   appId,
-  Roles
+  Roles,
 } = require("../../utils/utils.js");
 let resData;
 let openIdNew;
