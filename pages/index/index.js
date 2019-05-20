@@ -17,19 +17,19 @@ Page({
     bills: [],
     zq: {
       firmCount: 0,
-      runningFirmCount: 0,//正在使用的站点数量
-      newsCount: 0,//站群的文章总数量
+      runningFirmCount: 0, //正在使用的站点数量
+      newsCount: 0, //站群的文章总数量
     },
     fc: {
-      vmCount: 0,//虚拟机的总数量
+      vmCount: 0, //虚拟机的总数量
       clusterCount: 0,
       hostCount: 0,
-      runningFirmCount: 0,//正在运行着的虚拟机数量
+      runningFirmCount: 0, //正在运行着的虚拟机数量
     },
     ecard: {
       shops: [],
-      devices_count:0,
-      card_count:0,
+      devices_count: 0,
+      card_count: 0,
     },
     // 风控系统
     ris: {
@@ -110,7 +110,8 @@ Page({
       });
   },
 
-  onLoad() {
+  onLoad() {},
+  onShow() {
     this.initPage();
     this.getPermission();
   },
@@ -122,6 +123,7 @@ Page({
 
   onPullDownRefresh() {
     this.initPage();
+    this.getPermission();
     wx.stopPullDownRefresh();
   },
 
@@ -132,6 +134,7 @@ Page({
   },
 
   getPermission() {
+    const db = wx.cloud.database();
     const that = this;
     //通过云函数获取当前用户的OPENID
     wx.cloud.callFunction({
@@ -140,45 +143,49 @@ Page({
         this.setData({
           openIdNew: res.result.OPENID
         });
+        //获取云端数据库判断当前用户拥有哪些模块的权限
+        db.collection("user-permissions")
+          .where({
+            _openid: this.data.openIdNew
+          })
+          .get()
+          .then(res => {
+            if (res.data.length != 0) {
+              db.collection("user-permissions")
+                .where({
+                  _openid: this.data.openIdNew
+                })
+                .get()
+                .then(res => {
+                  const roles = {};
+                  res.data[0].roles.forEach(role => {
+                    switch (role) {
+                      case Roles.FcSupervisor:
+                        roles.isFcSupervisor = true;
+                        break;
+                      case Roles.ZqSupervisor:
+                        roles.isZqSupervisor = true;
+                        break;
+                      case Roles.EcardSupervisor:
+                        roles.isEcardSupervisor = true;
+                        break;
+                      case Roles.RisSupervisor:
+                        roles.isRisSupervisor = true;
+                        break;
+                    }
+                  })
+                  that.setData(roles);
+                });
+            }
+          });
       }
     });
-    //获取云端数据库判断当前用户拥有哪些模块的权限
-    const db = wx.cloud.database();
-    db.collection("user-permissions")
-      .where({
-        _openid: this.data.openIdNew
-      })
-      .get()
-      .then(res => {
-        if (res.data.length != 0) {
-          db.collection("user-permissions")
-            .where({
-              _openid: this.data.openIdNew
-            })
-            .get()
-            .then(res => {
-              const roles = {};
-              res.data[0].roles.forEach(role => {
-                switch(role) {
-                  case Roles.FcSupervisor:
-                    roles.isFcSupervisor = true;
-                  case Roles.ZqSupervisor:
-                    roles.isZqSupervisor = true;
-                  case Roles.EcardSupervisor:
-                    roles.isEcardSupervisor = true;
-                  case Roles.RisSupervisor:
-                    roles.isRisSupervisor = true;
-                }
-              })
-              that.setData(roles);
-            });
-        }
-      });
+
   },
   /**
-  * 用户点击右上角分享
-  */
-  onShareAppMessage: function () {
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
 
   },
 });
