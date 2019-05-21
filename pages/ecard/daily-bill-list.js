@@ -1,7 +1,8 @@
-const { uirApi, weixinApi, ecardApi, appId, shopManagerRolePrefix } = require('../../utils/utils.js');
+const {
+  ecardApi
+} = require('../../utils/utils.js');
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -13,24 +14,33 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // 定义方法：获取当前用户有权限的商户ID列表
     const getShopIds = () => new Promise((resolve, reject) => {
-      // 获取OpenId
-      weixinApi.getOpenId().then(openid => {
-        // 获取当前用户的角色信息
-        uirApi.getUser(appId, openid).then(me => {
-          // 获取当前用户有权限访问的商户ID列表
-          const shopIds = me.roles
-            // 找出用户所拥有的商户管理员角色
-            .filter(role => role.startsWith(shopManagerRolePrefix))
-            // 从角色取出商户ID
-            .map(role => role.replace(shopManagerRolePrefix, ''));
-          resolve(shopIds);
-        })
+      const db = wx.cloud.database();
+      wx.cloud.callFunction({
+        name: "getOpenId",
+        complete: res => {
+          //获取云端数据库判断当前用户拥有哪些权限
+          db.collection("user-permissions")
+            .where({
+              _openid: res.result.OPENID
+            })
+            .get()
+            .then(res => {
+              //筛选商户的权限
+              let rolesArr = res.data[0].roles.filter(role => {
+                return role.indexOf("ecard:shop-manager:") != -1;
+              });
+              //分离权限中的商户id
+              let shopsIdArr = rolesArr.map(role => {
+                return role.substring(19);
+              });
+              resolve(shopsIdArr);
+            })
+        }
       });
     });
-
     wx.showLoading({
       title: '正在加载',
       mask: true,
@@ -41,7 +51,9 @@ Page({
     ]).then(([shopIds, shops]) => {
       // 获取当前用户管理的商户的详细信息
       const myShops = shopIds.map(id => {
-        const shop = shops.find(({shopId}) => shopId == id);
+        const shop = shops.find(({
+          shopId
+        }) => shopId == id);
         return shop || {};
       });
       this.setData({
@@ -55,49 +67,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })
