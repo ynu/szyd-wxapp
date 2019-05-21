@@ -4,11 +4,13 @@
         <view class="page__desc"></view>
     </view>
     <view class="page__bd page__bd_spacing">
-        <view class="button-sp-area">
+        <view class="button-sp-area" wx:if="{{isEcardSupervisor}}">
            <button class="weui-btn" type="default" plain="true" bindtap='toUir'>用户查询</button> 
           <button class="weui-btn" type="default" plain="true" bindtap='toDailyBill'>日账单查询</button>
-          <button class="weui-btn" type="default" plain="true" bindtap='toOperatorBill'>操作员账单</button>
-          <button class="weui-btn" type="default" plain="true" bindtap='toApply'>功能申请</button>
+          <button class="weui-btn" type="default" plain="true" bindtap='toOperatorBill'>操作员账单</button>          
+        </view>
+        <view class="button-sp-area" wx:if="{{isEcardOprator}}"> 
+          <button class="weui-btn" type="default" plain="true" bindtap='toDailyBill'>日账单查询</button>          
         </view>
         <view wx:if="{{loadingOpenId}}" class="weui-loadmore">
             <view class="weui-loading"></view>

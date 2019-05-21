@@ -1,5 +1,5 @@
 const {
-  ecardApi
+  ecardApi,shopManagerRolePrefix
 } = require('../../utils/utils.js');
 
 Page({
@@ -19,10 +19,10 @@ Page({
     const getShopIds = () => new Promise((resolve, reject) => {
       const db = wx.cloud.database();
       wx.cloud.callFunction({
-        name: "getOpenId",
+        name: 'getOpenId',
         complete: res => {
           //获取云端数据库判断当前用户拥有哪些权限
-          db.collection("user-permissions")
+          db.collection('user-permissions')
             .where({
               _openid: res.result.OPENID
             })
@@ -30,7 +30,7 @@ Page({
             .then(res => {
               //筛选商户的权限
               let rolesArr = res.data[0].roles.filter(role => {
-                return role.indexOf("ecard:shop-manager:") != -1;
+                return role.indexOf(shopManagerRolePrefix) != -1;
               });
               //分离权限中的商户id
               let shopsIdArr = rolesArr.map(role => {
@@ -53,7 +53,7 @@ Page({
       const myShops = shopIds.map(id => {
         const shop = shops.find(({
           shopId
-        }) => shopId == id);
+        }) => shopId === id);
         return shop || {};
       });
       this.setData({

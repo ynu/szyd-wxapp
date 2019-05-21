@@ -5,7 +5,8 @@ const {
   weixinApi,
   appId,
   Roles,
-} = require("../../utils/utils.js");
+  shopManagerRolePrefix
+} = require('../../utils/utils.js');
 let resData;
 let openIdNew;
 Page({
@@ -43,7 +44,7 @@ Page({
   },
   initPage() {
     wx.showLoading({
-      title: "正在加载",
+      title: '正在加载',
       mask: true
     });
 
@@ -129,7 +130,7 @@ Page({
 
   toApply() {
     wx.navigateTo({
-      url: "/pages/application/index"
+      url: '/pages/application/index'
     });
   },
 
@@ -138,44 +139,41 @@ Page({
     const that = this;
     //通过云函数获取当前用户的OPENID
     wx.cloud.callFunction({
-      name: "getOpenId",
+      name: 'getOpenId',
       complete: res => {
         this.setData({
           openIdNew: res.result.OPENID
         });
         //获取云端数据库判断当前用户拥有哪些模块的权限
-        db.collection("user-permissions")
+        db.collection('user-permissions')
           .where({
             _openid: this.data.openIdNew
           })
           .get()
           .then(res => {
             if (res.data.length != 0) {
-              db.collection("user-permissions")
-                .where({
-                  _openid: this.data.openIdNew
-                })
-                .get()
-                .then(res => {
-                  const roles = {};
-                  res.data[0].roles.forEach(role => {
-                    switch (role) {
-                      case Roles.FcSupervisor:
-                        roles.isFcSupervisor = true;
-                        break;
-                      case Roles.ZqSupervisor:
-                        roles.isZqSupervisor = true;
-                        break;
-                      case Roles.EcardSupervisor:
-                        roles.isEcardSupervisor = true;
-                        break;
-                      case Roles.RisSupervisor:
-                        roles.isRisSupervisor = true;
-                        break;
+              const roles = {};
+              res.data[0].roles.forEach(role => {
+                switch (role) {
+                  case Roles.FcSupervisor:
+                    roles.isFcSupervisor = true;
+                    break;
+                  case Roles.ZqSupervisor:
+                    roles.isZqSupervisor = true;
+                    break;
+                  case Roles.EcardSupervisor:
+                    roles.isEcardSupervisor = true;
+                    break;
+                  case Roles.RisSupervisor:
+                    roles.isRisSupervisor = true;
+                    break;
+                  default:
+                    if (role.indexOf(shopManagerRolePrefix) != -1) {
+                      roles.isEcardSupervisor = true;
                     }
-                  })
-                  that.setData(roles);
-                });
+                }
+              })
+              that.setData(roles);
             }
           });
       }
