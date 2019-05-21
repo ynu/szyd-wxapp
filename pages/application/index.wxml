@@ -7,7 +7,7 @@
   </view>
   <view class="page__bd">
     <form bindsubmit="submitAdd">
-      <view class="weui-cell weui-cell_input">
+      <view class="weui-cell weui-cell_input" wx:if="{{isFirstApply}}">
         <view class="weui-cell__hd">
           <view class="weui-label">姓名</view>
         </view>
@@ -15,7 +15,7 @@
           <input value="{{name}}" placeholder="请输入姓名" id="name" class="weui-input" name="name" />
         </view>
       </view>
-      <view class="weui-cell weui-cell_input">
+      <view class="weui-cell weui-cell_input" wx:if="{{isFirstApply}}">
         <view class="weui-cell__hd">
           <view class="weui-label">所在单位</view>
         </view>
@@ -51,7 +51,7 @@
         <view class="weui-cell__hd" style="margin:10rpx">
           <checkbox-group bindchange="checkboxChange">
             <label class="checkbox" wx:for="{{modules}}" wx:key="">
-              <view style='color:#808080' wx:if="{{item.checked}}">
+              <view style='color:#808080' wx:if="{{item.disabled}}">
                 <checkbox disabled="true" /> {{item.name}}
               </view>
               <view wx:else>

@@ -28,6 +28,7 @@ const Roles = {
   ZqSupervisor: 'szyd:zq-supervisor',
   RisSupervisor: 'szyd:ris-supervisor',
 };
+
 module.exports = {
   uirApi,
   weixinApi,

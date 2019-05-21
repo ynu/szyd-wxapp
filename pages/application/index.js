@@ -2,15 +2,15 @@
 let modules = [{
   name: "虚拟化平台",
   value: "szyd:fc-supervisor",
-  checked: false
 }, {
   name: "站群系统",
   value: "szyd:zq-supervisor",
-  checked: false
 }, {
   name: "一卡通",
   value: "szyd:ecard-supervisor",
-  checked: false
+}, {
+  name: "风控系统",
+  value: "szyd:ris-supervisor",
 }];
 let permissions;
 let openId;
@@ -24,6 +24,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isFirstApply: true, //记录是否为第一申请
     mobile,
     vcode: {
       btnClass: 'weui-vcode-btn',
@@ -46,7 +47,6 @@ Page({
     });
   },
   btnSendVcode(e) {
-
     // 如果已经有计时器在运行，则退出
     if (this.data.vcode.timer) return;
     // 验证电话号码是否正确
@@ -69,7 +69,6 @@ Page({
     this.setData({
       sendedCode: code,
     });
-
     // 发送验证码
     wx.cloud.callFunction({
         name: 'qcSmsSendSingle',
@@ -96,7 +95,6 @@ Page({
           },
         });
       });
-
     // 设置倒计时
     const countDown = timer => {
       const setVcodeView = () => {
@@ -118,7 +116,6 @@ Page({
           });
         }
       };
-
       setVcodeView();
       setTimeout(() => {
         setVcodeView();
@@ -152,23 +149,26 @@ Page({
     let conditions = true; //conditions用来记录所需填写的内容是否全部满足
     const that = this;
     //检验姓名是否为空
-    if (e.detail.value.name.replace(/^\s*|\s*$/g, "") == "") {
-      conditions = false;
-      wx.showModal({
-        title: "提示",
-        content: "姓名不能为空",
-        showCancel: false
-      });
-      //检验所在单位是否为空
-    } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, "") == "") {
-      conditions = false;
-      wx.showModal({
-        title: "提示",
-        content: "所在单位不能为空",
-        showCancel: false
-      });
-      //检验手机号码填写是否正确
-    } else if (that.isPoneAvailable(e.detail.value.mobile)) {
+    if (that.data.isFirstApply) {
+      if (e.detail.value.name.replace(/^\s*|\s*$/g, "") == "") {
+        conditions = false;
+        wx.showModal({
+          title: "提示",
+          content: "姓名不能为空",
+          showCancel: false
+        });
+        //检验所在单位是否为空
+      } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, "") == "") {
+        conditions = false;
+        wx.showModal({
+          title: "提示",
+          content: "所在单位不能为空",
+          showCancel: false
+        });
+      }
+    }
+    //检验手机号码填写是否正确
+    if (that.isPoneAvailable(e.detail.value.mobile)) {
       conditions = false;
       wx.showModal({
         title: "提示",
@@ -176,9 +176,9 @@ Page({
         showCancel: false
       });
       //检验是否填入了正确的验证码
-    } else if (e.detail.value.vcode != that.data.sendedCode) {
+    } else if (e.detail.value.vcode != that.data.sendedCode || that.data.sendedCode == "") {
       conditions = false;
-      wx.showModal({
+      wx.showModal({ 
         title: "提示",
         content: "请输入正确的验证码",
         showCancel: false
@@ -241,52 +241,12 @@ Page({
             });
           });
       }
-
     }
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    const that = this;
-    //调用云函数获取当前用户的openId
-    wx.cloud.callFunction({
-      name: "getOpenId",
-      complete: res => {
-        this.setData({
-          openId: res.result.OPENID
-        });
-      }
-    });
-    const db = wx.cloud.database();
-    //获取云数据库user-permissions集合中当前用户的记录
-    db.collection("user-permissions")
-      .where({
-        _openid: this.data.openId
-      })
-      .get()
-      .then(res => {
-        that.setData({
-          length: res.data.length,
-          modules: modules
-        });
-        if (res.data.length != 0) {
-          for (let i = 0; i < res.data[0].module.length; i++) {
-            for (let j = 0; j < modules.length; j++) {
-              if (res.data[0].module[i] == modules[j].value) {
-                modules[j].checked = true;
-                modules[j].disabled = true;
-              }
-            }
-          }
-          that.setData({
-            modules: modules,
-            datas: res.data[0].module,
-            _id: res.data[0]._id
-          });
-        }
-      });
-  },
+  onLoad: function(options) {},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -295,7 +255,47 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+    const db = wx.cloud.database();
+    const that = this;
+    //调用云函数获取当前用户的openId
+    wx.cloud.callFunction({
+      name: "getOpenId",
+      complete: res => {
+        that.setData({
+          openId: res.result.OPENID
+        });
+        //获取云数据库user-permissions集合中当前用户的记录
+        db.collection("user-permissions")
+          .where({
+            _openid: that.data.openId
+          })
+          .get()
+          .then(res => {
+            that.setData({
+              length: res.data.length,
+              modules: modules
+            });
+            if (res.data.length != 0) {
+              for (let i = 0; i < res.data[0].module.length; i++) {
+                for (let j = 0; j < modules.length; j++) {
+                  if (res.data[0].module[i] == modules[j].value) {
+                    modules[j].disabled = true;
+                  }
+                }
+              }
+              that.setData({
+                modules: modules,
+                datas: res.data[0].module,
+                isFirstApply: false,
+                _id: res.data[0]._id
+              });
+            }
+          });
+      }
+    });
+
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
