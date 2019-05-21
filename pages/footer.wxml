@@ -2,5 +2,5 @@
     <view class="weui-footer__links">
         <navigator url="" class="weui-footer__link">云南大学信息技术中心</navigator>
     </view>
-    <view class="weui-footer__text">Copyright © 2006-2018</view>
+    <view class="weui-footer__text">Copyright © 2006-2019</view>
 </view>
