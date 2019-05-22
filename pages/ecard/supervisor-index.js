@@ -1,6 +1,7 @@
 const {
   Roles,
-  shopManagerRolePrefix
+  shopManagerRolePrefix,
+  meansApi
 } = require('../../utils/utils.js');
 Page({
 
@@ -19,12 +20,7 @@ Page({
     const that = this;
     const db = wx.cloud.database();
     //获取当前用户的数据库权限
-    db.collection('user-permissions')
-      .where({
-        _openid: options.openId
-      })
-      .get()
-      .then(res => {
+    meansApi.getRoles().then(res => {
         const roles = {};
         res.data[0].roles.forEach(role => {
           switch (role) {
@@ -38,9 +34,6 @@ Page({
               }
           }
         })
-        if(roles.isEcardSupervisor){
-          roles.isEcardOprator = false
-        }
         that.setData(roles);
       })
   },
@@ -51,6 +44,14 @@ Page({
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},
+    })
+  },
+  toMonthlyBill() {
+    wx.navigateTo({
+      url: '/pages/ecard/monthly-bill-list',
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
     })
   },
   toOperatorBill() {

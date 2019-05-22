@@ -1,10 +1,6 @@
 import * as echarts from '../../lib/ec-canvas/echarts.js';
-const {
-  ecardApi,
-} = require('../../utils/utils.js');
-const {
-  formatMoney, formatNumber,
-} = require('../../lib/accounting.js');
+const { ecardApi } = require('../../utils/utils.js');
+const { formatMoney, formatNumber } = require('../../lib/accounting.js');
 
 Page({
 
@@ -12,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    billsCount: 0,
     ec: {
       lazyLoad: true,
     },
@@ -27,70 +24,77 @@ Page({
       title: '正在加载',
       mask: true,
     });
-    const { shopId, date } = options;
-    Promise.all([
-      // 获取商户账单
-      ecardApi.dailyBill(shopId, date),
-
-      // 获取所有子商户账单
-      ecardApi.dailyBillsForSubShops(shopId, date),
-
-      // 获取设备账单
-      ecardApi.deviceBillsByShop(shopId, date),
-    ]).then(([bill, subShopBills, deviceBills]) => {
-      console.log("daily bill last",bill)
-      // 格式化账单数据
-      bill.crAmtText = formatMoney(bill.crAmt, '￥');
-      bill.drAmtText = formatMoney(bill.drAmt, '￥');
-      bill.amtText = formatMoney(bill.crAmt - bill.drAmt, '￥');
-      bill.transCntText = formatNumber(bill.transCnt);
+    ecardApi.monthlyBills(options.shopId).then(bills => {
+      // 按日期降序排列
+      bills.sort((a, b) => {
+        if (a.accDate > b.accDate) return -1;
+        else if (a.accDate < b.accDate) return 1;
+        else return 0;
+      });
       this.setData({
-        bill,
-        subShopBills: subShopBills.map(bill => {
+        bills: bills.map(bill => {
+          bill.crAmtText = formatMoney(bill.crAmt, '￥');
           bill.transCntText = formatNumber(bill.transCnt);
-          bill.amtText = formatMoney(bill.crAmt - bill.drAmt, '￥');
           return bill;
         }),
-        subShopCount: subShopBills.length,
-        deviceBills: deviceBills.map(bill => {
-          bill.transCntText = formatNumber(bill.transCnt);
-          bill.amtText = formatMoney(bill.crAmt - bill.drAmt, '￥');
-          return bill;
-        }),
-        deviceCount: deviceBills.length,
+        billsCount: bills.length,
       });
       this.initChart();
       wx.hideLoading();
+    }).catch(err => {
+      wx.hideLoading();
     });
-
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    const that = this;
     this.ecComponent = this.selectComponent('#mychart-dom-bar');
   },
 
   initChart() {
-    const { subShopBills, deviceBills, name } = this.data;
+    const { bills, name } = this.data;
     const option = {
       title: {
-        text: `${name}日消费`,
+        text: `${name}最近15个月消费趋势`
       },
-      series: [{
-        label: {
-          normal: {
-            fontSize: 10,
-          },
+      legend: {
+        data: ['金额', '刷卡数']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          type: 'category',
+          boundaryGap: false,
+          data: bills.map(bill => bill.accDate).slice(0, 15).reverse(),
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
         },
-        type: 'pie',
-        radius: [0, '50%'],
-        data: subShopBills.filter(bill => bill.crAmt > 0).map(bill => ({
-          value: bill.crAmt,
-          name: bill.shopName,
-        })),
-      }],
+      ],
+      series: [
+        {
+          name: '金额',
+          type: 'line',
+          areaStyle: { normal: {} },
+          data: bills.map(bill => bill.crAmt).slice(0, 15).reverse(),
+        },
+        {
+          name: '次数',
+          type: 'line',
+          areaStyle: { normal: {} },
+          data: bills.map(bill => bill.transCnt).slice(0, 15).reverse(),
+        },
+      ]
     };
     this.ecComponent.init((canvas, width, height) => {
       const chart = echarts.init(canvas, null, {
@@ -105,6 +109,7 @@ Page({
       return chart;
     });
   },
+
   /**
    * 生命周期函数--监听页面显示
    */

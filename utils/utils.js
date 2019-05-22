@@ -29,6 +29,14 @@ const Roles = {
   RisSupervisor: 'szyd:ris-supervisor',
 };
 
+const meansApi = {
+  getRoles() {
+    const db = wx.cloud.database();
+    //获取云端数据库判断当前用户拥有哪些模块的权限
+    return db.collection('user-permissions').where({}).get()
+  }
+}
+
 module.exports = {
   uirApi,
   weixinApi,
@@ -37,5 +45,6 @@ module.exports = {
   fcApi,
   risApi,
   Roles,
-  shopManagerRolePrefix
+  shopManagerRolePrefix,
+  meansApi
 };
