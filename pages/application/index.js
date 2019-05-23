@@ -1,16 +1,20 @@
 // pages/fa/index.js
 let modules = [{
-  name: "虚拟化平台",
-  value: "szyd:fc-supervisor",
+  name: '虚拟化平台',
+  value: 'szyd:fc-supervisor',
+  checked: false
 }, {
-  name: "站群系统",
-  value: "szyd:zq-supervisor",
+  name: '站群系统',
+  value: 'szyd:zq-supervisor',
+  checked: false
 }, {
-  name: "一卡通",
-  value: "szyd:ecard-supervisor",
+  name: '一卡通',
+  value: 'szyd:ecard-supervisor',
+  checked: false
 }, {
-  name: "风控系统",
-  value: "szyd:ris-supervisor",
+  name: '风控系统',
+  value: 'szyd:ris-supervisor',
+  checked: false
 }];
 let permissions;
 let openId;
@@ -33,7 +37,7 @@ Page({
     },
     modules: [],
     permissions: [], //记录当前选择的模块对应的权限
-    //module: "请选择模块", //记录当前选择的模块，默认值为'请选择模块'
+    //module: '请选择模块', //记录当前选择的模块，默认值为'请选择模块'
     openId, //当前用户的openId
     length, //记录当前用户的云数据库记录数
     _id,
@@ -148,21 +152,22 @@ Page({
     let count = 0;
     let conditions = true; //conditions用来记录所需填写的内容是否全部满足
     const that = this;
-    //检验姓名是否为空
+    //如果是第一次申请就需要判断姓名，所属单位是否为空
     if (that.data.isFirstApply) {
-      if (e.detail.value.name.replace(/^\s*|\s*$/g, "") == "") {
+     //检验姓名是否为空
+      if (e.detail.value.name.replace(/^\s*|\s*$/g, '') == '') {
         conditions = false;
         wx.showModal({
-          title: "提示",
-          content: "姓名不能为空",
+          title: '提示',
+          content: '姓名不能为空',
           showCancel: false
         });
         //检验所在单位是否为空
-      } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, "") == "") {
+      } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, '') == '') {
         conditions = false;
         wx.showModal({
-          title: "提示",
-          content: "所在单位不能为空",
+          title: '提示',
+          content: '所在单位不能为空',
           showCancel: false
         });
       }
@@ -171,24 +176,24 @@ Page({
     if (that.isPoneAvailable(e.detail.value.mobile)) {
       conditions = false;
       wx.showModal({
-        title: "提示",
-        content: "请正确填写手机号",
+        title: '提示',
+        content: '请正确填写手机号',
         showCancel: false
       });
       //检验是否填入了正确的验证码
-    } else if (e.detail.value.vcode != that.data.sendedCode || that.data.sendedCode == "") {
+    } else if (e.detail.value.vcode != that.data.sendedCode || that.data.sendedCode == '') {
       conditions = false;
-      wx.showModal({ 
-        title: "提示",
-        content: "请输入正确的验证码",
+      wx.showModal({
+        title: '提示',
+        content: '请输入正确的验证码',
         showCancel: false
       })
       //检验是否选择了模块
     } else if (that.data.permissions.length === 0) {
       conditions = false;
       wx.showModal({
-        title: "提示",
-        content: "请选择模块",
+        title: '提示',
+        content: '请选择模块',
         showCancel: false
       });
     }
@@ -197,7 +202,7 @@ Page({
       //用户不是第一次申请
       if (that.data.length == 1) {
         const _ = db.command;
-        db.collection("user-permissions")
+        db.collection('user-permissions')
           .doc(that.setData._id)
           .update({
             data: {
@@ -205,20 +210,21 @@ Page({
             }
           })
           .then(() => {
-            wx.showToast({
-              title: "申请成功",
-              icon: "success",
-              duration: 2000,
+            wx.showModal({
+              title: '提示',
+              content: '您的申请已成功提交，请耐心等候审批',
+              showCancel: false,
+              confirmColor: '#007500',
               success(res) {
-                wx.redirectTo({
-                  url: "../index/index"
-                });
+                wx.navigateBack({
+                  delta: 1
+                })
               }
             });
           });
         //用户第一次申请
       } else {
-        db.collection("user-permissions")
+        db.collection('user-permissions')
           .add({
             data: {
               name: e.detail.value.name,
@@ -230,12 +236,12 @@ Page({
           })
           .then(() => {
             wx.showToast({
-              title: "申请成功",
-              icon: "success",
+              title: '申请成功',
+              icon: 'success',
               duration: 2000,
               success(res) {
                 wx.redirectTo({
-                  url: "../index/index" //跳转的页面
+                  url: '../index/index' //跳转的页面
                 });
               }
             });
@@ -258,15 +264,19 @@ Page({
   onShow: function() {
     const db = wx.cloud.database();
     const that = this;
+    wx.showLoading({
+      title: '正在加载',
+      mask: true
+    });
     //调用云函数获取当前用户的openId
     wx.cloud.callFunction({
-      name: "getOpenId",
+      name: 'getOpenId',
       complete: res => {
         that.setData({
           openId: res.result.OPENID
         });
         //获取云数据库user-permissions集合中当前用户的记录
-        db.collection("user-permissions")
+        db.collection('user-permissions')
           .where({
             _openid: that.data.openId
           })
@@ -277,10 +287,17 @@ Page({
               modules: modules
             });
             if (res.data.length != 0) {
+              for (let i = 0; i < res.data[0].roles.length; i++) {
+                for (let j = 0; j < modules.length; j++) {
+                  if (res.data[0].roles[i] == modules[j].value) {
+                    modules[j].disabled = true;
+                  }
+                }
+              }
               for (let i = 0; i < res.data[0].module.length; i++) {
                 for (let j = 0; j < modules.length; j++) {
                   if (res.data[0].module[i] == modules[j].value) {
-                    modules[j].disabled = true;
+                    modules[j].checked = true;
                   }
                 }
               }
@@ -291,10 +308,10 @@ Page({
                 _id: res.data[0]._id
               });
             }
+            wx.hideLoading();
           });
       }
     });
-
   },
 
   /**

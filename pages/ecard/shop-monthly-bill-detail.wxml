@@ -1,0 +1,64 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">【{{name}}】月账单</view>
+        <view class="page__desc">{{date}}</view>
+    </view>
+    <view class="page__bd">
+      <view class="ec-container">
+        <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+      </view>
+        <view class="weui-form-preview">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">合计金额</view>
+                    <view class="weui-form-preview__value_in-hd">{{bill.amtText}}</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">刷卡金额</view>
+                    <view class="weui-form-preview__value">{{bill.crAmtText}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">冲正金额</view>
+                    <view class="weui-form-preview__value">{{bill.drAmtText}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">消费次数</view>
+                    <view class="weui-form-preview__value">{{bill.transCntText}}笔</view>
+                </view>
+            </view>
+            <view class="weui-form-preview__ft">
+                <navigator url="/pages/ecard/shop-monthly-bill-list?shopId={{shopId}}&name={{name}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">全部月账单</navigator>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">子商户({{subShopCount}})</view>
+        <view wx:if="{{subShopCount}}" class="weui-cells weui-cells_after-title">
+            <navigator wx:for="{{subShopBills}}" url="/pages/ecard/shop-monthly-bill-detail?shopId={{item.shopId}}&date={{date}}&name={{item.shopName}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">
+                  {{item.shopName}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                </view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{item.amtText}}</view>
+            </navigator>
+        </view>
+        <view wx:else class="weui-loadmore weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+
+        <view class="weui-cells__title">设备({{deviceCount}})</view>
+        <view wx:if="{{deviceCount}}" class="weui-cells weui-cells_after-title">
+            <view wx:for="{{deviceBills}}" class="weui-cell">
+                <view class="weui-cell__bd">
+                  {{item.deviceName}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                </view>
+                <view class="weui-cell__ft">{{item.amtText}}</view>
+            </view>
+        </view>
+        <view wx:else class="weui-loadmore weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+    </view>
+</view>

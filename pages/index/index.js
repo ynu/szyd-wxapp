@@ -5,16 +5,15 @@ const {
   weixinApi,
   appId,
   Roles,
-  shopManagerRolePrefix
+  shopManagerRolePrefix,
+  meansApi
 } = require('../../utils/utils.js');
 let resData;
-let openIdNew;
 Page({
   data: {
     resData,
     isUirManager: false,
     loadingOpenId: true,
-    openIdNew,
     bills: [],
     zq: {
       firmCount: 0,
@@ -25,7 +24,7 @@ Page({
       vmCount: 0, //虚拟机的总数量
       clusterCount: 0,
       hostCount: 0,
-      runningFirmCount: 0, //正在运行着的虚拟机数量
+      runningVmCount: 0, //正在运行着的虚拟机数量
     },
     ecard: {
       shops: [],
@@ -111,9 +110,10 @@ Page({
       });
   },
 
-  onLoad() {},
-  onShow() {
+  onLoad() {
     this.initPage();
+    },
+  onShow() {
     this.getPermission();
   },
 
@@ -137,48 +137,33 @@ Page({
   getPermission() {
     const db = wx.cloud.database();
     const that = this;
-    //通过云函数获取当前用户的OPENID
-    wx.cloud.callFunction({
-      name: 'getOpenId',
-      complete: res => {
-        this.setData({
-          openIdNew: res.result.OPENID
-        });
-        //获取云端数据库判断当前用户拥有哪些模块的权限
-        db.collection('user-permissions')
-          .where({
-            _openid: this.data.openIdNew
-          })
-          .get()
-          .then(res => {
-            if (res.data.length != 0) {
-              const roles = {};
-              res.data[0].roles.forEach(role => {
-                switch (role) {
-                  case Roles.FcSupervisor:
-                    roles.isFcSupervisor = true;
-                    break;
-                  case Roles.ZqSupervisor:
-                    roles.isZqSupervisor = true;
-                    break;
-                  case Roles.EcardSupervisor:
-                    roles.isEcardSupervisor = true;
-                    break;
-                  case Roles.RisSupervisor:
-                    roles.isRisSupervisor = true;
-                    break;
-                  default:
-                    if (role.indexOf(shopManagerRolePrefix) != -1) {
-                      roles.isEcardSupervisor = true;
-                    }
-                }
-              })
-              that.setData(roles);
-            }
-          });
+    //获取云端数据库判断当前用户拥有哪些模块的权限
+    meansApi.getRoles().then(res => {
+      if (res.data.length != 0) {
+        const roles = {};
+        res.data[0].roles.forEach(role => {
+          switch (role) {
+            case Roles.FcSupervisor:
+              roles.isFcSupervisor = true;
+              break;
+            case Roles.ZqSupervisor:
+              roles.isZqSupervisor = true;
+              break;
+            case Roles.EcardSupervisor:
+              roles.isEcardSupervisor = true;
+              break;
+            case Roles.RisSupervisor:
+              roles.isRisSupervisor = true;
+              break;
+            default:
+              if (role.indexOf(shopManagerRolePrefix) != -1) {
+                roles.isEcardSupervisor = true;
+              }
+          }
+        })
+        that.setData(roles);
       }
     });
-
   },
   /**
    * 用户点击右上角分享

@@ -27,25 +27,24 @@ Page({
       title: '正在加载',
       mask: true,
     });
-    const { shopId, date } = options;
+    const { shopId, date } = options;;
     Promise.all([
       // 获取商户账单
-      ecardApi.dailyBill(shopId, date),
+      ecardApi.monthlyBill(shopId, date),
 
       // 获取所有子商户账单
-      ecardApi.dailyBillsForSubShops(shopId, date),
+      ecardApi.monthlyBillsForSubShops(shopId, date),
 
       // 获取设备账单
-      ecardApi.deviceBillsByShop(shopId, date),
+      ecardApi.deviceMonthlyBillsByShop(shopId, date),
     ]).then(([bill, subShopBills, deviceBills]) => {
-      console.log("daily bill last",bill)
       // 格式化账单数据
-      bill.crAmtText = formatMoney(bill.crAmt, '￥');
-      bill.drAmtText = formatMoney(bill.drAmt, '￥');
-      bill.amtText = formatMoney(bill.crAmt - bill.drAmt, '￥');
-      bill.transCntText = formatNumber(bill.transCnt);
+      bill[0].crAmtText = formatMoney(bill[0].crAmt, '￥');
+      bill[0].drAmtText = formatMoney(bill[0].drAmt, '￥');
+      bill[0].amtText = formatMoney(bill[0].crAmt - bill[0].drAmt, '￥');
+      bill[0].transCntText = formatNumber(bill[0].transCnt);
       this.setData({
-        bill,
+        bill:bill[0],
         subShopBills: subShopBills.map(bill => {
           bill.transCntText = formatNumber(bill.transCnt);
           bill.amtText = formatMoney(bill.crAmt - bill.drAmt, '￥');
@@ -76,7 +75,7 @@ Page({
     const { subShopBills, deviceBills, name } = this.data;
     const option = {
       title: {
-        text: `${name}日消费`,
+        text: `${name}月消费`,
       },
       series: [{
         label: {
@@ -109,41 +108,41 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })

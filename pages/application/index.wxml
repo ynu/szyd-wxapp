@@ -52,10 +52,10 @@
           <checkbox-group bindchange="checkboxChange">
             <label class="checkbox" wx:for="{{modules}}" wx:key="">
               <view style='color:#808080' wx:if="{{item.disabled}}">
-                <checkbox disabled="true" /> {{item.name}}
+                <checkbox disabled="true" checked="true"/> {{item.name}}
               </view>
               <view wx:else>
-                <checkbox value="{{item.value}}"/> {{item.name}}
+                <checkbox value="{{item.value}}" checked="{{item.checked}}"/> {{item.name}}
               </view>
             </label>
           </checkbox-group>
