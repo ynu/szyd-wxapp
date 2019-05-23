@@ -19,6 +19,10 @@ Page({
   onLoad: function(options) {
     const that = this;
     const db = wx.cloud.database();
+    wx.showLoading({
+      title: '正在加载',
+      mask: true
+    });
     //获取当前用户的数据库权限
     meansApi.getRoles().then(res => {
         const roles = {};
@@ -34,7 +38,8 @@ Page({
               }
           }
         })
-        that.setData(roles);
+      that.setData(roles);
+      wx.hideLoading();
       })
   },
 

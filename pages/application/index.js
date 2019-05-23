@@ -1,4 +1,7 @@
 // pages/fa/index.js
+const {
+  meansApi
+} = require('../../utils/utils.js')
 let modules = [{
   name: '虚拟化平台',
   value: 'szyd:fc-supervisor',
@@ -17,12 +20,11 @@ let modules = [{
   checked: false
 }];
 let permissions;
-let openId;
 let length;
 let datas;
 let _id;
 let mobile;
-let sendedCode;
+let sendCode;
 Page({
   /**
    * 页面的初始数据
@@ -38,16 +40,19 @@ Page({
     modules: [],
     permissions: [], //记录当前选择的模块对应的权限
     //module: '请选择模块', //记录当前选择的模块，默认值为'请选择模块'
-    openId, //当前用户的openId
     length, //记录当前用户的云数据库记录数
     _id,
     datas: [], //记录已经申请的模块
-    sendedCode: ''
+    sendCode: '',
+    dataGet:{
+      name:'',
+      unit:''
+    }
   },
   mobileInput(e) {
     this.setData({
       mobile: e.detail.value,
-      sendedCode: '', // 手机号码一旦变化，之前发送的验证码就失效。
+      sendCode: '', // 手机号码一旦变化，之前发送的验证码就失效。
     });
   },
   btnSendVcode(e) {
@@ -71,14 +76,14 @@ Page({
     }, '');
     // 保存验证码
     this.setData({
-      sendedCode: code,
+      sendCode: code,
     });
     // 发送验证码
     wx.cloud.callFunction({
         name: 'qcSmsSendSingle',
         data: {
           mobile: this.data.mobile,
-          code: this.data.sendedCode
+          code: this.data.sendCode
         }
       })
       .then(result => {
@@ -130,10 +135,10 @@ Page({
   },
   //当申请模块发生改变时触发此函数
   checkboxChange(e) {
-    const val = e.detail.value;
+    let val = e.detail.value;
+    val = val.filter(s => s != '');
     this.setData({
       permissions: val,
-      //module: val
     });
   },
   //用来判断手机号码是否正确
@@ -153,9 +158,9 @@ Page({
     let conditions = true; //conditions用来记录所需填写的内容是否全部满足
     const that = this;
     //如果是第一次申请就需要判断姓名，所属单位是否为空
-    if (that.data.isFirstApply) {
-     //检验姓名是否为空
-      if (e.detail.value.name.replace(/^\s*|\s*$/g, '') == '') {
+    //if (that.data.isFirstApply) {
+      //检验姓名是否为空
+      if (e.detail.value.name.replace(/^\s*|\s*$/g, '') === '') {
         conditions = false;
         wx.showModal({
           title: '提示',
@@ -163,7 +168,7 @@ Page({
           showCancel: false
         });
         //检验所在单位是否为空
-      } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, '') == '') {
+      } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, '') === '') {
         conditions = false;
         wx.showModal({
           title: '提示',
@@ -171,9 +176,9 @@ Page({
           showCancel: false
         });
       }
-    }
+   // }
     //检验手机号码填写是否正确
-    if (that.isPoneAvailable(e.detail.value.mobile)) {
+    else if (that.isPoneAvailable(e.detail.value.mobile)) {
       conditions = false;
       wx.showModal({
         title: '提示',
@@ -181,7 +186,7 @@ Page({
         showCancel: false
       });
       //检验是否填入了正确的验证码
-    } else if (e.detail.value.vcode != that.data.sendedCode || that.data.sendedCode == '') {
+    } else if (e.detail.value.vcode != that.data.sendCode || that.data.sendCode === '') {
       conditions = false;
       wx.showModal({
         title: '提示',
@@ -200,13 +205,16 @@ Page({
     //当conditions为true时，即所有内容都填完，执行下面代码
     if (conditions) {
       //用户不是第一次申请
-      if (that.data.length == 1) {
+      if (that.data.length === 1) {
         const _ = db.command;
         db.collection('user-permissions')
           .doc(that.setData._id)
           .update({
             data: {
-              module: _.push.apply(that.data.datas, that.data.permissions)
+              name: e.detail.value.name,
+              unit: e.detail.value.unit,
+              mobile: e.detail.value.mobile,
+              module: that.data.permissions
             }
           })
           .then(() => {
@@ -235,14 +243,15 @@ Page({
             }
           })
           .then(() => {
-            wx.showToast({
-              title: '申请成功',
-              icon: 'success',
-              duration: 2000,
+            wx.showModal({
+              title: '提示',
+              content: '您的申请已成功提交，请耐心等候审批',
+              showCancel: false,
+              confirmColor: '#007500',
               success(res) {
-                wx.redirectTo({
-                  url: '../index/index' //跳转的页面
-                });
+                wx.navigateBack({
+                  delta: 1
+                })
               }
             });
           });
@@ -268,50 +277,38 @@ Page({
       title: '正在加载',
       mask: true
     });
-    //调用云函数获取当前用户的openId
-    wx.cloud.callFunction({
-      name: 'getOpenId',
-      complete: res => {
-        that.setData({
-          openId: res.result.OPENID
-        });
-        //获取云数据库user-permissions集合中当前用户的记录
-        db.collection('user-permissions')
-          .where({
-            _openid: that.data.openId
-          })
-          .get()
-          .then(res => {
-            that.setData({
-              length: res.data.length,
-              modules: modules
-            });
-            if (res.data.length != 0) {
-              for (let i = 0; i < res.data[0].roles.length; i++) {
-                for (let j = 0; j < modules.length; j++) {
-                  if (res.data[0].roles[i] == modules[j].value) {
-                    modules[j].disabled = true;
-                  }
-                }
-              }
-              for (let i = 0; i < res.data[0].module.length; i++) {
-                for (let j = 0; j < modules.length; j++) {
-                  if (res.data[0].module[i] == modules[j].value) {
-                    modules[j].checked = true;
-                  }
-                }
-              }
-              that.setData({
-                modules: modules,
-                datas: res.data[0].module,
-                isFirstApply: false,
-                _id: res.data[0]._id
-              });
+    //获取云数据库user-permissions集合中当前用户的记录
+    meansApi.getRoles().then(res => {
+      that.setData({
+        length: res.data.length,
+        modules: modules
+      });
+      if (res.data.length != 0) {
+        for (let i = 0; i < res.data[0].roles.length; i++) {
+          for (let j = 0; j < modules.length; j++) {
+            if (res.data[0].roles[i] === modules[j].value) {
+              modules[j].disabled = true;
             }
-            wx.hideLoading();
-          });
+          }
+        }
+        for (let i = 0; i < res.data[0].module.length; i++) {
+          for (let j = 0; j < modules.length; j++) {
+            if (res.data[0].module[i] === modules[j].value) {
+              modules[j].checked = true;
+            }
+          }
+        }
+        that.setData({
+          dataGet: res.data[0],
+          mobile: res.data[0].mobile,
+          modules: modules,
+          datas: res.data[0].module,
+          isFirstApply: false,
+          _id: res.data[0]._id
+        });
       }
-    });
+      wx.hideLoading();
+    });;
   },
 
   /**
