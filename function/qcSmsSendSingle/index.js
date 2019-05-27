@@ -19,7 +19,7 @@ exports.main = async(event, context) => {
   let qcloudsms = QcloudSms(appid, appkey);
   let ssender = qcloudsms.SmsSingleSender();
   let code = event.code;
-  let params = ["站群", code, 10];
+  let params = ["数字ITC+小程序", code, 10];
   return new Promise((resolve, reject) => {
     ssender.sendWithParam(86, phoneNumbers[0], templateId,
       params, smsSign, "", "",
