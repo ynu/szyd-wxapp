@@ -57,7 +57,7 @@ Page({
         zqApi.runningCount().catch(() => 0),
         zqApi.newsCount().catch(() => 0),
         fcApi.vmCount().catch(() => 0),
-        fcApi.clusters().catch(() => 0),
+        fcApi.clusters().catch(() => []),
         fcApi.hostCount().catch(() => 0),
         fcApi.runningVmCount().catch(() => 0),
       ])
