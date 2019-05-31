@@ -64,6 +64,11 @@ Page({
       url: '/pages/ecard/operator-bill-list',
     })
   },
+  toUir() {
+    wx.navigateTo({
+      url: '/pages/ecard/query/index',
+    })
+  },
 
 
   /**
