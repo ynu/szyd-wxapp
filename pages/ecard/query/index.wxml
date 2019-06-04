@@ -1,0 +1,21 @@
+<!--pages/ecard/query/index.wxml-->
+<!-- 搜索框 -->
+<view class="page">
+  <view class='search'>
+    <input type='text' placeholder='输入你想要的内容' confirm-type='search' value='{{inputValue}}' bindinput='inputQuery' bindconfirm='query'></input>
+    <view class="weui-btn-area">
+      <button class="weui-btn" style='font-size:15px' bindtap='queryInfo'>搜索</button>
+    </view>
+  </view>
+  <view>
+    <view class="weui-cells__title">搜索结果列表({{resultCount}})</view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator wx:for="{{result}}" wx:key="date" url="/pages/ecard/query/ecard-detail?stuempno={{item.stuempno}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          {{item.stuempno}}
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.custname}}</view>
+      </navigator>
+    </view>
+  </view>
+</view>

@@ -15,7 +15,9 @@
     "pages/fc/vm/vm",
     "pages/fc/vm/vmone",
     "pages/zq/index",
-    "pages/application/index"
+    "pages/application/index",
+    "pages/ecard/query/index",
+    "pages/ecard/query/ecard-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
