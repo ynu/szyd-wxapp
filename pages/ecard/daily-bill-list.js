@@ -42,9 +42,9 @@ Page({
     ]).then(([shopIds, shops]) => {
       // 获取当前用户管理的商户的详细信息
       const myShops = shopIds.map(id => {
-        const shop = shops.find(({
-          shopId
-        }) => shopId === id);
+        const shop = shops.find((shop) => {
+          return shop.shopid == id
+        });
         return shop || {};
       });
       this.setData({

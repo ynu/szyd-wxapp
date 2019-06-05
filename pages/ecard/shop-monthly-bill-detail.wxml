@@ -17,28 +17,28 @@
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">刷卡金额</view>
-                    <view class="weui-form-preview__value">{{bill.crAmtText}}</view>
+                    <view class="weui-form-preview__value">{{bill.cramtText}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">冲正金额</view>
-                    <view class="weui-form-preview__value">{{bill.drAmtText}}</view>
+                    <view class="weui-form-preview__value">{{bill.dramtText}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">消费次数</view>
-                    <view class="weui-form-preview__value">{{bill.transCntText}}笔</view>
+                    <view class="weui-form-preview__value">{{bill.transcntText}}笔</view>
                 </view>
             </view>
             <view class="weui-form-preview__ft">
-                <navigator url="/pages/ecard/shop-monthly-bill-list?shopId={{shopId}}&name={{name}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">全部月账单</navigator>
+                <navigator url="/pages/ecard/shop-monthly-bill-list?shopid={{shopid}}&name={{name}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">全部月账单</navigator>
             </view>
         </view>
 
         <view class="weui-cells__title">子商户({{subShopCount}})</view>
         <view wx:if="{{subShopCount}}" class="weui-cells weui-cells_after-title">
-            <navigator wx:for="{{subShopBills}}" url="/pages/ecard/shop-monthly-bill-detail?shopId={{item.shopId}}&date={{date}}&name={{item.shopName}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:for="{{subShopBills}}" url="/pages/ecard/shop-monthly-bill-detail?shopid={{item.shopid}}&date={{date}}&name={{item.shopname}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">
-                  {{item.shopName}}
-                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                  {{item.shopname}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transcntText}}笔</view>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">{{item.amtText}}</view>
             </navigator>
@@ -51,8 +51,8 @@
         <view wx:if="{{deviceCount}}" class="weui-cells weui-cells_after-title">
             <view wx:for="{{deviceBills}}" class="weui-cell">
                 <view class="weui-cell__bd">
-                  {{item.deviceName}}
-                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                  {{item.devicename}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transcntText}}笔</view>
                 </view>
                 <view class="weui-cell__ft">{{item.amtText}}</view>
             </view>

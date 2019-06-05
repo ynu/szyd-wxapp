@@ -1,4 +1,4 @@
-// 云函数入口文件
+// 搜索卡信息或得返回值云函数入口文件
 const cloud = require('wx-server-sdk');
 const request = require('request-promise');
 cloud.init();
@@ -10,13 +10,12 @@ exports.main = async (event, context) => {
   const token = process.env.token;
   const stuempno = event.data;
   const custname = event.data;
-  console.log(token)
   let options = {
     uri: `${host}/card`,
     method: "POST",
     json: true,
     headers: {
-      'Authorization': token
+      "Authorization": token
     },
     body: {
       "stuempno": stuempno,

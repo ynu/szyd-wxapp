@@ -1,19 +1,18 @@
 //app.js
 
-Array.prototype.flatMap = function (lambda) {
-    return Array.prototype.concat.apply([], this.map(lambda));
-}
+Array.prototype.flatMap = function(lambda) {
+  return Array.prototype.concat.apply([], this.map(lambda));
+};
 App({
-  onLaunch: function () {
-
+  onLaunch: function() {
     if (!wx.cloud) {
-      console.error('请使用 2.2.3 或以上的基础库以使用云能力')
+      console.error("请使用 2.2.3 或以上的基础库以使用云能力");
     } else {
       wx.cloud.init({
         //env: 'szyd',
-        traceUser: true,
-      })
+        traceUser: true
+      });
     }
-    this.globalData = {}
+    this.globalData = {};
   }
-})
+});

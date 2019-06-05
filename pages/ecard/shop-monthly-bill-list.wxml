@@ -9,12 +9,12 @@
       </view>
         <view class="weui-cells__title">月账单列表({{billsCount}})</view>
         <view class="weui-cells weui-cells_after-title">
-            <navigator wx:for="{{bills}}" wx:key="{{accDate}}" url="/pages/ecard/shop-monthly-bill-detail?shopId={{shopId}}&date={{item.accDate}}&name={{name}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <navigator wx:for="{{bills}}" wx:key="{{accdate}}" url="/pages/ecard/shop-monthly-bill-detail?shopid={{shopid}}&date={{item.accdate}}&name={{name}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">
-                  {{item.accDate}}
-                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                  {{item.accdate}}
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transcntText}}笔</view>
                 </view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">{{item.crAmtText}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{item.cramtText}}</view>
             </navigator>
         </view>
     </view>

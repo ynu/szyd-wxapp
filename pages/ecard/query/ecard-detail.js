@@ -24,6 +24,20 @@ Page({
     ]).then(
       ([result]) => {
         wx.hideLoading();
+        switch (result.cardstatus) {
+          case "1":
+            result.cardstatus = "正常";
+            break;
+          case "2":
+            result.cardstatus = "注销";
+            break;
+          case "3":
+            result.cardstatus = "挂失";
+            break;
+          case "4":
+            result.cardstatus = "冻结";
+            break;
+        };
         this.setData({
           cardInfo: result
         })
