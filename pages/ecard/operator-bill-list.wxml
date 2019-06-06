@@ -12,7 +12,7 @@
             <navigator wx:for="{{bills}}" wx:key="date" url="/pages/ecard/operator-bill-detail?date={{item.date}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                 <view class="weui-cell__bd">
                   {{item.date}}
-                  <view class="weui-badge" style="margin-left: 5px;">{{item.transCntText}}笔</view>
+                  <view class="weui-badge" style="margin-left: 5px;">{{item.transcntText}}笔</view>
                 </view>
                 <view class="weui-cell__ft weui-cell__ft_in-access">{{item.amtText}}</view>
             </navigator>

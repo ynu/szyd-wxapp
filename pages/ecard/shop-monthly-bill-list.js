@@ -1,57 +1,59 @@
-import * as echarts from '../../lib/ec-canvas/echarts.js';
-const { ecardApi } = require('../../utils/utils.js');
-const { formatMoney, formatNumber } = require('../../lib/accounting.js');
+import * as echarts from "../../lib/ec-canvas/echarts.js";
+const { ecardApi } = require("../../utils/utils.js");
+const { formatMoney, formatNumber } = require("../../lib/accounting.js");
 
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     billsCount: 0,
     ec: {
-      lazyLoad: true,
-    },
+      lazyLoad: true
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData(options);
 
     wx.showLoading({
-      title: '正在加载',
-      mask: true,
+      title: "正在加载",
+      mask: true
     });
-    ecardApi.monthlyBills(options.shopId).then(bills => {
-      // 按日期降序排列
-      bills.sort((a, b) => {
-        if (a.accDate > b.accDate) return -1;
-        else if (a.accDate < b.accDate) return 1;
-        else return 0;
+    ecardApi
+      .monthlyBills(options.shopid)
+      .then(bills => {
+        // 按日期降序排列
+        bills.sort((a, b) => {
+          if (a.accdate > b.accdate) return -1;
+          else if (a.accdate < b.accdate) return 1;
+          else return 0;
+        });
+        this.setData({
+          bills: bills.map(bill => {
+            bill.cramtText = formatMoney(bill.cramt, "￥");
+            bill.transcntText = formatNumber(bill.transcnt);
+            return bill;
+          }),
+          billsCount: bills.length
+        });
+        this.initChart();
+        wx.hideLoading();
+      })
+      .catch(err => {
+        wx.hideLoading();
       });
-      this.setData({
-        bills: bills.map(bill => {
-          bill.crAmtText = formatMoney(bill.crAmt, '￥');
-          bill.transCntText = formatNumber(bill.transCnt);
-          return bill;
-        }),
-        billsCount: bills.length,
-      });
-      this.initChart();
-      wx.hideLoading();
-    }).catch(err => {
-      wx.hideLoading();
-    });
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     const that = this;
-    this.ecComponent = this.selectComponent('#mychart-dom-bar');
+    this.ecComponent = this.selectComponent("#mychart-dom-bar");
   },
 
   initChart() {
@@ -61,50 +63,59 @@ Page({
         text: `${name}最近15个月消费趋势`
       },
       legend: {
-        data: ['金额', '刷卡数']
+        data: ["金额", "刷卡数"]
       },
       grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
         containLabel: true
       },
       xAxis: [
         {
-          type: 'category',
+          type: "category",
           boundaryGap: false,
-          data: bills.map(bill => bill.accDate).slice(0, 15).reverse(),
+          data: bills
+            .map(bill => bill.accdate)
+            .slice(0, 15)
+            .reverse()
         }
       ],
       yAxis: [
         {
-          type: 'value'
-        },
+          type: "value"
+        }
       ],
       series: [
         {
-          name: '金额',
-          type: 'line',
+          name: "金额",
+          type: "line",
           areaStyle: { normal: {} },
-          data: bills.map(bill => bill.crAmt).slice(0, 15).reverse(),
+          data: bills
+            .map(bill => bill.cramt)
+            .slice(0, 15)
+            .reverse()
         },
         {
-          name: '次数',
-          type: 'line',
+          name: "次数",
+          type: "line",
           areaStyle: { normal: {} },
-          data: bills.map(bill => bill.transCnt).slice(0, 15).reverse(),
-        },
+          data: bills
+            .map(bill => bill.transcnt)
+            .slice(0, 15)
+            .reverse()
+        }
       ]
     };
     this.ecComponent.init((canvas, width, height) => {
       const chart = echarts.init(canvas, null, {
         width,
-        height,
+        height
       });
       canvas.setChart(chart);
       chart.setOption(option);
       this.setData({
-        isLoaded: true,
+        isLoaded: true
       });
       return chart;
     });
@@ -113,42 +124,30 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
-  },
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
-  },
+  onHide: function() {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
-  },
+  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
-  },
+  onPullDownRefresh: function() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
-  },
+  onReachBottom: function() {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
-  }
-})
+  onShareAppMessage: function() {}
+});

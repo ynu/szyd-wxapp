@@ -30,15 +30,15 @@ Page({
       bills
     ]) => {
       wx.hideLoading();
-      bill.amtText = formatMoney(bill.inAmt - bill.outAmt, '￥');
-      bill.inAmtText = formatMoney(bill.inAmt, '￥');
-      bill.outAmtText = formatMoney(bill.outAmt, '￥');
-      bill.transCntText = formatNumber(bill.transCnt);
+      bill.amtText = formatMoney(bill.inamt - bill.outamt, '￥');
+      bill.inamtText = formatMoney(bill.inamt, '￥');
+      bill.outamtText = formatMoney(bill.outamt, '￥');
+      bill.transcntText = formatNumber(bill.transcnt);
       this.setData({
         bill,
         bills: bills.map(bill => {
-          bill.inAmtText = formatMoney(bill.inAmt, '￥');
-          bill.outAmtText = formatMoney(bill.outAmt, '￥');
+          bill.inamtText = formatMoney(bill.inamt, '￥');
+          bill.outamtText = formatMoney(bill.outamt, '￥');
           return bill;
         }),
       });

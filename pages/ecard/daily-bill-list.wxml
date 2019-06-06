@@ -6,8 +6,8 @@
     <view class="page__bd">
         <view class="weui-cells__title">商户({{totalShops}})</view>
         <view class="weui-cells weui-cells_after-title">
-            <navigator wx:for="{{shops}}" wx:key="shopId" url="/pages/ecard/shop-daily-bill-list?shopId={{item.shopId}}&name={{item.shopName}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">{{item.shopName}}</view>
+            <navigator wx:for="{{shops}}" wx:key="shopId" url="/pages/ecard/shop-daily-bill-list?shopId={{item.shopid}}&name={{item.shopname}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">{{item.shopname}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </navigator>
         </view>

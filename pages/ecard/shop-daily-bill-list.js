@@ -1,6 +1,11 @@
 import * as echarts from '../../lib/ec-canvas/echarts.js';
-const { ecardApi } = require('../../utils/utils.js');
-const { formatMoney, formatNumber } = require('../../lib/accounting.js');
+const {
+  ecardApi
+} = require('../../utils/utils.js');
+const {
+  formatMoney,
+  formatNumber
+} = require('../../lib/accounting.js');
 
 Page({
 
@@ -17,9 +22,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData(options);
-
     wx.showLoading({
       title: '正在加载',
       mask: true,
@@ -27,14 +31,14 @@ Page({
     ecardApi.dailyBills(options.shopId).then(bills => {
       // 按日期降序排列
       bills.sort((a, b) => {
-        if (a.accDate > b.accDate) return -1;
-        else if (a.accDate < b.accDate) return 1;
+        if (a.accdate > b.accdate) return -1;
+        else if (a.accdate < b.accdate) return 1;
         else return 0;
       });
       this.setData({
         bills: bills.map(bill => {
-          bill.crAmtText = formatMoney(bill.crAmt, '￥');
-          bill.transCntText = formatNumber(bill.transCnt);
+          bill.crAmtText = formatMoney(bill.cramt, '￥');
+          bill.transCntText = formatNumber(bill.transcnt);
           return bill;
         }),
         billsCount: bills.length,
@@ -49,12 +53,15 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     this.ecComponent = this.selectComponent('#mychart-dom-bar');
   },
 
   initChart() {
-    const { bills, name } = this.data;
+    const {
+      bills,
+      name
+    } = this.data;
     const option = {
       title: {
         text: `${name}最近15天消费趋势`
@@ -68,30 +75,29 @@ Page({
         bottom: '3%',
         containLabel: true
       },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
-          data: bills.map(bill => bill.accDate).slice(0, 15).reverse(),
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value'
-        },
-      ],
-      series: [
-        {
+      xAxis: [{
+        type: 'category',
+        boundaryGap: false,
+        data: bills.map(bill => bill.accdate).slice(0, 15).reverse(),
+      }],
+      yAxis: [{
+        type: 'value'
+      }, ],
+      series: [{
           name: '金额',
           type: 'line',
-          areaStyle: { normal: {} },
-          data: bills.map(bill => bill.crAmt).slice(0, 15).reverse(),
+          areaStyle: {
+            normal: {}
+          },
+          data: bills.map(bill => bill.cramt).slice(0, 15).reverse(),
         },
         {
           name: '次数',
           type: 'line',
-          areaStyle: { normal: {} },
-          data: bills.map(bill => bill.transCnt).slice(0, 15).reverse(),
+          areaStyle: {
+            normal: {}
+          },
+          data: bills.map(bill => bill.transcnt).slice(0, 15).reverse(),
         },
       ]
     };
@@ -112,42 +118,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })

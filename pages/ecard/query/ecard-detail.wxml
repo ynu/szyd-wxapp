@@ -1,22 +1,54 @@
 <!--pages/ecard/query/ecard-detail.wxml-->
 <view class="page">
   <view class="page__hd">
-    <view class="page__title">用户信息</view>
+    <view class="weui-form-preview__value_in-hd">{{cardInfo.custname}}</view>
   </view>
   <view class="page__bd">
     <view class="weui-form-preview">
-      <view class="weui-form-preview__hd">
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">姓名</view>
-          <view class="weui-form-preview__value_in-hd">{{cardInfo.custname}}</view>
-        </view>
-      </view>
       <view class="weui-form-preview__bd">
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">卡号</view>
           <view class="weui-form-preview__value">{{cardInfo.stuempno}}</view>
         </view>
       </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">卡物理ID</view>
+          <view class="weui-form-preview__value">{{cardInfo.cardphyid}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">开卡日期</view>
+          <view class="weui-form-preview__value">{{cardInfo.opendate}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">身份证号</view>
+          <view class="weui-form-preview__value">{{cardInfo.idno}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">卡状态</view>
+          <view class="weui-form-preview__value">{{cardInfo.cardstatus}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">卡类别</view>
+          <view class="weui-form-preview__value">{{cardInfo.cardtypename}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">电话号码</view>
+          <view class="weui-form-preview__value">{{cardInfo.mobile}}</view>
+        </view>
+      </view>
+      
+
     </view>
   </view>
 </view>

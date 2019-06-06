@@ -27,18 +27,18 @@ Page({
     const setData = (date, bills) => {
       const bill = {
         date,
-        inAmt: 0,
-        outAmt: 0,
-        transCnt: 0,
+        inamt: 0,
+        outamt: 0,
+        transcnt: 0,
       };
       bills.reduce((acc, cur) => {
-        bill.inAmt += parseFloat((cur.inAmt || 0));
-        bill.outAmt += parseFloat((cur.outAmt || 0));
-        bill.transCnt += parseInt((cur.transCnt || 0));
+        bill.inamt += parseFloat((cur.inamt || 0));
+        bill.outamt += parseFloat((cur.outamt || 0));
+        bill.transcnt += parseInt((cur.transcnt || 0));
         return bill;
       }, bill);
-      bill.amtText = formatMoney(bill.inAmt - bill.outAmt, '￥');
-      bill.transCntText = formatNumber(bill.transCnt);
+      bill.amtText = formatMoney(bill.inamt - bill.outamt, '￥');
+      bill.transcntText = formatNumber(bill.transcnt);
       this.setData({
         bills: [
           ...this.data.bills,
@@ -113,7 +113,7 @@ Page({
           type: 'line',
           stack: '总量',
           areaStyle: { normal: {} },
-          data: bills.map(bill => bill.inAmt).slice(0, 15).reverse(),
+          data: bills.map(bill => bill.inamt).slice(0, 15).reverse(),
         },
       ]
     };
