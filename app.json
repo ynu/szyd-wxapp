@@ -17,7 +17,8 @@
     "pages/zq/index",
     "pages/application/index",
     "pages/ecard/query/index",
-    "pages/ecard/query/ecard-detail"
+    "pages/ecard/query/ecard-detail",
+    "pages/personal/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -29,5 +30,24 @@
   "networkTimeout": {
     "request": 10000
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/home.png",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home.png",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/personal.png",
+        "pagePath": "pages/personal/index",
+        "iconPath": "images/personal.png",
+        "text": "个人中心"
+      }
+    ]
+  }
 }
