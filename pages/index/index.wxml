@@ -1,106 +1,106 @@
 <view class="page">
-    <view class="page__hd">
-        <view class="page__title">概况</view>
-        <view class="page__desc"></view>
-    </view>
-    <view class="page__bd">
-        <view class="weui-form-preview">
-            <view class="weui-form-preview__hd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">数据中心</view>
-                    <view class="weui-form-preview__value_in-hd">虚拟化平台</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__bd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">集群</view>
-                    <view class="weui-form-preview__value">{{fc.clusterCount}}个</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">主机</view>
-                    <view class="weui-form-preview__value">{{fc.hostCount}}个</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">虚拟机</view>
-                    <view class="weui-form-preview__value">{{fc.runningVmCount}}/{{fc.vmCount}}个</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__ft">
+  <view class="page__hd">
+    <view class="page__title">概况</view>
+    <view class="page__desc"></view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">数据中心</view>
+          <view class="weui-form-preview__value_in-hd">虚拟化平台</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">集群</view>
+          <view class="weui-form-preview__value">{{fc.clusterCount}}个</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">主机</view>
+          <view class="weui-form-preview__value">{{fc.hostCount}}个</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">虚拟机</view>
+          <view class="weui-form-preview__value">{{fc.runningVmCount}}/{{fc.vmCount}}个</view>
+        </view>
+      </view>
+      <!-- <view class="weui-form-preview__ft">
                 <navigator wx:if="{{isFcSupervisor}}" url="../fc/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
-            </view>
-        </view>
+            </view> -->
+    </view>
 
-        <view class="weui-form-preview" style="margin-top:20px">
-            <view class="weui-form-preview__hd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label"></view>
-                    <view class="weui-form-preview__value_in-hd">站群系统</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__bd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">站点</view>
-                    <view class="weui-form-preview__value">{{zq.runningFirmCount}}/{{zq.firmCount}}个</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">文章</view>
-                    <view class="weui-form-preview__value">{{zq.newsCount}}篇</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__ft">
+    <view class="weui-form-preview" style="margin-top:20px">
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label"></view>
+          <view class="weui-form-preview__value_in-hd">站群系统</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">站点</view>
+          <view class="weui-form-preview__value">{{zq.runningFirmCount}}/{{zq.firmCount}}个</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">文章</view>
+          <view class="weui-form-preview__value">{{zq.newsCount}}篇</view>
+        </view>
+      </view>
+      <!-- <view class="weui-form-preview__ft">
                 <navigator wx:if="{{isZqSupervisor}}" url="/pages/zq/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
-            </view>
-        </view>
+            </view> -->
+    </view>
 
-        <view class="weui-form-preview" style="margin-top:20px">
-            <view class="weui-form-preview__hd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label"></view>
-                    <view class="weui-form-preview__value_in-hd">一卡通</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__bd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">商户</view>
-                    <view class="weui-form-preview__value">{{ecard.shops.length}}个</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">POS机</view>
-                    <view class="weui-form-preview__value">{{ecard.devices_count}}个</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">发卡量</view>
-                    <view class="weui-form-preview__value">{{ecard.card_count}}张</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__ft">
+    <view class="weui-form-preview" style="margin-top:20px">
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label"></view>
+          <view class="weui-form-preview__value_in-hd">一卡通</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">商户</view>
+          <view class="weui-form-preview__value">{{ecard.shops.length}}个</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">POS机</view>
+          <view class="weui-form-preview__value">{{ecard.devices_count}}个</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">发卡量</view>
+          <view class="weui-form-preview__value">{{ecard.card_count}}张</view>
+        </view>
+      </view>
+      <!-- <view class="weui-form-preview__ft">
                 <navigator wx:if="{{isEcardSupervisor}}" url="/pages/ecard/supervisor-index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
-            </view>
-        </view>
+            </view> -->
+    </view>
 
-        <view class="weui-form-preview" style="margin-top:20px">
-            <view class="weui-form-preview__hd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label"></view>
-                    <view class="weui-form-preview__value_in-hd">风控系统</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__bd">
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">用户</view>
-                    <view class="weui-form-preview__value">{{ecard.shops.length}}个</view>
-                </view>
-                <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">托管资产</view>
-                    <view class="weui-form-preview__value">543个</view>
-                </view>
-            </view>
-            <view class="weui-form-preview__ft">
+    <view class="weui-form-preview" style="margin-top:20px">
+      <view class="weui-form-preview__hd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label"></view>
+          <view class="weui-form-preview__value_in-hd">风控系统</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">用户</view>
+          <view class="weui-form-preview__value">{{ecard.shops.length}}个</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">托管资产</view>
+          <view class="weui-form-preview__value">543个</view>
+        </view>
+      </view>
+      <!-- <view class="weui-form-preview__ft">
                 <navigator wx:if="{{isRisSupervisor}}" url="/pages/ris/index" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
-            </view>
-        </view>
+            </view> -->
+    </view>
 
-        <!-- <view class="weui-cells__title">统一身份认证系统</view>
+    <!-- <view class="weui-cells__title">统一身份认证系统</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">标题文字</view>
@@ -108,11 +108,11 @@
             </view>
         </view> -->
 
-        <view class="button-sp-area">
+    <!-- <view class="button-sp-area">
           <button class="weui-btn" type="default" plain="true" bindtap='toApply'>功能申请</button>
-        </view>
+        </view> -->
 
-        
-    </view>
-    <include src="../footer.wxml"/>
+
+  </view>
+  <include src="../footer.wxml" />
 </view>
