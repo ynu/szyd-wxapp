@@ -18,7 +18,7 @@ Page({
     select: false,
     tihuoWay: "模块权限",
     modules: [],
-
+    IsApply: false,
   },
 
   /**
@@ -93,11 +93,19 @@ Page({
   },
   //获取当前用户的权限
   getPermission() {
+    this.setData({
+      IsApply: false
+    });
     const db = wx.cloud.database();
     const that = this;
     //获取云端数据库判断当前用户拥有哪些模块的权限
     meansApi.getRoles().then(res => {
       if (res.data.length != 0) {
+        if (res.data[0].roles.length != 0) {
+          that.setData({
+            IsApply: true
+          });
+        }
         let modules = [];
         res.data[0].roles.forEach(role => {
           switch (role) {
@@ -179,7 +187,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showLoading({
+      title: '正在加载',
+      mask: true
+    });
+    this.getPermission();
   },
 
   /**
