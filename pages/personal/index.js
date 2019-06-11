@@ -15,8 +15,6 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    select: false,
-    tihuoWay: "模块权限",
     modules: [],
     IsApply: false,
   },
@@ -63,12 +61,7 @@ Page({
       hasUserInfo: true
     })
   },
-  //点击下拉
-  bindShowMsg() {
-    this.setData({
-      select: !this.data.select
-    })
-  },
+
   //点击模块跳转
   mySelect(e) {
     const name = e.currentTarget.dataset.name;

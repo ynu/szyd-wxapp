@@ -37,15 +37,15 @@
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/home.png",
+        "selectedIconPath": "images/home_green.png",
         "pagePath": "pages/index/index",
-        "iconPath": "images/home.png",
+        "iconPath": "images/home_white.png",
         "text": "首页"
       },
       {
-        "selectedIconPath": "images/personal.png",
+        "selectedIconPath": "images/personal_green.png",
         "pagePath": "pages/personal/index",
-        "iconPath": "images/personal.png",
+        "iconPath": "images/personal_white.png",
         "text": "个人中心"
       }
     ]
