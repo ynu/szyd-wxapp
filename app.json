@@ -18,7 +18,8 @@
     "pages/application/index",
     "pages/ecard/query/index",
     "pages/ecard/query/ecard-detail",
-    "pages/personal/index"
+    "pages/personal/index",
+    "pages/ip/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -27,6 +27,7 @@ const Roles = {
   EcardSupervisor: "szyd:ecard-supervisor", // 角色的权限：进入ecard/supervisor-index
   ZqSupervisor: 'szyd:zq-supervisor',
   RisSupervisor: 'szyd:ris-supervisor',
+  IpSupervisor: 'szyd:ip-supervisor',
 };
 
 const meansApi = {

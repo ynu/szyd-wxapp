@@ -1,0 +1,21 @@
+<!--pages/ip/index.wxml-->
+<!-- 搜索框 -->
+<view class="page">
+  <view class='search'>
+    <input type='text' placeholder='请输入地址' confirm-type='search' value='{{inputValue}}' bindinput='inputQuery' bindconfirm='query'></input>
+    <view class="weui-btn-area">
+      <button class="weui-btn" style='font-size:15px' bindtap='queryInfo'>搜索</button>
+    </view>
+  </view>
+  <view>
+    <view class="weui-cells__title">搜索结果列表({{result.length}})</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view wx:for="{{result}}" wx:key="date" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          {{item.ip}}
+        </view>
+        <view class="weui-cell__ft">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>
