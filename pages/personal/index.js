@@ -79,6 +79,9 @@ Page({
       case "风控系统":
         module = "fc/index";
         break;
+      case "IP地址段查询":
+        module = "ip/index";
+        break;
     }
     wx.navigateTo({
       url: `/pages/${module}`,
@@ -120,6 +123,11 @@ Page({
             case Roles.RisSupervisor:
               modules.push({
                 name: "风控系统"
+              });
+              break;
+            case Roles.IpSupervisor:
+              modules.push({
+                name: "IP地址段查询"
               });
               break;
             default:

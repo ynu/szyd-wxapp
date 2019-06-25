@@ -18,6 +18,10 @@ let modules = [{
   name: '风控系统',
   value: 'szyd:ris-supervisor',
   checked: false
+}, {
+    name: 'IP地址段查询',
+    value: 'szyd:ip-supervisor',
+  checked: false
 }];
 let permissions;
 let length;
@@ -44,9 +48,9 @@ Page({
     _id,
     datas: [], //记录已经申请的模块
     sendCode: '',
-    dataGet:{
-      name:'',
-      unit:''
+    dataGet: {
+      name: '',
+      unit: ''
     }
   },
   mobileInput(e) {
@@ -159,24 +163,24 @@ Page({
     const that = this;
     //如果是第一次申请就需要判断姓名，所属单位是否为空
     //if (that.data.isFirstApply) {
-      //检验姓名是否为空
-      if (e.detail.value.name.replace(/^\s*|\s*$/g, '') === '') {
-        conditions = false;
-        wx.showModal({
-          title: '提示',
-          content: '姓名不能为空',
-          showCancel: false
-        });
-        //检验所在单位是否为空
-      } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, '') === '') {
-        conditions = false;
-        wx.showModal({
-          title: '提示',
-          content: '所在单位不能为空',
-          showCancel: false
-        });
-      }
-   // }
+    //检验姓名是否为空
+    if (e.detail.value.name.replace(/^\s*|\s*$/g, '') === '') {
+      conditions = false;
+      wx.showModal({
+        title: '提示',
+        content: '姓名不能为空',
+        showCancel: false
+      });
+      //检验所在单位是否为空
+    } else if (e.detail.value.unit.replace(/^\s*|\s*$/g, '') === '') {
+      conditions = false;
+      wx.showModal({
+        title: '提示',
+        content: '所在单位不能为空',
+        showCancel: false
+      });
+    }
+    // }
     //检验手机号码填写是否正确
     else if (that.isPoneAvailable(e.detail.value.mobile)) {
       conditions = false;
