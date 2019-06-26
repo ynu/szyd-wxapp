@@ -19,8 +19,12 @@ let modules = [{
   value: 'szyd:ris-supervisor',
   checked: false
 }, {
-    name: 'IP地址段查询',
-    value: 'szyd:ip-supervisor',
+  name: 'IP地址段查询',
+  value: 'szyd:ip-supervisor',
+  checked: false
+}, {
+  name: '数据中心门禁',
+  value: 'door:door-manager:',
   checked: false
 }];
 let permissions;

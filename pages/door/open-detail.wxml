@@ -1,0 +1,35 @@
+<!--pages/door/open-detail.wxml-->
+<!--pages/ecard/query/ecard-detail.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="weui-form-preview__value_in-hd">{{info.name}}</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">开门时间</view>
+          <view class="weui-form-preview__value">{{info.time}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">开门人</view>
+          <view class="weui-form-preview__value">{{info.personName}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">开门人所属单位</view>
+          <view class="weui-form-preview__value">{{info.unit}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">开门人电话</view>
+          <view class="weui-form-preview__value">{{info.mobile}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
