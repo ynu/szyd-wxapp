@@ -19,7 +19,11 @@
     "pages/ecard/query/index",
     "pages/ecard/query/ecard-detail",
     "pages/personal/index",
-    "pages/ip/index"
+    "pages/ip/index",
+    "pages/door/index",
+    "pages/door/supervisor-index",
+    "pages/door/log",
+    "pages/door/open-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -34,19 +38,19 @@
   "sitemapLocation": "sitemap.json",
   "tabBar": {
     "color": "#a9b7b7",
-    "selectedColor": "#11cd6e",
+    "selectedColor": "#479de6",
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "images/home_green.png",
+        "selectedIconPath": "images/iconfont-home-active.png",
         "pagePath": "pages/index/index",
-        "iconPath": "images/home_white.png",
+        "iconPath": "images/iconfont-home.png",
         "text": "首页"
       },
       {
-        "selectedIconPath": "images/personal_green.png",
+        "selectedIconPath": "images/iconfont-user-active.png",
         "pagePath": "pages/personal/index",
-        "iconPath": "images/personal_white.png",
+        "iconPath": "images/iconfont-user.png",
         "text": "个人中心"
       }
     ]

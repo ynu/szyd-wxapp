@@ -2,7 +2,8 @@
 const {
   Roles,
   meansApi,
-  shopManagerRolePrefix
+  shopManagerRolePrefix,
+  doorManagerRolePrefix
 } = require('../../utils/utils.js');
 const app = getApp();
 const base64 = require("../../images/base64");
@@ -82,6 +83,9 @@ Page({
       case "IP地址段查询":
         module = "ip/index";
         break;
+      case "数据中心门禁":
+        module = "door/supervisor-index";
+        break;
     }
     wx.navigateTo({
       url: `/pages/${module}`,
@@ -89,20 +93,21 @@ Page({
   },
   //获取当前用户的权限
   getPermission() {
+    let obj = {};
+    const db = wx.cloud.database();
+    const that = this;
     this.setData({
       IsApply: false
     });
-    const db = wx.cloud.database();
-    const that = this;
     //获取云端数据库判断当前用户拥有哪些模块的权限
     meansApi.getRoles().then(res => {
+      let modules = [];
       if (res.data.length != 0) {
         if (res.data[0].roles.length != 0) {
           that.setData({
             IsApply: true
           });
         }
-        let modules = [];
         res.data[0].roles.forEach(role => {
           switch (role) {
             case Roles.FcSupervisor:
@@ -131,13 +136,22 @@ Page({
               });
               break;
             default:
-              if (role.indexOf(shopManagerRolePrefix) != -1 && !Roles.EcardSupervisor) {
+              if (role.indexOf(shopManagerRolePrefix) != -1) {
                 modules.push({
                   name: "一卡通"
+                });
+              } else if (role.indexOf(doorManagerRolePrefix) != -1) {
+                modules.push({
+                  name: "数据中心门禁"
                 });
               }
           }
         })
+
+        modules = modules.reduce((item, next) => {
+          obj[next.name] ? '' : obj[next.name] = true && item.push(next);
+          return item;
+        }, []);
         that.setData({
           modules: modules
         });

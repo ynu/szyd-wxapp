@@ -1,0 +1,13 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">数据中心门禁</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toOpenDoor'>开门</button>
+           <button wx:if="{{isDoorManager}}" class="weui-btn" type="default" plain="true" bindtap='toDoorLogs'>开门日志</button>    
+        </view>
+    </view>
+    <include src="../footer.wxml" />
+</view>
