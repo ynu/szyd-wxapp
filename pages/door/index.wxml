@@ -6,6 +6,9 @@
   </view>
   <view class="page__bd page__bd_spacing" wx:for="{{doors}}" wx:key="">
     <view class='weui-article__title'>{{item.name}}</view>
-    <button class="weui-btn" type="primary" disabled="{{!item.isSupervisor}}" bindtap='click'  data-name="{{item.name}}" data-id="{{item.id}}">开门</button>
+    <button class="weui-btn" type="primary" disabled="{{!item.isSupervisor}}" bindtap='click' data-name="{{item.name}}" data-id="{{item.id}}">开门</button>
   </view>
+  <van-dialog id="van-dialog" use-slot show="{{ show }}" show-cancel-button confirm-button-open-type="getUserInfo" bind:getuserinfo="getUserInfo">
+    <input type="text" placeholder="请简要陈述开门理由" style="height:30px" id="reason" class="weui-input" name="reason" bindinput="reasonInput"/>
+  </van-dialog>
 </view>

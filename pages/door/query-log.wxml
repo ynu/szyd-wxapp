@@ -1,0 +1,14 @@
+<!--pages/door/query-log.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">开门日志查询</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toAllLogs'>全部日志</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toKeyLogs'>关键字查询</button>    
+        </view>
+    </view>
+    <include src="../footer.wxml" />
+</view>

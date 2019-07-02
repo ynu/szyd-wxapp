@@ -15,76 +15,101 @@ Page({
     disabled: false,
     doors: [],
     info: {},
-    doorIds: []
+    doorIds: [],
+    show: false,
+    reason: "",
+    name: '',
+    id: 0
+  },
+  //当点击确认的时候，检查是否填写理由，填写了即开门成功后上传数据log
+  getUserInfo(event) {
+    if (this.data.reason === "") {
+      wx.showModal({
+        title: '提示',
+        content: '请填写开门原因',
+        showCancel: false,
+        confirmColor: '#007500'
+      });
+      this.setData({
+        show: true
+      });
+    } else {
+      wx.showLoading({
+        title: '正在开锁',
+      });
+      switch (this.data.name) {
+        case "图书馆数据中心机房(靠大厅)":
+          this.openDoor(this.data.name, this.data.id);
+          break;
+        case "图书馆数据中心机房":
+          this.openDoor(this.data.name, this.data.id);
+          break;
+        case "图书馆准备间":
+          this.openDoor(this.data.name, this.data.id);
+          break;
+        case "图书馆UPS间":
+          this.openDoor(this.data.name, this.data.id);
+          break;
+      }
+    }
+  },
+  //当input输入发生改变是便执行该方法
+  reasonInput(e) {
+    this.setData({
+      reason: e.detail.value
+    });
   },
   //点击开门按钮执行开门，往云端传开门的数据用作log，因为开门的流程都是一样的，所以就编写一个函数包裹起来。
   openDoor(name, id) {
     const db = wx.cloud.database();
     const date = Date();
-    db.collection('open-door-logs')
-      .add({
-        data: {
-          name,
-          time: formatTime(new Date()),
-          personName: this.data.info.name,
-          unit: this.data.info.unit,
-          mobile: this.data.info.mobile
-        }
-      })
-      .then(() => {
-        wx.cloud.callFunction({
-          name: 'doorApiOpenDoor',
-          data: {
-            id: id
-          }
-        }).then(res => {
-          if (res.result.code === 0) {
-            wx.showModal({
-              title: '提示',
-              showCancel: false,
-              content: `${name}，开锁成功`,
-              confirmColor: '#007500',
-            })
-            wx.hideLoading();
-          } else {
-            wx.showModal({
-              title: '提示',
-              showCancel: false,
-              content: `${name}，开锁失败`,
-              confirmColor: '#007500',
-            })
-          }
-          wx.hideLoading();
-          //resolve(res);
-        }).catch(err => reject(err))
-      })
+    wx.cloud.callFunction({
+      name: 'doorApiOpenDoor',
+      data: {
+        id: id
+      }
+    }).then(res => {
+      if (res.result.code === 0) {
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: `${name}，开锁成功`,
+          confirmColor: '#007500',
+        })
+        db.collection('open-door-logs')
+          .add({
+            data: {
+              name,
+              time: formatTime(new Date()),
+              personName: this.data.info.name,
+              unit: this.data.info.unit,
+              mobile: this.data.info.mobile,
+              reason: this.data.reason
+            }
+          })
+          .then(() => {})
+        wx.hideLoading();
+      } else {
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: `${name}，开锁失败`,
+          confirmColor: '#007500',
+        })
+      }
+      wx.hideLoading();
+      //resolve(res);
+    }).catch(err => reject(err))
   },
 
   //点击开门的函数
   click(e) {
-    wx.showLoading({
-      title: '正在开锁',
-    })
-    const db = wx.cloud.database();
-    const name = e.currentTarget.dataset.name;
-    const id = e.currentTarget.dataset.id;
-    switch (name) {
-      case "图书馆数据中心机房(靠大厅)":
-        this.openDoor(name, id);
-        break;
-      case "图书馆数据中心机房":
-        this.openDoor(name, id);
-        break;
-      case "图书馆准备间":
-        this.openDoor(name, id);
-        break;
-      case "图书馆UPS间":
-        this.openDoor(name, id);
-        break;
-    }
     this.setData({
-      doors: doors
-    })
+      show: true,
+      name: e.currentTarget.dataset.name,
+      id: e.currentTarget.dataset.id
+    });
+
   },
 
   /**

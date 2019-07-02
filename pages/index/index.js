@@ -112,7 +112,7 @@ Page({
 
   onLoad() {
     this.initPage();
-    },
+  },
   onShow() {
     this.getPermission();
   },
