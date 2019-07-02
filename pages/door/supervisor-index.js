@@ -21,7 +21,7 @@ Page({
   //去查看日志进入log
   toDoorLogs() {
     wx.navigateTo({
-      url: '/pages/door/log',
+      url: '/pages/door/query-log',
     })
   },
 

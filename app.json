@@ -23,7 +23,9 @@
     "pages/door/index",
     "pages/door/supervisor-index",
     "pages/door/log",
-    "pages/door/open-detail"
+    "pages/door/open-detail",
+    "pages/door/query-log",
+    "pages/door/key-query"
   ],
   "window": {
     "backgroundTextStyle": "light",

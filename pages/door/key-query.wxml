@@ -1,0 +1,22 @@
+<!--pages/door/key-query.wxml-->
+<!--pages/ecard/query/index.wxml-->
+<!-- 搜索框 -->
+<view class="page">
+  <view class='search'>
+    <input type='text' placeholder='请输入查找的关键字' confirm-type='search' value='{{inputValue}}' bindinput='inputQuery' bindconfirm='query'></input>
+    <view class="weui-btn-area">
+      <button class="weui-btn" style='font-size:15px' bindtap='queryInfo'>搜索</button>
+    </view>
+  </view>
+  <view>
+    <view class="weui-cells__title">搜索结果列表({{result.length}})</view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator wx:for="{{result}}" wx:key="date" url="/pages/door/open-detail?id={{item._id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          {{item.name}}
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.time}}</view>
+      </navigator>
+    </view>
+  </view>
+</view>

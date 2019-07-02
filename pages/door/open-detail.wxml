@@ -30,6 +30,15 @@
           <view class="weui-form-preview__value">{{info.mobile}}</view>
         </view>
       </view>
+
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">开门原因</view>
+          <view class="weui-form-preview__value">{{info.reason}}</view>
+        </view>
+      </view>
+
+
     </view>
   </view>
 </view>
