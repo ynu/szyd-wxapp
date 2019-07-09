@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "zqApiNewsCount",
+      "type": "timer",
+      "config": "* */10 * * * * *"
+    }
+  ]
+}

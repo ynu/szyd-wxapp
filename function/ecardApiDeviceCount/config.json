@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "ecardApiDeviceCount",
+      "type": "timer",
+      "config": "* */10 * * * * *"
+    }
+  ]
+}

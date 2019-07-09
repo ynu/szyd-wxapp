@@ -1,7 +1,7 @@
 {
   "triggers": [
     {
-      "name": "IndexInitDataTrigger",
+      "name": "zqApiFirmCount",
       "type": "timer",
       "config": "* */10 * * * * *"
     }

@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "fcApiClusters",
+      "type": "timer",
+      "config": "* */10 * * * * *"
+    }
+  ]
+}

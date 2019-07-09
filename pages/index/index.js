@@ -14,7 +14,6 @@ Page({
     resData,
     isUirManager: false,
     loadingOpenId: true,
-    bills: [],
     zq: {
       firmCount: 0,
       runningFirmCount: 0, //正在使用的站点数量
@@ -22,12 +21,12 @@ Page({
     },
     fc: {
       vmCount: 0, //虚拟机的总数量
-      clusterCount: 0,
+      clustersCount: 0,
       hostCount: 0,
       runningVmCount: 0, //正在运行着的虚拟机数量
     },
     ecard: {
-      shops: [],
+      shopsCount: 0,
       devices_count: 0,
       card_count: 0,
     },
@@ -49,43 +48,32 @@ Page({
 
     // 为确保所有promise都能resolve，必须添加catch
     Promise.all([
-        ecardApi.dailyBills(1).catch(() => []),
-        ecardApi.shops().catch(() => []),
+        ecardApi.shopsCount().catch(() => []),
         ecardApi.cardCount().catch(() => 0),
         ecardApi.deviceCount().catch(() => 0),
         zqApi.firmCount().catch(() => 0),
         zqApi.runningCount().catch(() => 0),
         zqApi.newsCount().catch(() => 0),
         fcApi.vmCount().catch(() => 0),
-        fcApi.clusters().catch(() => []),
+        fcApi.clustersCount().catch(() => []),
         fcApi.hostCount().catch(() => 0),
         fcApi.runningVmCount().catch(() => 0),
       ])
       .then(
         ([
-          bills,
-          shops,
+          shopsCount,
           card_count,
           devices_count,
           firmCount,
           runningFirmCount,
           newsCount,
           vmCount,
-          clusters,
+          clustersCount,
           hostCount,
           runningVmCount,
         ]) => {
           wx.hideLoading();
-
-          // 按日期降序排列
-          bills.sort((a, b) => {
-            if (a.accDate > b.accDate) return -1;
-            else if (a.accDate < b.accDate) return 1;
-            return 0;
-          });
-
           this.setData({
-            bills,
             zq: {
               firmCount,
               runningFirmCount,
@@ -93,12 +81,12 @@ Page({
             },
             fc: {
               vmCount,
-              clusterCount: clusters.length,
+              clustersCount,
               hostCount,
               runningVmCount,
             },
             ecard: {
-              shops,
+              shopsCount,
               card_count,
               devices_count,
             }

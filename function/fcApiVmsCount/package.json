@@ -1,5 +1,5 @@
 {
-  "name": "cacheIndexData",
+  "name": "fcApiVmsCount",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "wx-server-sdk": "latest"
+    "wx-server-sdk": "^0.8.1"
   }
 }

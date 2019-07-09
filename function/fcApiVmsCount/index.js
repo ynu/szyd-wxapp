@@ -5,24 +5,25 @@ cloud.init();
 const db = cloud.database();
 const colKvs = db.collection('kvs');
 
-const hostsInfo = async (event) => {
+const vmsInfo = async (event) => {
   const host = 'http://fc-api.ynu.edu.cn';
   //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
+  // const token = `${process.env.token1}.${process.env.token2}.${process.env.token3}`
   const token = process.env.token;
   //siteId通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为siteId的键值对环境变量
   let siteId = process.env.siteId;
-  const siteIdOptions = event.siteIdOptions;
   let limit = event.limit;
+  let siteIdOptions = event.siteIdOptions;
   let offset = event.offset;
   siteId = siteIdOptions || siteId;
   limit = limit || 20;
   offset = offset || 0;
-  let options = {
-    uri: `${host}/site/${siteId}/hostResource/?limit=${limit}&offset=${offset}&token=${token}`,
+  let option = {
+    uri: `${host}/site/${siteId}/vmResource/?limit=${limit}&offset=${offset}&token=${token}`,
     json: true
   };
   try {
-    return await request(options);
+    return await request(option);
   } catch (err) {
     return {
       ret: -1,
@@ -30,17 +31,39 @@ const hostsInfo = async (event) => {
     }
   }
 }
-
+/**
+ * 更新正在运行的虚拟机数量
+ */
+const runningCount = async (count) => {
+  let runningCount = 0;
+  let vms = [];
+  let vmall = [];
+  for (let offset = 0; offset < count; offset += 100) {
+    let vmsinfo = await vmsInfo({
+      siteId: 1,
+      limit: 100,
+      offset: offset
+    })
+    vms.push(vmsinfo);
+  }
+  for (let vm of vms) {
+    vmall = vmall.concat(vm.result.list);
+  }
+  runningCount = vmall.filter(vm => {
+    return vm.status === "running";
+  }).length;
+  await updateOrAddKv('index:fc-running-vms-count', runningCount);
+}
 /**
  * 更新所有虚拟机的数量
  */
-const updateFcHostsCount = async () => {
-  const res = await hostsInfo({
+const updateFcVmsCount = async () => {
+  const res = await vmsInfo({
     limit: 1
   });
   const count = res.result.total || 0;
-  await updateOrAddKv('index:fc-hosts-count', count);
-
+  await runningCount(count);
+  await updateOrAddKv('index:fc-vms-count', count);
 }
 
 /**
@@ -72,11 +95,9 @@ const doesKeyExist = async (key) => {
   const result = await colKvs.where({
     _id: key
   }).get();
-  if (result.data.length) return true;
-  else false;
+  return result.data.length > 0
 }
 // 云函数入口函数
 exports.main = async (event, context) => {
-  await updateFcHostsCount();
-  return await hostsInfo(event);
+  await updateFcVmsCount();
 }

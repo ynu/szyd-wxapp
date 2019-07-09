@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "zqApiFirmCount",
+      "type": "timer",
+      "config": "* */10 * * * * *"
+    }
+  ]
+}

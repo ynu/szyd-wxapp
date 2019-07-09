@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "fcApiVmsCount",
+      "type": "timer",
+      "config": "* */10 * * * * *"
+    }
+  ]
+}
