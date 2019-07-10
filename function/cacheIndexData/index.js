@@ -2,7 +2,10 @@
 /**
  * 对首页需要展示的数据做定时缓存，将数据保存到云数据库中。
  * 部署时需要配置环境变量：
- *  - zqtoken: 站群系统Token
+ *  - tokenZq: 站群系统token
+ *  - tokenEcard: 一卡通系统token
+ *  - tokenFc: 虚拟化平台token
+ *  - siteIdFc: 虚拟化平台siteId
  */
 const cloud = require('wx-server-sdk')
 const request = require('request-promise');
@@ -45,8 +48,8 @@ const doesKeyExist = async (key) =>  {
 
 const cardCount = async () => {
   const host = "http://ynu-ecard-api.ynu.edu.cn";
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token1;
+  //token通过获取此云函数的环境变量名为tokenEcard的键值对获得
+  const token = process.env.tokenEcard;
   let options = {
     uri: `${host}/card/summary`,
     //method: 'POST',
@@ -75,8 +78,8 @@ const updateEcardCardCount = async () => {
 
 const deviceCount = async () => {
   const host = 'http://ynu-ecard-api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token1;
+  //token通过获取此云函数的环境变量名为tokenEcard的键值对获得
+  const token = process.env.tokenEcard;
   let options = {
     uri: `${host}/device/summary`,
     json: true,
@@ -106,8 +109,8 @@ const updateEcardDeviceCount = async () => {
 
 const shopsInfo = async () => {
   const host = 'http://ynu-ecard-api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token1;
+  //token通过获取此云函数的环境变量名为tokenEcard的键值对获得
+  const token = process.env.tokenEcard;
   let options = {
     uri: `${host}/shop`,
     json: true,
@@ -136,10 +139,10 @@ const updateEcardShopsCount = async () => {
 
 const clustersInfo = async (event) => {
   const host = 'http://fc-api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token2;
-  //siteId通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为siteId的键值对环境变量
-  let siteId = process.env.siteId;
+  //token通过获取此云函数的环境变量名为tokenFc的键值对获得
+  const token = process.env.tokenFc;
+  //siteId通过获取此云函数的环境变量名为siteIdFc的键值对获得
+  let siteId = process.env.siteIdFc;
   const siteIdOption = event.siteIdOption;
   siteId = siteIdOption || siteId;
   let options = {
@@ -169,10 +172,10 @@ const updateFcClustersCount = async () => {
 
 const hostsInfo = async (event) => {
   const host = 'http://fc-api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token2;
-  //siteId通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为siteId的键值对环境变量
-  let siteId = process.env.siteId;
+  //token通过获取此云函数的环境变量名为tokenFc的键值对获得
+  const token = process.env.tokenFc;
+  //siteId通过获取此云函数的环境变量名为siteIdFc的键值对获得
+  let siteId = process.env.siteIdFc;
   const siteIdOptions = event.siteIdOptions;
   let limit = event.limit;
   let offset = event.offset;
@@ -206,10 +209,10 @@ const updateFcHostsCount = async () => {
 
 const vmsInfo = async (event) => {
   const host = 'http://fc-api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token2;
-  //siteId通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为siteId的键值对环境变量
-  let siteId = process.env.siteId;
+  //token通过获取此云函数的环境变量名为tokenFc的键值对获得
+  const token = process.env.tokenFc;
+  //siteId通过获取此云函数的环境变量名为siteIdFc的键值对获得
+  let siteId = process.env.siteIdFc;
   let limit = event.limit;
   let siteIdOptions = event.siteIdOptions;
   let offset = event.offset;
@@ -266,8 +269,8 @@ const updateFcVmsCount = async () => {
 
 const countWebFirm = async () => {
   const host = 'http://zq-api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token3;
+  //token通过获取此云函数的环境变量名为tokenZq的键值对获得
+  const token = process.env.tokenZq;
   let options = {
     uri: `${host}/api/wbfirm/count?access_token=${token}`,
     json: true
@@ -292,8 +295,8 @@ const updateZqWebFirmCount = async () => {
 }
 
 const countZqNews = async () => {
-  //zq_token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token3;
+  //token通过获取此云函数的环境变量名为tokenZq的键值对获得
+  const token = process.env.tokenZq;
   let options = {
     uri: `http://zq-api.ynu.edu.cn/api/wbnews/count?token=${token}`,
     json: true
@@ -319,8 +322,8 @@ const updateZqNewsCount = async () => {
 
 const webFirmInfo = async () => {
   const host = 'http://zq-api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
-  const token = process.env.token3;
+  //token通过获取此云函数的环境变量名为tokenZq的键值对获得
+  const token = process.env.tokenZq;
   let options = {
     uri: `${host}/api/wbfirm?access_token=${token}`,
     json: true

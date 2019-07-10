@@ -135,6 +135,11 @@ Page({
                 name: "IP地址段查询"
               });
               break;
+            case Roles.DoorManager:
+              modules.push({
+                name: "数据中心门禁"
+              });
+              break;
             default:
               if (role.indexOf(shopManagerRolePrefix) != -1) {
                 modules.push({
