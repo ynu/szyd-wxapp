@@ -14,7 +14,7 @@
       <view class="weui-form-preview__bd">
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">集群</view>
-          <view class="weui-form-preview__value">{{fc.clusterCount}}个</view>
+          <view class="weui-form-preview__value">{{fc.clustersCount}}个</view>
         </view>
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">主机</view>
@@ -62,7 +62,7 @@
       <view class="weui-form-preview__bd">
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">商户</view>
-          <view class="weui-form-preview__value">{{ecard.shops.length}}个</view>
+          <view class="weui-form-preview__value">{{ecard.shopsCount}}个</view>
         </view>
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">POS机</view>
@@ -88,7 +88,7 @@
       <view class="weui-form-preview__bd">
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">用户</view>
-          <view class="weui-form-preview__value">{{ecard.shops.length}}个</view>
+          <view class="weui-form-preview__value">{{ecard.shopsCount}}个</view>
         </view>
         <view class="weui-form-preview__item">
           <view class="weui-form-preview__label">托管资产</view>

@@ -24,7 +24,7 @@ let modules = [{
   checked: false
 }, {
   name: '数据中心门禁',
-  value: 'door:door-manager:',
+    value: 'szyd:door-supervisor',
   checked: false
 }];
 let permissions;
@@ -216,7 +216,7 @@ Page({
       if (that.data.length === 1) {
         const _ = db.command;
         db.collection('user-permissions')
-          .doc(that.setData._id)
+          .doc(that.data._id)
           .update({
             data: {
               name: e.detail.value.name,

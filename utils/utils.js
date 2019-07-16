@@ -31,7 +31,7 @@ const Roles = {
   ZqSupervisor: 'szyd:zq-supervisor',// 角色权限，进入zq/index
   RisSupervisor: 'szyd:ris-supervisor',//角色权限，进入ris/index
   IpSupervisor: 'szyd:ip-supervisor',//角色权限，进入ip/index
-  DoorManager: 'szyd:door-manager',//门的管理员权限，进入door/log
+  DoorManager: 'szyd:door-supervisor',//门的管理员权限，进入door/supervisor-index
 
 };
 
