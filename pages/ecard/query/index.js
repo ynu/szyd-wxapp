@@ -3,7 +3,6 @@ const {
   ecardApi
 } = require('../../../utils/utils.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -28,6 +27,7 @@ Page({
       ecardApi.cardInfoQuery(this.data.info).catch(() => [])
     ]).then(
       ([result]) => {
+        console.log(result)
         wx.hideLoading();
         this.setData({
           resultCount: result.length,
