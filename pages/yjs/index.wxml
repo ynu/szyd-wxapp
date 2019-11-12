@@ -1,0 +1,13 @@
+<!--pages/yjs/index.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">研究生</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toCounter'>研究生数量</button>    
+        </view>
+    </view>
+    <include src="../footer.wxml" />
+</view>

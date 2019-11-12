@@ -25,7 +25,8 @@
     "pages/door/log",
     "pages/door/open-detail",
     "pages/door/query-log",
-    "pages/door/key-query"
+    "pages/door/key-query",
+    "pages/yjs/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
