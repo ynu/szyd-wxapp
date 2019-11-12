@@ -86,6 +86,9 @@ Page({
       case "数据中心门禁":
         module = "door/supervisor-index";
         break;
+      case "研究生信息查询":
+        module = "yjs/index";
+        break;
     }
     wx.navigateTo({
       url: `/pages/${module}`,
@@ -138,6 +141,11 @@ Page({
             case Roles.DoorManager:
               modules.push({
                 name: "数据中心门禁"
+              });
+              break;
+            case Roles.YjsSupervisor:
+              modules.push({
+                name: "研究生信息查询"
               });
               break;
             default:

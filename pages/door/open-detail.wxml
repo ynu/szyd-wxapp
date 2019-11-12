@@ -37,8 +37,6 @@
           <view class="weui-form-preview__value">{{info.reason}}</view>
         </view>
       </view>
-
-
     </view>
   </view>
 </view>

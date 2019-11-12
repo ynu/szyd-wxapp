@@ -11,6 +11,10 @@ const EcardApi = require("../lib/ecard-api.js");
 const ZqApi = require("../lib/zq-api.js");
 const FcApi = require("../lib/fc-api.js");
 const RisApi = require('../lib/ris-api.js');
+const YjsApi = require('../lib/yjs-api.js');
+const {
+  yjsCounter
+} = require('../utils/yjs.js');
 
 const uirApi = new UirApi();
 const weixinApi = new WeixinApi();
@@ -18,6 +22,7 @@ const ecardApi = new EcardApi();
 const zqApi = new ZqApi();
 const fcApi = new FcApi();
 const risApi = new RisApi();
+const yjsApi = new YjsApi();
 
 // 商户管理员角色前置，格式为：ecard:shop-manager:商户ID
 const shopManagerRolePrefix = "ecard:shop-manager:";
@@ -28,10 +33,11 @@ const doorManagerRolePrefix = "door:door-manager:";
 const Roles = {
   FcSupervisor: "szyd:fc-supervisor", // 角色权限：进入fc/index
   EcardSupervisor: "szyd:ecard-supervisor", // 角色的权限：进入ecard/supervisor-index
-  ZqSupervisor: 'szyd:zq-supervisor',// 角色权限，进入zq/index
-  RisSupervisor: 'szyd:ris-supervisor',//角色权限，进入ris/index
-  IpSupervisor: 'szyd:ip-supervisor',//角色权限，进入ip/index
-  DoorManager: 'szyd:door-supervisor',//门的管理员权限，进入door/supervisor-index
+  ZqSupervisor: 'szyd:zq-supervisor', // 角色权限，进入zq/index
+  RisSupervisor: 'szyd:ris-supervisor', //角色权限，进入ris/index
+  IpSupervisor: 'szyd:ip-supervisor', //角色权限，进入ip/index
+  DoorManager: 'szyd:door-supervisor', //门的管理员权限，进入door/supervisor-index
+  YjsSupervisor: 'szyd:yjs-supervisor', //研究生信息管理员权限，进入yjs/index
 
 };
 
@@ -52,25 +58,25 @@ const meansApi = {
 
 //门的数组
 const doors = [{
-  name: "图书馆数据中心机房(靠大厅)",
-  id:1,
-  isSupervisor:false
-},
-{
-  name: "图书馆数据中心机房",
-  id:2,
-  isSupervisor: false
-},
-{
-  name: "图书馆准备间",
-  id:3,
-  isSupervisor: false
-},
-{
-  name: "图书馆UPS间",
-  id:4,
-  isSupervisor: false
-}
+    name: "图书馆数据中心机房(靠大厅)",
+    id: 1,
+    isSupervisor: false
+  },
+  {
+    name: "图书馆数据中心机房",
+    id: 2,
+    isSupervisor: false
+  },
+  {
+    name: "图书馆准备间",
+    id: 3,
+    isSupervisor: false
+  },
+  {
+    name: "图书馆UPS间",
+    id: 4,
+    isSupervisor: false
+  }
 ];
 
 const formatNumber = n => {
@@ -100,6 +106,8 @@ module.exports = {
   shopManagerRolePrefix,
   doorManagerRolePrefix,
   meansApi,
+  yjsCounter,
   doors,
-  formatTime
+  formatTime,
+  yjsApi
 };
