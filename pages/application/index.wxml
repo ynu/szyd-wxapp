@@ -50,7 +50,7 @@
         </view>
         <view class="weui-cell__hd" style="margin:10rpx">
           <checkbox-group bindchange="checkboxChange">
-            <label class="checkbox" wx:for="{{modules}}" wx:key="">
+            <label class="checkbox" wx:for="{{modules}}" wx:key="data">
               <view style='color:#808080' wx:if="{{item.disabled}}">
                 <checkbox disabled="true" checked="true"/> {{item.name}}
               </view>

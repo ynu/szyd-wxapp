@@ -1,35 +1,24 @@
-// pages/yjs/counter.js
-const {
-  yjsApi
-} = require('../../utils/utils.js');
-
+// pages/bks/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    result: []
+
   },
+  toCounter() {
+    wx.navigateTo({
+      url: '/pages/bks/counter',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const that = this;
-    wx.showLoading({
-      title: '正在加载',
-    })
-    yjsApi.counter().then((res) => {
-      that.setData({
-        result: res
-      });
-      wx.hideLoading();
-    });
-  },
 
-  /**
-   * 获取研究生数量
-   */
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
