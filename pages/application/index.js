@@ -26,7 +26,16 @@ let modules = [{
   name: '数据中心门禁',
     value: 'szyd:door-supervisor',
   checked: false
-}];
+  }, {
+    name: '研究生信息查询',
+    value: 'szyd:yjs-supervisor',
+    checked: false
+  },{
+    name: '本科生信息查询',
+    value: 'szyd:bks-supervisor',
+    checked: false
+  },
+];
 let permissions;
 let length;
 let datas;

@@ -1,6 +1,6 @@
-// pages/yjs/counter.js
+// pages/bks/counter.js
 const {
-  yjsApi
+  bksApi
 } = require('../../utils/utils.js');
 
 Page({
@@ -19,7 +19,7 @@ Page({
     wx.showLoading({
       title: '正在加载',
     })
-    yjsApi.counter().then((res) => {
+    bksApi.counter().then((res) => {
       that.setData({
         result: res
       });

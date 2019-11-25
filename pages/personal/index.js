@@ -89,6 +89,9 @@ Page({
       case "研究生信息查询":
         module = "yjs/index";
         break;
+      case "本科生信息查询":
+        module = "bks/index";
+        break;
     }
     wx.navigateTo({
       url: `/pages/${module}`,
@@ -146,6 +149,11 @@ Page({
             case Roles.YjsSupervisor:
               modules.push({
                 name: "研究生信息查询"
+              });
+              break;
+            case Roles.BksSupervisor:
+              modules.push({
+                name: "本科生信息查询"
               });
               break;
             default:

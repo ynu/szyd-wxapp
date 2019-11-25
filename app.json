@@ -26,7 +26,10 @@
     "pages/door/open-detail",
     "pages/door/query-log",
     "pages/door/key-query",
-    "pages/yjs/index"
+    "pages/yjs/index",
+    "pages/yjs/counter",
+    "pages/bks/index",
+    "pages/bks/counter"
   ],
   "window": {
     "backgroundTextStyle": "light",

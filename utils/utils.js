@@ -12,9 +12,7 @@ const ZqApi = require("../lib/zq-api.js");
 const FcApi = require("../lib/fc-api.js");
 const RisApi = require('../lib/ris-api.js');
 const YjsApi = require('../lib/yjs-api.js');
-const {
-  yjsCounter
-} = require('../utils/yjs.js');
+const BksApi = require('../lib/bks-api.js');
 
 const uirApi = new UirApi();
 const weixinApi = new WeixinApi();
@@ -23,6 +21,7 @@ const zqApi = new ZqApi();
 const fcApi = new FcApi();
 const risApi = new RisApi();
 const yjsApi = new YjsApi();
+const bksApi = new BksApi();
 
 // 商户管理员角色前置，格式为：ecard:shop-manager:商户ID
 const shopManagerRolePrefix = "ecard:shop-manager:";
@@ -38,6 +37,7 @@ const Roles = {
   IpSupervisor: 'szyd:ip-supervisor', //角色权限，进入ip/index
   DoorManager: 'szyd:door-supervisor', //门的管理员权限，进入door/supervisor-index
   YjsSupervisor: 'szyd:yjs-supervisor', //研究生信息管理员权限，进入yjs/index
+  BksSupervisor: 'szyd:bks-supervisor', //研究生信息管理员权限，进入bks/index
 
 };
 
@@ -106,8 +106,8 @@ module.exports = {
   shopManagerRolePrefix,
   doorManagerRolePrefix,
   meansApi,
-  yjsCounter,
   doors,
   formatTime,
-  yjsApi
+  yjsApi,
+  bksApi
 };
