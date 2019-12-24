@@ -1,0 +1,26 @@
+<!--pages/idSystem/appAccount.wxml-->
+<view class="page">
+	<view class="page__hd">
+		<view class="page__title">群组信息</view>
+		<view class="page__desc"></view>
+	</view>
+	<view class='weui-form-preview__bd weui-cells weui-cells_after-title' wx:for="{{data}}" wx:key="datas" style='border-top: 1rpx solid #D5D5D6'>
+		<view class="weui-form-preview__item">
+			<view class="weui-form-preview__label">ID</view>
+			<view class="weui-form-preview__value">{{item.ID}}</view>
+			<view class="weui-form-preview__label">APPUID</view>
+			<view class="weui-form-preview__value">{{item.APPUID}}</view>
+			<view class="weui-form-preview__label">APPCN</view>
+			<view class="weui-form-preview__value">{{item.APPCN}}</view>
+			<view class="weui-form-preview__label">APPRIGHT</view>
+			<view class="weui-form-preview__value">{{item.APPRIGHT}}</view>
+			<view class="weui-form-preview__label">APPDN</view>
+			<view class="weui-form-preview__value">{{item.APPDN}}</view>
+			<view class="weui-form-preview__label">密码强度</view>
+			<view class="weui-form-preview__value">{{item.PWDSTRENGTH}}</view>
+			<view class="weui-form-preview__label">密码策略</view>
+			<view class="weui-form-preview__value">{{item.PWDPOLICY}}</view>
+		</view>
+	</view>
+	<include src="../footer.wxml" />
+</view>

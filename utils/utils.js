@@ -13,6 +13,7 @@ const FcApi = require("../lib/fc-api.js");
 const RisApi = require('../lib/ris-api.js');
 const YjsApi = require('../lib/yjs-api.js');
 const BksApi = require('../lib/bks-api.js');
+const IdSystemApi = require('../lib/idSystem-api');
 
 const uirApi = new UirApi();
 const weixinApi = new WeixinApi();
@@ -22,7 +23,7 @@ const fcApi = new FcApi();
 const risApi = new RisApi();
 const yjsApi = new YjsApi();
 const bksApi = new BksApi();
-
+const idSystemApi = new IdSystemApi();
 // 商户管理员角色前置，格式为：ecard:shop-manager:商户ID
 const shopManagerRolePrefix = "ecard:shop-manager:";
 
@@ -38,7 +39,7 @@ const Roles = {
   DoorManager: 'szyd:door-supervisor', //门的管理员权限，进入door/supervisor-index
   YjsSupervisor: 'szyd:yjs-supervisor', //研究生信息管理员权限，进入yjs/index
   BksSupervisor: 'szyd:bks-supervisor', //本科生生信息管理员权限，进入bks/index
-
+  IdSystemSupervisor: 'szyd:IdSystem-supervisor',//统一身份认证系统管理员权限，进入idSystem/index
 };
 
 const meansApi = {
@@ -58,25 +59,25 @@ const meansApi = {
 
 //门的数组
 const doors = [{
-    name: "图书馆数据中心机房(靠大厅)",
-    id: 1,
-    isSupervisor: false
-  },
-  {
-    name: "图书馆数据中心机房",
-    id: 2,
-    isSupervisor: false
-  },
-  {
-    name: "图书馆准备间",
-    id: 3,
-    isSupervisor: false
-  },
-  {
-    name: "图书馆UPS间",
-    id: 4,
-    isSupervisor: false
-  }
+  name: "图书馆数据中心机房(靠大厅)",
+  id: 1,
+  isSupervisor: false
+},
+{
+  name: "图书馆数据中心机房",
+  id: 2,
+  isSupervisor: false
+},
+{
+  name: "图书馆准备间",
+  id: 3,
+  isSupervisor: false
+},
+{
+  name: "图书馆UPS间",
+  id: 4,
+  isSupervisor: false
+}
 ];
 
 const formatNumber = n => {
@@ -109,5 +110,6 @@ module.exports = {
   doors,
   formatTime,
   yjsApi,
-  bksApi
+  bksApi,
+  idSystemApi,
 };
