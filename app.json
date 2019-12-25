@@ -29,7 +29,15 @@
     "pages/yjs/index",
     "pages/yjs/counter",
     "pages/bks/index",
-    "pages/bks/counter"
+    "pages/bks/counter",
+    "pages/idSystem/index",
+    "pages/idSystem/group",
+    "pages/idSystem/appAccount",
+    "pages/idSystem/appCertification",
+    "pages/idSystem/groupInnuendo",
+    "pages/idSystem/basicAccount",
+    "pages/idSystem/groupInnuendo-detail",
+    "pages/idSystem/basicAccount-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

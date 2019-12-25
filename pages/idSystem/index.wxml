@@ -1,0 +1,17 @@
+<!--pages/idSystem/index.wxml-->
+<view class="page">
+	<view class="page__hd">
+		<view class="page__title">统一身份认证系统</view>
+		<view class="page__desc"></view>
+	</view>
+	<view class="page__bd page__bd_spacing">
+		<view class="button-sp-area">
+			<button class="weui-btn" type="default" plain="true" bindtap='toGroup'>群组信息</button>
+			<button class="weui-btn" type="default" plain="true" bindtap='toAppAccount'>应用账户信息</button>
+			<button class="weui-btn" type="default" plain="true" bindtap='toAppCertification'>认证应用信息</button>
+			<button class="weui-btn" type="default" plain="true" bindtap='toGroupInnuendo'>查询用户群组影射信息</button>
+			<button class="weui-btn" type="default" plain="true" bindtap='toBasicAccount'>查询账号基本信息</button>
+		</view>
+	</view>
+	<include src="../footer.wxml" />
+</view>

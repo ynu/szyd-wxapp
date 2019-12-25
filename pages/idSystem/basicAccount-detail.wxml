@@ -1,0 +1,28 @@
+<!--pages/idSystem/basicAccount-detail.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="weui-form-preview__value_in-hd">{{result.CN}}</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">ID</view>
+          <view class="weui-form-preview__value">{{result.ID}}</view>          
+          <view class="weui-form-preview__label">用户账户</view>
+          <view class="weui-form-preview__value">{{result.USERID}}</view>
+          <view class="weui-form-preview__label">	密码策略</view>
+          <view class="weui-form-preview__value">{{result.PWDPOLICY}}</view>
+          <view class="weui-form-preview__label">容器</view>
+          <view class="weui-form-preview__value">{{result.CONTAINER}}</view>
+          <view class="weui-form-preview__label">别名</view>
+          <view class="weui-form-preview__value">{{result.ALIAS}}</view>
+          <view class="weui-form-preview__label">保密邮箱</view>
+          <view class="weui-form-preview__value">{{result.BMYX}}</view>
+          <view class="weui-form-preview__label">手机号码</view>
+          <view class="weui-form-preview__value">{{result.TELEPHONENUMBER}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

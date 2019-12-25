@@ -1,0 +1,18 @@
+<!--pages/idSystem/groupInnuendo-detail.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="weui-form-preview__value_in-hd">{{result.USERID}}</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-form-preview">
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">群组ID</view>
+          <view class="weui-form-preview__value">{{result.GROUPID}}</view>          
+          <view class="weui-form-preview__label">用户ID</view>
+          <view class="weui-form-preview__value">{{result.USERID}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -34,6 +34,10 @@ let modules = [{
     name: '本科生信息查询',
     value: 'szyd:bks-supervisor',
     checked: false
+  },{
+    name: '统一身份认证系统',
+    value: 'szyd:IdSystem-supervisor',
+    checked: false
   },
 ];
 let permissions;

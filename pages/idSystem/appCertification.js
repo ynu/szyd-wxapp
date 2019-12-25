@@ -1,83 +1,81 @@
-// pages/bks/counter.js
+// pages/idSystem/appCertification.js
 const {
-  bksApi
-} = require('../../utils/utils.js');
-
+  idSystemApi
+} = require('../../utils/utils.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    result: []
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    const that = this;
-    wx.showLoading({
-      title: '正在加载',
-    })
-    bksApi.counter().then((res) => {
-      console.log("@@@@",res)
-      that.setData({
-        result: res
-      });
-      wx.hideLoading();
-    });
+
   },
 
   /**
-   * 获取研究生数量
+   * 生命周期函数--监听页面加载
    */
+  onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+      mask: true
+    });
+    idSystemApi.appCertification().then(res => {
+      this.setData({
+        data: res
+      })
+      wx.hideLoading();
+    }).catch(err => {
+      wx.hideLoading();
+      return err;
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

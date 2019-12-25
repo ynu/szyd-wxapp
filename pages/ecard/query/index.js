@@ -15,7 +15,6 @@ Page({
       title: "正在加载",
       mask: true
     });
-    const db = wx.cloud.database(); //初始化数据库
     //模糊查询，从对象的name模糊查询得出结果
     Promise.all([
       ecardApi.cardInfoQuery(this.data.inputVal).catch(() => [])
@@ -41,7 +40,8 @@ Page({
   clearInput: function() {
     this.setData({
       inputVal: "",
-      result: []
+      result: [],
+      resultCount: 0
     });
   },
   inputTyping: function(e) {

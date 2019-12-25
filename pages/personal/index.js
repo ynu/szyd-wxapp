@@ -92,6 +92,9 @@ Page({
       case "本科生信息查询":
         module = "bks/index";
         break;
+        case "统一身份认证系统":
+        module = "idSystem/index";
+        break;
     }
     wx.navigateTo({
       url: `/pages/${module}`,
@@ -154,6 +157,11 @@ Page({
             case Roles.BksSupervisor:
               modules.push({
                 name: "本科生信息查询"
+              });
+              break;
+              case Roles.IdSystemSupervisor:
+              modules.push({
+                name: "统一身份认证系统"
               });
               break;
             default:
