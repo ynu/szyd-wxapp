@@ -6,7 +6,7 @@ cloud.init();
 // 云函数入口函数
 exports.main = async (event, context) => {
   const host = 'http://apis.ynu.edu.cn/do/api/call/yhqzys_tysfrz';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
+  //token,appId通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token,appId的键值对环境变量
   const token = process.env.token;
   const appId = process.env.appId;
   let options = {
@@ -19,8 +19,7 @@ exports.main = async (event, context) => {
       "Content-Type": "application/json"
     },
     body: {
-      "userid": event.data,
-      "groupid": event.data,
+      "param": event.data
     }
   };
   try {

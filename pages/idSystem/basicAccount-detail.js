@@ -1,17 +1,35 @@
 // pages/idSystem/basicAccount-detail.js
+const {
+  idSystemApi
+} = require('../../utils/utils.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    result:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: "正在加载",
+      mask: true
+    });
+    Promise.all([
+      idSystemApi.basicAccountInfo(options.userid).catch(() => [])
+    ]).then(
+      ([result]) => {
+        this.setData({
+          result: result[0]
+        })
+        wx.hideLoading();
+      }).catch(error => {
+      wx.hideLoading();
+    });
 
   },
 

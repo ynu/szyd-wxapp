@@ -9,17 +9,18 @@ Page({
     resultCount: 0,
     result: []
   },
-  searchInput: function() {
+  //点击搜索按钮触发的方法
+  searchInput: function () {
+    const that = this;
     wx.showLoading({
       title: "正在加载",
       mask: true
     });
-    //模糊查询，从对象的name模糊查询得出结果
+    //模糊查询
     Promise.all([
-      idSystemApi.groupInnuendoInfo(this.data.inputVal).catch(() => [])
+      idSystemApi.groupInnuendoInfo(that.data.inputVal).catch(() => [])
     ]).then(
       ([result]) => {
-        wx.hideLoading();
         if (result.length === 0) {
           wx.showModal({
             title: '提示',
@@ -32,17 +33,21 @@ Page({
             result: result
           })
         }
-      }).catch(error => {
-      wx.hideLoading();
-    });
+        wx.hideLoading();
+      }).catch(err => {
+        wx.hideLoading();
+      });
   },
-  clearInput: function() {
+  //清除按钮触发的方法
+  clearInput: function () {
     this.setData({
       inputVal: "",
-      result: []
+      result: [],
+      resultCount: 0
     });
   },
-  inputTyping: function(e) {
+  //输入框的内容发生改变触发的方法
+  inputTyping: function (e) {
     this.setData({
       inputVal: e.detail.value,
       result: [],

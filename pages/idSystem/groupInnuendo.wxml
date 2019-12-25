@@ -16,12 +16,12 @@
     </view>
     <view>
       <view class="weui-cells__title">搜索结果列表({{resultCount}})</view>
-      <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-        <navigator wx:for="{{result}}" wx:key="date" url="" class="weui-cell" hover-class="weui-cell_active">
+      <view class="weui-cells searchbar-result">
+        <navigator wx:for="{{result}}" wx:key="date" url="/pages/idSystem/groupInnuendo-detail?userid={{item.USERID}}" class="weui-cell" hover-class="weui-cell_active">
           <view class="weui-cell__bd">
-            {{}}
+            {{item.USERID}}
           </view>
-          <view class="weui-cell__ft weui-cell__ft_in-access">{{}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">{{item.GROUPID}}</view>
         </navigator>
       </view>
     </view>

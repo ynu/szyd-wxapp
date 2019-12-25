@@ -40,7 +40,8 @@ Page({
   clearInput: function() {
     this.setData({
       inputVal: "",
-      result: []
+      result: [],
+      resultCount: 0
     });
   },
   inputTyping: function(e) {

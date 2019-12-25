@@ -71,11 +71,9 @@ const groupInfo = async (event) => {
     };
   }
 }
-
 const updateGroupInfo = async () => {
   const res = await groupInfo();
   const info = res.dataSet || [];
-  console.log("@@@", res)
   await updateOrAddKv('index:group-info', info)
 }
 
@@ -108,11 +106,9 @@ const appAccountInfo = async (event) => {
     };
   }
 }
-
 const updateAppAccountInfo = async () => {
   const res = await appAccountInfo();
   const info = res.dataSet || [];
-  console.log("@@@", res)
   await updateOrAddKv('index:app-account-info', info)
 }
 
@@ -145,11 +141,9 @@ const appCertificationInfo = async (event) => {
     };
   }
 }
-
 const updateAppCertificationInfo = async () => {
   const res = await appCertificationInfo();
   const info = res.dataSet || [];
-  console.log("@@@", res)
   await updateOrAddKv('index:app-certification-info', info)
 }
 

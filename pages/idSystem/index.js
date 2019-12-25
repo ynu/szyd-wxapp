@@ -7,26 +7,31 @@ Page({
   data: {
 
   },
+  //群组信息
   toGroup() {
     wx.navigateTo({
       url: '/pages/idSystem/group',
     })
   },
+  //应用账户信息
   toAppAccount() {
     wx.navigateTo({
       url: '/pages/idSystem/appAccount',
     })
   },
+  //认证应用信息
   toAppCertification() {
     wx.navigateTo({
       url: '/pages/idSystem/appCertification',
     })
   },
+  //查询用户群组影射信息
   toGroupInnuendo() {
     wx.navigateTo({
       url: '/pages/idSystem/groupInnuendo',
     })
   },
+  //查询账号基本信息
   toBasicAccount() {
     wx.navigateTo({
       url: '/pages/idSystem/basicAccount',
