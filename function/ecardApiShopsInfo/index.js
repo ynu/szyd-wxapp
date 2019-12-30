@@ -5,7 +5,7 @@ cloud.init();
 
 // 云函数入口函数
 exports.main = async(event, context) => {
-  const host = 'http://ynu-ecard-api.ynu.edu.cn';
+  const host = 'http://ecard.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
   const token = process.env.token;
   let options = {
