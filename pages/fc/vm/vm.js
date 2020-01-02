@@ -15,6 +15,9 @@ Page({
    */
   onLoad: function (options) {
     const that =this;
+    wx.showLoading({
+      title: '正在加载',
+    });
     if (options.select =="colony"){
     Promise.all([fcApi.SelectVmForClusters(options.colony)]).then(vm=>{
       Promise.all([fcApi.ShutdownVm(vm[0])]).then(vm=>{
@@ -22,6 +25,7 @@ Page({
           datas1:vm[0].start,
           datas2:vm[0].down
         });
+        wx.hideLoading();
       });
     });
   }else{
@@ -29,6 +33,7 @@ Page({
         that.setData({
           datas1:vm[0]
         });
+        wx.hideLoading();
       });
   }
 

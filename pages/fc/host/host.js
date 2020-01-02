@@ -15,7 +15,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
+    let that = this;
+    wx.showLoading({
+      title: '正在加载',
+    });
     Promise.all([fcApi.SelectHostForClusters(options.host)]).then(hosts => {
       for (let host of hosts[0]) {
         host.vmcount=0;
@@ -24,13 +27,13 @@ Page({
           that.setData({
             datas:hosts[0]
           });
+          wx.hideLoading();
         });
       }
     });
 
   },
   goToVm: function (event) {
-    console.log(event);
     wx.navigateTo({
       url: `../vm/vm?host=${event.currentTarget.dataset.host}&select=host`,
     });
