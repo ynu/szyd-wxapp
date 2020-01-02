@@ -2,20 +2,29 @@ const {
   ip
 } = require('../../utils/ip.js');
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    info: "",
+    inputValue: "",
     resultCount: 0,
     result: []
   },
-
-  inputQuery(e) {
+  //输入框的内容发生改变触发的方法
+  inputTyping: function (e) {
     this.setData({
-      info: e.detail.value, // 搜索内容一旦变化，之前输入的搜索内容就失效。
-      result: []
+      inputValue: e.detail.value,
+      result: [],
+      resultCount: 0
+    });
+  },
+
+  //清除按钮触发的方法
+  clearInput: function () {
+    this.setData({
+      inputValue: "",
+      result: [],
+      resultCount: 0
     });
   },
 
@@ -29,7 +38,7 @@ Page({
 
   queryInfo() {
     let result = [];
-    let infoIp = this.ipToNumber(this.data.info);
+    let infoIp = this.ipToNumber(this.data.inputValue);
     wx.showLoading({
       title: "正在加载",
       mask: true
