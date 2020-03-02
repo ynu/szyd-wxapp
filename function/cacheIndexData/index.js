@@ -47,7 +47,7 @@ const doesKeyExist = async (key) =>  {
 }
 
 const cardCount = async () => {
-  const host = "http://ynu-ecard-api.ynu.edu.cn";
+  const host = "http://ecard.api.ynu.edu.cn";
   //token通过获取此云函数的环境变量名为tokenEcard的键值对获得
   const token = process.env.tokenEcard;
   let options = {
@@ -77,7 +77,7 @@ const updateEcardCardCount = async () => {
 }
 
 const deviceCount = async () => {
-  const host = 'http://ynu-ecard-api.ynu.edu.cn';
+  const host = 'http://ecard.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量名为tokenEcard的键值对获得
   const token = process.env.tokenEcard;
   let options = {
@@ -108,7 +108,7 @@ const updateEcardDeviceCount = async () => {
 
 
 const shopsInfo = async () => {
-  const host = 'http://ynu-ecard-api.ynu.edu.cn';
+  const host = 'http://ecard.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量名为tokenEcard的键值对获得
   const token = process.env.tokenEcard;
   let options = {
@@ -138,7 +138,7 @@ const updateEcardShopsCount = async () => {
 }
 
 const clustersInfo = async (event) => {
-  const host = 'http://fc-api.ynu.edu.cn';
+  const host = 'http://fc.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量名为tokenFc的键值对获得
   const token = process.env.tokenFc;
   //siteId通过获取此云函数的环境变量名为siteIdFc的键值对获得
@@ -171,7 +171,7 @@ const updateFcClustersCount = async () => {
 }
 
 const hostsInfo = async (event) => {
-  const host = 'http://fc-api.ynu.edu.cn';
+  const host = 'http://fc.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量名为tokenFc的键值对获得
   const token = process.env.tokenFc;
   //siteId通过获取此云函数的环境变量名为siteIdFc的键值对获得
@@ -208,7 +208,7 @@ const updateFcHostsCount = async () => {
 }
 
 const vmsInfo = async (event) => {
-  const host = 'http://fc-api.ynu.edu.cn';
+  const host = 'http://fc.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量名为tokenFc的键值对获得
   const token = process.env.tokenFc;
   //siteId通过获取此云函数的环境变量名为siteIdFc的键值对获得
@@ -268,7 +268,7 @@ const updateFcVmsCount = async () => {
 }
 
 const countWebFirm = async () => {
-  const host = 'http://zq-api.ynu.edu.cn';
+  const host = 'http://zq.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量名为tokenZq的键值对获得
   const token = process.env.tokenZq;
   let options = {
@@ -298,7 +298,7 @@ const countZqNews = async () => {
   //token通过获取此云函数的环境变量名为tokenZq的键值对获得
   const token = process.env.tokenZq;
   let options = {
-    uri: `http://zq-api.ynu.edu.cn/api/wbnews/count?token=${token}`,
+    uri: `http://zq.api.ynu.edu.cn/api/wbnews/count?token=${token}`,
     json: true
   };
   try {
@@ -321,7 +321,7 @@ const updateZqNewsCount = async () => {
 }
 
 const webFirmInfo = async () => {
-  const host = 'http://zq-api.ynu.edu.cn';
+  const host = 'http://zq.api.ynu.edu.cn';
   //token通过获取此云函数的环境变量名为tokenZq的键值对获得
   const token = process.env.tokenZq;
   let options = {

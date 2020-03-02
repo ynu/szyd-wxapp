@@ -1,0 +1,64 @@
+<!--pages/bks/courseSchedulingTeacherInfo-detail.wxml-->
+<view class="page">
+	<view class="page__hd">
+		<view class="weui-form-preview__value_in-hd">{{result.JSH}}</view>
+	</view>
+	<view class="page__bd">
+		<view class="weui-form-preview">
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">学年学期代码</view>
+					<view class="weui-form-preview__value">{{result.XNXQDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">课序号</view>
+					<view class="weui-form-preview__value">{{result.KXH}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">上课周次</view>
+					<view class="weui-form-preview__value">{{result.SKZC}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">课表ID</view>
+					<view class="weui-form-preview__value">{{result.KBID}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">课程号</view>
+					<view class="weui-form-preview__value">{{result.KCH}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">教学班ID</view>
+					<view class="weui-form-preview__value">{{result.JXBID}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">上课星期</view>
+					<view class="weui-form-preview__value">{{result.SKXQ}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">结束节次</view>
+					<view class="weui-form-preview__value">{{result.JSJC}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">占用ID</view>
+					<view class="weui-form-preview__value">{{result.ZYID}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

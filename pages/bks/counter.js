@@ -20,7 +20,6 @@ Page({
       title: '正在加载',
     })
     bksApi.counter().then((res) => {
-      console.log("@@@@",res)
       that.setData({
         result: res
       });

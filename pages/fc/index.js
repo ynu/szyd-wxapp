@@ -10,7 +10,6 @@ Page({
   },
 
   goToHost: function (event) {
-
     wx.navigateTo({
       url: `./host/host?host=${event.currentTarget.dataset.host}`,
     });
@@ -23,13 +22,17 @@ Page({
   },
 
   onLoad: function () {
-    var vm = [];
-    var that = this;
-    var host = [];
+    let vm = [];
+    let that = this;
+    let host = [];
+    wx.showLoading({
+      title: '正在加载',
+    });
     Promise.all([fcApi.setlist()]).then(vm=>{
       that.setData({
         datas:vm[0]
       });
+      wx.hideLoading();
     });
   },
 });

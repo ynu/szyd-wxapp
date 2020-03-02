@@ -5,21 +5,21 @@ cloud.init();
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const host = 'http://ecard.api.ynu.edu.cn';
-  //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
+  const host = 'http://apis.ynu.edu.cn/do/api/call/pksjjs_bks';
+  //token,appId通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token,appId的键值对环境变量
   const token = process.env.token;
-  const stuempno = event.data;
-  const custname = event.data;
+  const appId = process.env.appId;
   let options = {
-    uri: `${host}/card`,
+    uri: `${host}`,
     method: "POST",
     json: true,
     headers: {
-      "Authorization": token
+      "accessToken": token,
+      "appId": appId,
+      "Content-Type": "application/json"
     },
     body: {
-      "stuempno": stuempno,
-      "custname": custname
+      "param": event.data
     }
   };
   try {

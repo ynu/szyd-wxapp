@@ -1,4 +1,4 @@
-const config = require('../../../config');
+const { fcApi } = require('../../../utils/utils.js');
 Page({
 
   /**
@@ -12,16 +12,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    let vmId = options.vmone.split(":")[4];
-    wx.request({
-      url: `${config.service.host}/site/3F7B07E2/vmResource/${vmId}?token=${config.token}`,
-      success: function (res) {
-        console.log(res.data.result);
-        that.setData({
-          datas: res.data.result
-        });
-      }
-    });
+    let that = this;
+    let vmId = options.vmUrn.split(":")[4];
+    wx.showLoading({
+      title: '正在加载',
+    })
+    Promise.all([fcApi.vmDetails(vmId)]).then(res => {
+      that.setData({
+        vmInfo: res[0]
+      });
+      wx.hideLoading();
+    })
   },
 });

@@ -37,7 +37,9 @@
     "pages/idSystem/groupInnuendo",
     "pages/idSystem/basicAccount",
     "pages/idSystem/groupInnuendo-detail",
-    "pages/idSystem/basicAccount-detail"
+    "pages/idSystem/basicAccount-detail",
+    "pages/bks/courseSchedulingTeacherInfo",
+    "pages/bks/courseSchedulingTeacherInfo-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
