@@ -1,0 +1,52 @@
+<!--pages/bks/kcbxx/detail.wxml-->
+<view class="page">
+	<view class="page__hd">
+		<view class="weui-form-preview__value_in-hd">{{result.KCM}}</view>
+	</view>
+	<view class="page__bd">
+		<view class="weui-form-preview">
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">课程号</view>
+					<view class="weui-form-preview__value">{{result.KCH}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">课程状态</view>
+					<view class="weui-form-preview__value">{{result.KCZTDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">英文课程名</view>
+					<view class="weui-form-preview__value">{{result.YWKCM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">开课单位</view>
+					<view class="weui-form-preview__value">{{result.KKDWDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">课内周学时</view>
+					<view class="weui-form-preview__value">{{result.KNZXS}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">学分</view>
+					<view class="weui-form-preview__value">{{result.XF}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">学时</view>
+					<view class="weui-form-preview__value">{{result.XS}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
