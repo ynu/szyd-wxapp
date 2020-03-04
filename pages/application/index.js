@@ -115,9 +115,9 @@ Page({
       }).catch(err => {
         // 发送失败，可能原因是手机号码不对
         wx.showModal({
-          title: '发送验证码失败',
-          content: lallal,
-          showCancel: false,
+          title: '提示',
+          content: '发送失败',
+          showCancel: false
         });
         this.setData({
           vcode: {

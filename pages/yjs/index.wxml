@@ -6,7 +6,8 @@
     </view>
     <view class="page__bd page__bd_spacing">
         <view class="button-sp-area" >
-           <button class="weui-btn" type="default" plain="true" bindtap='toCounter'>研究生数量</button>    
+           <button class="weui-btn" type="default" plain="true" bindtap='toCounter'>研究生数量</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toKcb'>研究生课程表信息查询</button>
         </view>
     </view>
     <include src="../footer.wxml" />

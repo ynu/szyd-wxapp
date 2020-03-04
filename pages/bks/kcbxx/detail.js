@@ -1,26 +1,35 @@
-// pages/yjs/index.js
+// pages/bks/kcbxx/detail.js
+const {
+  bksApi
+} = require('../../../utils/utils.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    result: {}
+  },
 
-  },
-  toCounter() {
-    wx.navigateTo({
-      url: '/pages/yjs/counter',
-    })
-  },
-  toKcb() {
-    wx.navigateTo({
-      url: '/pages/yjs/kcbxx/index',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: "正在加载",
+      mask: true
+    });
+    Promise.all([
+      bksApi.kcbQuery(options.WID).catch(() => [])
+    ]).then(
+      ([result]) => {
+        this.setData({
+          result: result[0]
+        })
+        wx.hideLoading();
+      }).catch(err => {
+        wx.hideLoading();
+      });
 
   },
 

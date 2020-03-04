@@ -39,7 +39,11 @@
     "pages/idSystem/groupInnuendo-detail",
     "pages/idSystem/basicAccount-detail",
     "pages/bks/courseSchedulingTeacherInfo",
-    "pages/bks/courseSchedulingTeacherInfo-detail"
+    "pages/bks/courseSchedulingTeacherInfo-detail",
+    "pages/bks/kcbxx/index",
+    "pages/bks/kcbxx/detail",
+    "pages/yjs/kcbxx/index",
+    "pages/yjs/kcbxx/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
