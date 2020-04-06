@@ -14,7 +14,7 @@ Page({
   },
   toKcb() {
     wx.navigateTo({
-      url: '/pages/yjs/kcbxx/index',
+      url: '/pages/yjs/kcbxx/index-detail',
     })
   },
   /**

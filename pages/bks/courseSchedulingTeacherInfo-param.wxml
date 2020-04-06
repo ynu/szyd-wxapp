@@ -1,0 +1,16 @@
+<!--pages/bks/courseSchedulingTeacherInfo-param.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">本科生排课时间教师信息查询</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toJsh'>按教师号查询</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toKch'>按课程号查询</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toXnxqdm'>按学年学期代码查询</button>
+        </view>
+    </view>
+    <include src="../footer.wxml" />
+</view>
+

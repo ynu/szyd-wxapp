@@ -1,0 +1,15 @@
+<!--pages/idSystem/basicAccount-param.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">查询账号基本信息</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toUserid'>按用户ID查询</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toCn'>按用户名称查询</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toTelephonenumber'>按手机号码查询</button>
+        </view>
+    </view>
+    <include src="../footer.wxml" />
+</view>

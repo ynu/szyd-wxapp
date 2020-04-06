@@ -28,13 +28,13 @@ Page({
   //查询用户群组影射信息
   toGroupInnuendo() {
     wx.navigateTo({
-      url: '/pages/idSystem/groupInnuendo',
+      url: '/pages/idSystem/groupInnuendo-param',
     })
   },
   //查询账号基本信息
   toBasicAccount() {
     wx.navigateTo({
-      url: '/pages/idSystem/basicAccount',
+      url: '/pages/idSystem/basicAccount-param',
     })
   },
   /**

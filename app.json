@@ -35,15 +35,20 @@
     "pages/idSystem/appAccount",
     "pages/idSystem/appCertification",
     "pages/idSystem/groupInnuendo",
-    "pages/idSystem/basicAccount",
     "pages/idSystem/groupInnuendo-detail",
+    "pages/idSystem/groupInnuendo-param",
+    "pages/idSystem/basicAccount",
     "pages/idSystem/basicAccount-detail",
+    "pages/idSystem/basicAccount-param",
     "pages/bks/courseSchedulingTeacherInfo",
     "pages/bks/courseSchedulingTeacherInfo-detail",
+    "pages/bks/courseSchedulingTeacherInfo-param",
     "pages/bks/kcbxx/index",
     "pages/bks/kcbxx/detail",
+    "pages/bks/kcbxx/param",
     "pages/yjs/kcbxx/index",
-    "pages/yjs/kcbxx/detail"
+    "pages/yjs/kcbxx/detail",
+    "pages/yjs/kcbxx/index-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

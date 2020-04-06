@@ -29,10 +29,18 @@
 					<view class="weui-form-preview__value">{{result.KBID}}</view>
 				</view>
 			</view>
+			<!-- <view class="weui-form-preview__bd">
+				<navigator wx:key="data" url="/pages/bks/kcbxx/detail?KCH={{result.KCH}}" class="weui-cell" hover-class="weui-cell_active">
+					<view class="weui-cell__bd">课程号</view>
+					<view class="weui-cell__ft weui-cell__ft_in-access">{{result.KCH}}</view>
+				</navigator>
+			</view> -->
 			<view class="weui-form-preview__bd">
 				<view class="weui-form-preview__item">
 					<view class="weui-form-preview__label">课程号</view>
-					<view class="weui-form-preview__value">{{result.KCH}}</view>
+					<navigator wx:key="data" url="/pages/bks/kcbxx/detail?KCH={{result.KCH}}" hover-class="weui-cell_active">
+						<view class="weui-cell__ft weui-cell__ft_in-access">{{result.KCH}}</view>
+					</navigator>
 				</view>
 			</view>
 			<view class="weui-form-preview__bd">

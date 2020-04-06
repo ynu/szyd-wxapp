@@ -1,0 +1,17 @@
+<!--pages/bks/kcbxx/param.wxml-->
+<!--pages/bks/courseSchedulingTeacherInfo-param.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">本科生课程表信息查询</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toKcm'>按课程名（模糊）查询</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toKch'>按课程号查询</button>
+        </view>
+    </view>
+    <include src="../footer.wxml" />
+</view>
+
+

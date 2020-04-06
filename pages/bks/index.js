@@ -14,12 +14,12 @@ Page({
   },
   toCourseSchedulingTeacherInfo() {
     wx.navigateTo({
-      url: '/pages/bks/courseSchedulingTeacherInfo',
+      url: '/pages/bks/courseSchedulingTeacherInfo-param',
     })
   },
   toKcb() {
     wx.navigateTo({
-      url: '/pages/bks/kcbxx/index',
+      url: '/pages/bks/kcbxx/param',
     })
   },
 

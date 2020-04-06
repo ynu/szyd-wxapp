@@ -1,35 +1,25 @@
-// pages/idSystem/basicAccount-detail.js
-const {
-  idSystemApi
-} = require('../../utils/utils.js')
+// pages/bks/kcbxx/param.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    result:{}
-  },
 
+  },
+  toKcm() {
+    wx.navigateTo({
+      url: '/pages/bks/kcbxx/index?param=kcm',
+    })
+  },
+  toKch() {
+    wx.navigateTo({
+      url: '/pages/bks/kcbxx/index?param=kch',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: "正在加载",
-      mask: true
-    });
-    Promise.all([
-      idSystemApi.basicAccountInfo({"id":options.ID}).catch(() => [])
-    ]).then(
-      ([result]) => {
-        this.setData({
-          result: result[0]
-        })
-        wx.hideLoading();
-      }).catch(error => {
-      wx.hideLoading();
-    });
 
   },
 

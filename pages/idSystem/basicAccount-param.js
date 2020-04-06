@@ -1,35 +1,31 @@
-// pages/idSystem/basicAccount-detail.js
-const {
-  idSystemApi
-} = require('../../utils/utils.js')
+// pages/idSystem/basicAccount-param.js
+// pages/idSystem/groupInnuendo-param.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    result:{}
-  },
 
+  },
+  toUserid() {
+    wx.navigateTo({
+      url: '/pages/idSystem/basicAccount?param=userid',
+    })
+  },
+  toCn() {
+    wx.navigateTo({
+      url: '/pages/idSystem/basicAccount?param=cn',
+    })
+  },
+  toTelephonenumber() {
+    wx.navigateTo({
+      url: '/pages/idSystem/basicAccount?param=telephonenumber',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: "正在加载",
-      mask: true
-    });
-    Promise.all([
-      idSystemApi.basicAccountInfo({"id":options.ID}).catch(() => [])
-    ]).then(
-      ([result]) => {
-        this.setData({
-          result: result[0]
-        })
-        wx.hideLoading();
-      }).catch(error => {
-      wx.hideLoading();
-    });
 
   },
 

@@ -20,7 +20,7 @@ Page({
       mask: true
     });
     Promise.all([
-      idSystemApi.groupInnuendoInfo(options.userid).catch(() => [])
+      idSystemApi.groupInnuendoInfo({"userid":options.USERID}).catch(() => [])
     ]).then(
       ([result]) => {
         this.setData({

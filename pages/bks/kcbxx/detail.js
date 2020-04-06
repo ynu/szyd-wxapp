@@ -20,7 +20,7 @@ Page({
       mask: true
     });
     Promise.all([
-      bksApi.kcbQuery(options.WID).catch(() => [])
+      bksApi.kcbQuery({"kch":options.KCH}).catch(() => [])
     ]).then(
       ([result]) => {
         this.setData({

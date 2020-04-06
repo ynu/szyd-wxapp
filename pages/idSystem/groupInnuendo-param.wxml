@@ -1,0 +1,14 @@
+<!--pages/idSystem/groupInnuendo-param.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">查询用户群组影射信息</view>
+        <view class="page__desc"></view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toGroupid'>按群组ID查询</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toUserid'>按用户ID查询</button>
+        </view>
+    </view>
+    <include src="../footer.wxml" />
+</view>

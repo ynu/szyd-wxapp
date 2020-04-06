@@ -20,7 +20,7 @@ Page({
       mask: true
     });
     Promise.all([
-      yjsApi.kcbQuery(options.WID).catch(() => [])
+      yjsApi.kcbQuery({"kcdm":options.KCDM}).catch(() => [])
     ]).then(
       ([result]) => {
         this.setData({
