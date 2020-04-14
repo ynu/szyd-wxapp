@@ -18,7 +18,7 @@ Page({
     });
     //模糊查询
     Promise.all([
-      idSystemApi.groupInnuendoInfo(that.data.inputVal).catch(() => [])
+      idSystemApi.groupInnuendoInfo({[that.data.param]:that.data.inputVal}).catch(() => [])
     ]).then(
       ([result]) => {
         if (result.length === 0) {
@@ -58,7 +58,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      param: decodeURIComponent(options.param)
+    })
   },
 
   /**

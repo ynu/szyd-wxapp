@@ -20,7 +20,7 @@ Page({
       mask: true
     });
     Promise.all([
-      bksApi.courseSchedulingTeacherInfoQuery(options.WID).catch(() => [])
+      bksApi.courseSchedulingTeacherInfoQuery({"kch":options.KCH}).catch(() => [])
     ]).then(
       ([result]) => {
         this.setData({

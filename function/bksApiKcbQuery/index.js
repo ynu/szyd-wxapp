@@ -18,9 +18,7 @@ exports.main = async (event, context) => {
       "appId": appId,
       "Content-Type": "application/json"
     },
-    body: {
-      "param": event.data
-    }
+    body: event
   };
   try {
     return await request(options);

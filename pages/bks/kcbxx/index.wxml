@@ -17,7 +17,7 @@
 		<view>
 			<view class="weui-cells__title">搜索结果列表({{resultCount}})</view>
 			<view class="weui-cells searchbar-result">
-				<navigator wx:for="{{result}}" wx:key="date" url="/pages/bks/kcbxx/detail?WID={{item.WID}}" class="weui-cell" hover-class="weui-cell_active">
+				<navigator wx:for="{{result}}" wx:key="date" url="/pages/bks/kcbxx/detail?KCH={{item.KCH}}" class="weui-cell" hover-class="weui-cell_active">
 					<view class="weui-cell__bd">
 						{{item.KCM}}
 					</view>

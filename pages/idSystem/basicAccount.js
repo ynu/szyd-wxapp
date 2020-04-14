@@ -11,13 +11,14 @@ Page({
   },
   //点击搜索按钮触发的方法
   searchInput: function () {
+    const that = this;
     wx.showLoading({
       title: "正在加载",
       mask: true
     });
     //模糊查询
     Promise.all([
-      idSystemApi.basicAccountInfo(this.data.inputVal).catch(() => [])
+      idSystemApi.basicAccountInfo({[that.data.param]:that.data.inputVal}).catch(() => [])
     ]).then(
       ([result]) => {
         wx.hideLoading();
@@ -57,7 +58,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      param: decodeURIComponent(options.param)
+    })
   },
 
   /**
