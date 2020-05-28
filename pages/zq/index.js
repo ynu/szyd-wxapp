@@ -2,13 +2,15 @@
 const {
   zqApi,
 } = require('../../utils/utils.js');
+let datas1GreenWebCount = 0;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     datas1: [],
-    datas2: []
+    datas2: [],
+    datas1GreenWebCount: 0
   },
   onLoad: function () {
     wx.showLoading({
@@ -18,7 +20,7 @@ Page({
     let that = this;
     zqApi.webFirm().then(data => {
       //循环判断每一个站点的状态，并做属性赋值
-      for (var i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         if (data[i].wbstate == 0) {
           data[i].wbstate = "正在使用";
         } else {
@@ -27,11 +29,12 @@ Page({
       }
       zqApi.webnewsCount().then(function (dataa) {
         //循环的增加站点的count属性，用来记录站点180天内更新的文章数量
-        for (var j = 0; j < data.length; j++) {
+        for (let j = 0; j < data.length; j++) {
           data[j].count = 0;
-          for (var a = 0; a < dataa.length; a++) {
+          for (let a = 0; a < dataa.length; a++) {
             if (data[j].wbfirmid === dataa[a].owner) {
               data[j].count = dataa[a].count;
+              datas1GreenWebCount++;
             }
           }
         }
@@ -41,7 +44,8 @@ Page({
         } = zqApi.shutdownWeb(data);
         that.setData({
           datas1: start,
-          datas2: down
+          datas2: down,
+          datas1GreenWebCount
         });
         wx.hideLoading();
       });
