@@ -3,7 +3,7 @@
     <view class="page__title">站群系统</view>
     <view class="page__desc"></view>
   </view>
-  <view class="weui-cells__title">正在使用的站点</view>
+  <view class="weui-cells__title">正在使用的站点（{{datas1GreenWebCount}}/{{datas1.length}}）</view>
   <view class='weui-form-preview__bd weui-cells weui-cells_after-title' wx:for="{{datas1}}" wx:key="datas" style='border-top: 1rpx solid #D5D5D6'>
     <view wx:if="{{item.count==0}}" class="weui-form-preview__item">
       <view class="weui-form-preview__label">站名</view>
@@ -22,7 +22,7 @@
       <view class="weui-form-preview__value ">{{item.count}}篇</view>
     </view>
   </view>
-  <view class="weui-cells__title">已停用的站点</view>
+  <view class="weui-cells__title">已停用的站点（{{datas2.length}}）</view>
   <view class='weui-form-preview__bd' wx:for="{{datas2}}" wx:key="datas" style='border-top: 1rpx solid #D5D5D6'>
     <view wx:if="{{item.count==0}}" class="weui-form-preview__item">
       <view class="weui-form-preview__label">站名</view>
