@@ -47,8 +47,6 @@
           <view class="weui-form-preview__value">{{cardInfo.mobile}}</view>
         </view>
       </view>
-      
-
     </view>
   </view>
 </view>

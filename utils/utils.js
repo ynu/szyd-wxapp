@@ -14,6 +14,7 @@ const RisApi = require('../lib/ris-api.js');
 const YjsApi = require('../lib/yjs-api.js');
 const BksApi = require('../lib/bks-api.js');
 const IdSystemApi = require('../lib/idSystem-api');
+const RsApi = require('../lib/rs-api.js');
 
 const uirApi = new UirApi();
 const weixinApi = new WeixinApi();
@@ -24,6 +25,7 @@ const risApi = new RisApi();
 const yjsApi = new YjsApi();
 const bksApi = new BksApi();
 const idSystemApi = new IdSystemApi();
+const rsApi = new RsApi();
 // 商户管理员角色前置，格式为：ecard:shop-manager:商户ID
 const shopManagerRolePrefix = "ecard:shop-manager:";
 
@@ -40,6 +42,7 @@ const Roles = {
   YjsSupervisor: 'szyd:yjs-supervisor', //研究生信息管理员权限，进入yjs/index
   BksSupervisor: 'szyd:bks-supervisor', //本科生生信息管理员权限，进入bks/index
   IdSystemSupervisor: 'szyd:IdSystem-supervisor',//统一身份认证系统管理员权限，进入idSystem/index
+  RsSupervisor:'szyd:rs-supervisor' //人事系统管理员权限，进入rs/index
 };
 
 const meansApi = {
@@ -112,4 +115,5 @@ module.exports = {
   yjsApi,
   bksApi,
   idSystemApi,
+  rsApi
 };

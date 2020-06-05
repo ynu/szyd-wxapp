@@ -10,6 +10,6 @@
            <button class="weui-btn" type="default" plain="true" bindtap='toKcdm'>按课程代码查询</button>
         </view>
     </view>
-    <include src="../footer.wxml" />
+    <include src="../../footer.wxml" />
 </view>
 

@@ -1,0 +1,113 @@
+<!--pages/rs/jbxx/detail.wxml-->
+<view class="page">
+	<view class="page__hd">
+		<view class="weui-form-preview__value_in-hd">{{result.XM}}</view>
+	</view>
+	<view class="page__bd">
+		<view class="weui-form-preview">
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">职工号</view>
+					<view class="weui-form-preview__value">{{result.ZGH}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">姓名拼音</view>
+					<view class="weui-form-preview__value">{{result.XMPY}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">性别代码</view>
+					<view class="weui-form-preview__value">{{result.XBDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">年龄</view>
+					<view class="weui-form-preview__value">{{result.NL}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">教职工编号</view>
+					<view class="weui-form-preview__value">{{result.JZGBH}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">曾用名</view>
+					<view class="weui-form-preview__value">{{result.CYM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">出生日期</view>
+					<view class="weui-form-preview__value">{{result.CSRQ}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">出生地代码</view>
+					<view class="weui-form-preview__value">{{result.CSDDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">国家地区代码</view>
+					<view class="weui-form-preview__value">{{result.GJDQDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">民族代码</view>
+					<view class="weui-form-preview__value">{{result.MZDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">国家地区代码</view>
+					<view class="weui-form-preview__value">{{result.GJDQDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">身份证件类型代码</view>
+					<view class="weui-form-preview__value">{{result.SFZJLXDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">婚姻状况代码</view>
+					<view class="weui-form-preview__value">{{result.HYZKDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">参加工作日期</view>
+					<view class="weui-form-preview__value">{{result.CJGZRQ}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">所在单位代码</view>
+					<view class="weui-form-preview__value">{{result.SZDWDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">当前状态代码</view>
+					<view class="weui-form-preview__value">{{result.DQZTDM}}</view>
+				</view>
+			</view>
+      <view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">用人方式代码</view>
+					<view class="weui-form-preview__value">{{result.YRFSDM}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+

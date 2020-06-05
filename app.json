@@ -48,7 +48,11 @@
     "pages/bks/kcbxx/param",
     "pages/yjs/kcbxx/index",
     "pages/yjs/kcbxx/detail",
-    "pages/yjs/kcbxx/index-detail"
+    "pages/yjs/kcbxx/index-detail",
+    "pages/rs/index",
+    "pages/rs/jbxx/index",
+    "pages/rs/jbxx/detail",
+    "pages/rs/jbxx/query"
   ],
   "window": {
     "backgroundTextStyle": "light",
