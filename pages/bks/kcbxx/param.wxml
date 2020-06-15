@@ -11,7 +11,7 @@
            <button class="weui-btn" type="default" plain="true" bindtap='toKch'>按课程号查询</button>
         </view>
     </view>
-    <include src="../footer.wxml" />
+    <include src="../../footer.wxml" />
 </view>
 
 

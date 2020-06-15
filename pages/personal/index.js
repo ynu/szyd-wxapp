@@ -68,6 +68,9 @@ Page({
     const name = e.currentTarget.dataset.name;
     let module;
     switch (name) {
+      case "人事":
+        module = "rs/index";
+        break;
       case "虚拟化平台":
         module = "fc/index";
         break;
@@ -119,6 +122,11 @@ Page({
         }
         res.data[0].roles.forEach(role => {
           switch (role) {
+            case Roles.RsSupervisor:
+              modules.push({
+                name: "人事"
+              });
+              break;
             case Roles.FcSupervisor:
               modules.push({
                 name: "虚拟化平台"

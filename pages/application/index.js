@@ -38,7 +38,11 @@ let modules = [{
     name: '统一身份认证系统',
     value: 'szyd:IdSystem-supervisor',
     checked: false
-  },
+  },{
+    name: '人事',
+    value: 'szyd:rs-supervisor',
+    checked: false
+  }
 ];
 let permissions;
 let length;
