@@ -17,11 +17,11 @@ Page({
       mask: true
     });
     //模糊查询
-    Promise.all([
-       //通过infoQuery函数查询对应职工号的全部信息
-      rsApi.infoQuery({[that.data.param]:that.data.inputVal}).catch(() => [])
-    ]).then(
-      ([result]) => {
+    //通过infoQuery函数查询对应职工号的全部信息
+    rsApi.infoQuery({
+      [that.data.param]: that.data.inputVal
+    }).then(
+      (result) => {
         if (result.length === 0) {
           wx.showModal({
             title: '提示',
@@ -36,8 +36,13 @@ Page({
         }
         wx.hideLoading();
       }).catch(err => {
-        wx.hideLoading();
+      wx.showModal({
+        title: '提示',
+        content: '系统异常，请联系管理员',
+        showCancel: false
       });
+      wx.hideLoading();
+    });
   },
   //清除按钮触发的方法
   clearInput: function () {
