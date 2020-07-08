@@ -1,11 +1,6 @@
 // pages/door/index.js
 
-let {
-  doors,
-  formatTime,
-  meansApi,
-  doorManagerRolePrefix
-} = require('../../utils/utils.js');
+import { doors, formatTime, meansApi, doorManagerRolePrefix } from '../../utils/utils.js';
 Page({
 
   /**

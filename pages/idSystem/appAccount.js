@@ -1,7 +1,5 @@
 // pages/idSystem/appAccount.js
-const {
-  idSystemApi
-} = require('../../utils/utils.js')
+import { idSystemApi } from '../../utils/utils.js';
 Page({
 
   /**

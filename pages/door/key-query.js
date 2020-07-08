@@ -1,7 +1,5 @@
 // pages/door/key-query.js
-const {
-  ecardApi
-} = require('../../utils/utils.js');
+import { ecardApi } from '../../utils/utils.js';
 Page({
 
   /**

@@ -1,7 +1,7 @@
 import * as echarts from '../../lib/ec-canvas/echarts.js';
-const { ecardApi } = require('../../utils/utils.js');
-const moment = require('../../lib/moment.js');
-const { formatMoney, formatNumber } = require('../../lib/accounting.js');
+import {ecardApi} from '../../utils/utils.js';
+import {moment} from '../../lib/moment.js';
+import {formatMoney, formatNumber} from '../../lib/accounting.js';
 
 
 Page({

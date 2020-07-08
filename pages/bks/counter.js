@@ -1,7 +1,5 @@
 // pages/bks/counter.js
-const {
-  bksApi
-} = require('../../utils/utils.js');
+import { bksApi } from '../../utils/utils.js';
 
 Page({
 

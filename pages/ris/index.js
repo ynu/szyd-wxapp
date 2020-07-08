@@ -1,4 +1,4 @@
-const { risApi } = require('../../utils/utils.js');
+import { risApi } from '../../utils/utils.js';
 
 Page({
 

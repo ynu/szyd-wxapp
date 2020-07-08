@@ -1,7 +1,5 @@
 // pages/yjs/kcbxx/index.js
-const {
-  yjsApi
-} = require('../../../utils/utils.js')
+import { yjsApi } from '../../../utils/utils.js';
 Page({
   data: {
     inputShowed: true,

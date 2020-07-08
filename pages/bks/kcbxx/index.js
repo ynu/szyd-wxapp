@@ -1,7 +1,5 @@
 // pages/bks/kcbxx/index.js
-const {
-  bksApi
-} = require('../../../utils/utils.js')
+import { bksApi } from '../../../utils/utils.js';
 Page({
   data: {
     inputShowed: true,

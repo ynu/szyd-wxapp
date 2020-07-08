@@ -1,13 +1,4 @@
-const {
-  ecardApi,
-  zqApi,
-  fcApi,
-  weixinApi,
-  appId,
-  Roles,
-  shopManagerRolePrefix,
-  meansApi
-} = require('../../utils/utils.js');
+import { ecardApi, zqApi, fcApi, weixinApi, appId, Roles, shopManagerRolePrefix, meansApi } from '../../utils/utils.js';
 let resData;
 Page({
   data: {

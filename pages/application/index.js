@@ -1,7 +1,5 @@
 // pages/fa/index.js
-const {
-  meansApi
-} = require('../../utils/utils.js')
+import { meansApi } from '../../utils/utils.js';
 let modules = [{
   name: '虚拟化平台',
   value: 'szyd:fc-supervisor',

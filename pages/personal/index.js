@@ -1,12 +1,7 @@
 // pages/personal/index.js
-const {
-  Roles,
-  meansApi,
-  shopManagerRolePrefix,
-  doorManagerRolePrefix
-} = require('../../utils/utils.js');
+import { Roles, meansApi, shopManagerRolePrefix, doorManagerRolePrefix } from '../../utils/utils.js';
 const app = getApp();
-const base64 = require("../../images/base64");
+import { icon20 } from "../../images/base64";
 Page({
 
   /**
@@ -25,7 +20,7 @@ Page({
    */
   onLoad: function() {
     this.setData({
-      icon: base64.icon20
+      icon: icon20
     });
     if (app.globalData.userInfo) {
       this.setData({

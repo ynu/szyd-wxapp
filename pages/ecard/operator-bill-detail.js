@@ -1,5 +1,5 @@
-const { ecardApi } = require('../../utils/utils.js');
-const { formatMoney, formatNumber } = require('../../lib/accounting.js');
+import { ecardApi } from '../../utils/utils.js';
+import { formatMoney, formatNumber } from '../../lib/accounting.js';
 Page({
 
   /**

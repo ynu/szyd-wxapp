@@ -1,7 +1,5 @@
 // pages/bks/courseSchedulingTeacherInfo-detail.js
-const {
-  bksApi
-} = require('../../utils/utils.js')
+import { bksApi } from '../../utils/utils.js';
 Page({
 
   /**

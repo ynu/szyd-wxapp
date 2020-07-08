@@ -1,7 +1,5 @@
 // pages/rs/jbxx/query.js
-const {
-  rsApi
-} = require('../../../utils/utils.js')
+import { rsApi } from '../../../utils/utils.js';
 Page({
   data: {
     inputShowed: true,

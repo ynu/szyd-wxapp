@@ -1,7 +1,5 @@
 // pages/bks/kcbxx/detail.js
-const {
-  bksApi
-} = require('../../../utils/utils.js')
+import { bksApi } from '../../../utils/utils.js';
 Page({
 
   /**

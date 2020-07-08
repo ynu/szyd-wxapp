@@ -1,7 +1,5 @@
 // pages/ecard/query/index.js
-const {
-  ecardApi
-} = require('../../../utils/utils.js');
+import { ecardApi } from '../../../utils/utils.js';
 
 Page({
   data: {

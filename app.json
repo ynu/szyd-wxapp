@@ -54,6 +54,9 @@
     "pages/rs/jbxx/detail",
     "pages/rs/jbxx/query"
   ],
+  "useExtendedLib": {
+    "weui": true
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

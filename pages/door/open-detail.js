@@ -1,7 +1,5 @@
 // pages/door/open-detail.js
-const {
-  meansApi
-} = require('../../utils/utils.js');
+import { meansApi } from '../../utils/utils.js';
 Page({
 
   /**

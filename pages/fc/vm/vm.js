@@ -1,4 +1,4 @@
-const { fcApi } = require('../../../utils/utils.js');
+import { fcApi } from '../../../utils/utils.js';
 Page({
 
   /**

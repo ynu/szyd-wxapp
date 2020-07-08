@@ -1,9 +1,6 @@
 // pages/door/supervisor-index.js
-const {
-  Roles,
-  shopManagerRolePrefix,
-  meansApi
-} = require("../../utils/utils.js");
+import { Roles, shopManagerRolePrefix, meansApi } from "../../utils/utils.js";
+
 Page({
 
   /**

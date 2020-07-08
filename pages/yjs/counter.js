@@ -1,7 +1,5 @@
 // pages/yjs/counter.js
-const {
-  yjsApi
-} = require('../../utils/utils.js');
+import { yjsApi } from '../../utils/utils.js';
 
 Page({
 

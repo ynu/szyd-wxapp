@@ -1,8 +1,4 @@
-const {
-  ecardApi,
-  shopManagerRolePrefix,
-  meansApi
-} = require('../../utils/utils.js');
+import { ecardApi, shopManagerRolePrefix, meansApi } from '../../utils/utils.js';
 
 Page({
   /**

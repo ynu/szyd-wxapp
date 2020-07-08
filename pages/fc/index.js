@@ -1,6 +1,4 @@
-const {
-  ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles,
-} = require('../../utils/utils.js');
+import { ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles } from '../../utils/utils.js';
 Page({
 
   /**

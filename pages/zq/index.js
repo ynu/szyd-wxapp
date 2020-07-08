@@ -1,7 +1,5 @@
 // pages/wg/index.js
-const {
-  zqApi,
-} = require('../../utils/utils.js');
+import { zqApi } from '../../utils/utils.js';
 let datas1GreenWebCount = 0;
 Page({
   /**
@@ -48,7 +46,14 @@ Page({
           datas1GreenWebCount
         });
         wx.hideLoading();
-      });
+      }).catch(err => {
+        wx.showModal({
+          title: '提示',
+          content: '系统异常，请联系管理员',
+          showCancel: false
+        });
+        wx.hideLoading();
+      }) ;
     });
   },
 });

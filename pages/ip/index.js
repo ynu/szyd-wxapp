@@ -1,6 +1,5 @@
-const {
-  ip
-} = require('../../utils/ip.js');
+import { ip } from '../../utils/ip.js';
+
 Page({
   /**
    * 页面的初始数据

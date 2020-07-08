@@ -1,7 +1,5 @@
 // pages/idSystem/groupInnuendo.js
-const {
-  idSystemApi
-} = require('../../utils/utils.js')
+import { idSystemApi } from '../../utils/utils.js';
 Page({
   data: {
     inputShowed: true,
