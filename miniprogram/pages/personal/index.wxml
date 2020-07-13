@@ -3,17 +3,17 @@
 	<view class="page__hd">
 		<view class="page__title">个人中心</view>
 	</view>
-	<view class="userinfo">
-		<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-		<block wx:else>
-			<image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-			<text class="userinfo-nickname">{{userInfo.nickName}}</text>
-		</block>
+	<view class="page__bd">
+		<view class="userinfo">
+			<button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+			<block wx:else>
+				<image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+				<text class="userinfo-nickname">{{userInfo.nickName}}</text>
+			</block>
+		</view>
+		<mp-cells>
+			<mp-cell wx:for="{{modules}}" wx:key="data" bindtap='mySelect' data-name="{{item.name}}" title="{{item.name}}" link></mp-cell>
+			<mp-cell bindtap='toApply' title="功能申请" link></mp-cell>
+		</mp-cells>
 	</view>
-	<mp-cells wx:for="{{modules}}" wx:key="data" bindtap='mySelect' data-name="{{item.name}}">
-		<mp-cell title="{{item.name}}" link></mp-cell>
-	</mp-cells>
-	<mp-cells bindtap='toApply'>
-		<mp-cell title="功能申请" link></mp-cell>
-	</mp-cells>
 </view>
