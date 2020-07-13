@@ -3,13 +3,13 @@
  * 部署在云端时，需配置username和password两个环境变量。
  */
 
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 // 必须关闭证书认证，否则会报错
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
 
 // 云函数入口函数
-exports.main = async (event, context) => {
+export async function main(event, context) {
   const host = 'https://access.ynu.edu.cn/shterm/api';
   try {
     const result = await fetch(`${host}/authenticate`, {

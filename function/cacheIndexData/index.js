@@ -7,10 +7,10 @@
  *  - tokenFc: 虚拟化平台token
  *  - siteIdFc: 虚拟化平台siteId
  */
-const cloud = require('wx-server-sdk')
-const request = require('request-promise');
-cloud.init()
-const db = cloud.database();
+import { init, database } from 'wx-server-sdk';
+import request from 'request-promise';
+init()
+const db = database();
 const colKvs = db.collection('kvs');
 
 /**
@@ -351,7 +351,7 @@ const updateZqRunningWebFirmCount = async () => {
 
 
 // 云函数入口函数
-exports.main = async (event, context) => {
+export async function main(event, context) {
   await updateEcardCardCount();
   await updateEcardDeviceCount();
   await updateEcardShopsCount();

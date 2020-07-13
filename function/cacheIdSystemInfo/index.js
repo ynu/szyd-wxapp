@@ -5,10 +5,10 @@
  *  - token: 群组信息接口token,应用账户信息接口token,认证应用信息接口token
  *  - appId: 群组信息接口appId,应用账户信息接口appId，认证应用信息接口appId
  */
-const cloud = require('wx-server-sdk')
-const request = require('request-promise');
-cloud.init()
-const db = cloud.database();
+import { init, database } from 'wx-server-sdk';
+import request from 'request-promise';
+init()
+const db = database();
 const colIdSystem = db.collection('idSystem');
 
 /**
@@ -147,7 +147,7 @@ const updateAppCertificationInfo = async () => {
   await updateOrAddKv('index:app-certification-info', info)
 }
 
-exports.main = async (event, context) => {
+export async function main(event, context) {
   await updateGroupInfo();
   await updateAppAccountInfo();
   await updateAppCertificationInfo();

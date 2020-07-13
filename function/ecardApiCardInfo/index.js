@@ -1,10 +1,10 @@
 // 获取卡的详细信息云函数入口文件
-const cloud = require("wx-server-sdk");
-const request = require("request-promise");
-cloud.init();
+import { init } from "wx-server-sdk";
+import request from "request-promise";
+init();
 
 // 云函数入口函数
-exports.main = async (event, context) => {
+export async function main(event, context) {
   const host = "http://ecard.api.ynu.edu.cn";
   //token通过获取此云函数的环境变量获得，通过云开发控制台，配置此云函数名为token的键值对环境变量
   const token = process.env.token;
@@ -24,4 +24,4 @@ exports.main = async (event, context) => {
       msg: err
     };
   }
-};
+}
