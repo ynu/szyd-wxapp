@@ -1,80 +1,34 @@
 <!--pages/fa/index.wxml-->
 <view class="page" style='background-color:white;'>
-  <view class="page__hd">
-    <view class="page__title">权限申请</view>
-    <view class="page__desc">
-    </view>
-  </view>
-  <view class="page__bd">
-    <form bindsubmit="submitAdd">
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">姓名</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input value="{{dataGet.name}}" placeholder="请输入姓名" id="name" class="weui-input" name="name" />
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input" >
-        <view class="weui-cell__hd">
-          <view class="weui-label">所在单位</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input value="{{dataGet.unit}}" placeholder="请输入所在单位" id="unit" class="weui-input" name="unit" />
-        </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-        <view class="weui-cell__hd">
-          <view class="weui-label">手机号</view>
-        </view>
-        <view class="weui-cell__bd">
-          <input value="{{dataGet.mobile}}" id="mobile" placeholder="请输入手机号" class="weui-input" name="mobile" bindinput="mobileInput" />
-        </view>
-      </view>
-      <view class="weui-cell weui-cell_input weui-cell_vcode">
-            <view class="weui-cell__hd">
-                <view class="weui-label">验证码</view>
-            </view>
-            <view class="weui-cell__bd">
-                <input class="weui-input" placeholder="请输入验证码" id="vcode" name="vcode" />
-            </view>
-            <view class="weui-cell__ft">
-                <view class="{{vcode.btnClass}}" bindtap="btnSendVcode" >{{vcode.btnText}}</view>
-            </view>
-        </view>
-
-      <view class="weui-cell weui-cell_input" style='background-color:white;'>
-        <view class="weui-cell__hd">
-          <view class="weui-label">申请模块</view>
-        </view>
-        <view class="weui-cell__hd" style="margin:10rpx">
-          <checkbox-group bindchange="checkboxChange">
-            <label class="checkbox" wx:for="{{modules}}" wx:key="data">
-              <view style='color:#808080' wx:if="{{item.disabled}}">
-                <checkbox disabled="true" checked="true"/> {{item.name}}
-              </view>
-              <view wx:else>
-                <checkbox value="{{item.value}}" checked="{{item.checked}}"/> {{item.name}}
-              </view>
-            </label>
-          </checkbox-group>
-          <!-- <picker-view
-                indicator-style="height: 50px;"
-                style="width: 750px; height: 150px;"
-                value="{{aaa}}"
-                bindchange="bindChange"
-              >
-                <picker-view-column>
-                  <view  class="weui-cell__hd" wx:for="{{modules}}" wx:key="" style="line-height: 50px;">{{item}}</view>
-                </picker-view-column>
-              </picker-view> -->
-        </view>
-      </view>
-      <view class="weui-btn-area">
-        <button class="weui-btn" type="primary" form-type="submit">提交</button>
-      </view>
-    </form>
-    <include src="../footer.wxml" />
-  </view>
+	<view class="page__hd">
+		<view class="page__title">权限申请</view>
+		<view class="page__desc">
+		</view>
+	</view>
+	<view class="page__bd">
+		<mp-form id="form" rules="{{rules}}" models="{{formData}}">
+			<mp-cells title="请填写信息">
+				<mp-cell prop="name" title="姓名" ext-class="">
+					<input bindinput="formInputChange" value="{{dataGet.name}}" data-field="name" class="weui-input" placeholder="请输入姓名" />
+				</mp-cell>
+				<mp-cell prop="unit" title="所在单位" ext-class="">
+					<input bindinput="formInputChange" value="{{dataGet.unit}}" data-field="unit" class="weui-input" placeholder="请输入所在单位" />
+				</mp-cell>
+				<mp-cell prop="mobile" title="手机号">
+					<input bindinput="formInputChange" value="{{dataGet.mobile}}" data-field="mobile" class="weui-input" placeholder="请输入手机号" />
+				</mp-cell>
+				<mp-cell prop="vcode" title="验证码" ext-class="weui-cell_vcode">
+					<input bindinput="formInputChange" data-field="vcode" class="weui-input" placeholder="请输入验证码" />
+					<view slot="footer" class="{{vcode.btnClass}}" bindtap="btnSendVcode">{{vcode.btnText}}</view>
+				</mp-cell>
+			</mp-cells>
+			<mp-cells title="请选择模块列表项（可多选）">
+				<mp-checkbox-group prop="checkbox" multi="{{true}}" bindchange="checkboxChange">
+					<mp-checkbox data-field="checkbox" wx:for="{{modules}}" wx:key="value"  label="{{item.name}}" value="{{item.value}}" checked="{{item.checked}}"></mp-checkbox>
+				</mp-checkbox-group>
+			</mp-cells>
+			<button type="primary" class="submit" bindtap="submitForm">提交</button>
+		</mp-form>
+		<include src="../footer.wxml" />
+	</view>
 </view>
