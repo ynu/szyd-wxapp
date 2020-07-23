@@ -1,10 +1,10 @@
 // 云函数入口文件
-const cloud = require('wx-server-sdk');
-const QcloudSms = require('qcloudsms_js');
-cloud.init();
+import { init } from 'wx-server-sdk';
+import QcloudSms from 'qcloudsms_js';
+init();
 
 // 云函数入口函数
-exports.main = async(event, context) => {
+export asyncfunction main(event, context) {
   // 短信应用SDK AppID，通过云开发控制台，配置此云函数名为appid的键值对环境变量
   let appid = process.env.appId;
   // 短信应用SDK AppKey，通过云开发控制台，配置此云函数名为appkey的键值对环境变量

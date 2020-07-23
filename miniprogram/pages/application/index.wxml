@@ -1,0 +1,34 @@
+<!--pages/fa/index.wxml-->
+<view class="page" style='background-color:white;'>
+	<view class="page__hd">
+		<view class="page__title">权限申请</view>
+		<view class="page__desc">
+		</view>
+	</view>
+	<view class="page__bd">
+		<mp-form id="form" rules="{{rules}}" models="{{formData}}">
+			<mp-cells title="请填写信息">
+				<mp-cell prop="name" title="姓名" ext-class="">
+					<input bindinput="formInputChange" value="{{dataGet.name}}" data-field="name" class="weui-input" placeholder="请输入姓名" />
+				</mp-cell>
+				<mp-cell prop="unit" title="所在单位" ext-class="">
+					<input bindinput="formInputChange" value="{{dataGet.unit}}" data-field="unit" class="weui-input" placeholder="请输入所在单位" />
+				</mp-cell>
+				<mp-cell prop="mobile" title="手机号">
+					<input bindinput="formInputChange" value="{{dataGet.mobile}}" data-field="mobile" class="weui-input" placeholder="请输入手机号" />
+				</mp-cell>
+				<mp-cell prop="vcode" title="验证码" ext-class="weui-cell_vcode">
+					<input bindinput="formInputChange" data-field="vcode" class="weui-input" placeholder="请输入验证码" />
+					<view slot="footer" class="{{vcode.btnClass}}" bindtap="btnSendVcode">{{vcode.btnText}}</view>
+				</mp-cell>
+			</mp-cells>
+			<mp-cells title="请选择模块列表项（可多选）">
+				<mp-checkbox-group prop="checkbox" multi="{{true}}" bindchange="checkboxChange">
+					<mp-checkbox data-field="checkbox" wx:for="{{modules}}" wx:key="value"  label="{{item.name}}" value="{{item.value}}" checked="{{item.checked}}"></mp-checkbox>
+				</mp-checkbox-group>
+			</mp-cells>
+			<button type="primary" class="submit" bindtap="submitForm">提交</button>
+		</mp-form>
+		<include src="../footer.wxml" />
+	</view>
+</view>

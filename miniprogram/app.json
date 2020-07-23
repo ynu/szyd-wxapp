@@ -1,0 +1,90 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/fc/index",
+    "pages/ecard/supervisor-index",
+    "pages/ecard/operator-bill-list",
+    "pages/ecard/operator-bill-detail",
+    "pages/ecard/daily-bill-list",
+    "pages/ecard/monthly-bill-list",
+    "pages/ecard/shop-daily-bill-list",
+    "pages/ecard/shop-monthly-bill-list",
+    "pages/ecard/shop-daily-bill-detail",
+    "pages/ecard/shop-monthly-bill-detail",
+    "pages/fc/host/host",
+    "pages/fc/vm/vm",
+    "pages/fc/vm/vmone",
+    "pages/zq/index",
+    "pages/application/index",
+    "pages/ecard/query/index",
+    "pages/ecard/query/ecard-detail",
+    "pages/personal/index",
+    "pages/ip/index",
+    "pages/door/index",
+    "pages/door/supervisor-index",
+    "pages/door/log",
+    "pages/door/open-detail",
+    "pages/door/query-log",
+    "pages/door/key-query",
+    "pages/yjs/index",
+    "pages/yjs/counter",
+    "pages/bks/index",
+    "pages/bks/counter",
+    "pages/idSystem/index",
+    "pages/idSystem/group",
+    "pages/idSystem/appAccount",
+    "pages/idSystem/appCertification",
+    "pages/idSystem/groupInnuendo",
+    "pages/idSystem/groupInnuendo-detail",
+    "pages/idSystem/groupInnuendo-param",
+    "pages/idSystem/basicAccount",
+    "pages/idSystem/basicAccount-detail",
+    "pages/idSystem/basicAccount-param",
+    "pages/bks/courseSchedulingTeacherInfo",
+    "pages/bks/courseSchedulingTeacherInfo-detail",
+    "pages/bks/courseSchedulingTeacherInfo-param",
+    "pages/bks/kcbxx/index",
+    "pages/bks/kcbxx/detail",
+    "pages/bks/kcbxx/param",
+    "pages/yjs/kcbxx/index",
+    "pages/yjs/kcbxx/detail",
+    "pages/yjs/kcbxx/index-detail",
+    "pages/rs/index",
+    "pages/rs/jbxx/index",
+    "pages/rs/jbxx/detail",
+    "pages/rs/jbxx/query"
+  ],
+  "useExtendedLib": {
+    "weui": true
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "数字ITC+",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "networkTimeout": {
+    "request": 10000
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#479de6",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/iconfont-home-active.png",
+        "pagePath": "pages/index/index",
+        "iconPath": "images/iconfont-home.png",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/iconfont-user-active.png",
+        "pagePath": "pages/personal/index",
+        "iconPath": "images/iconfont-user.png",
+        "text": "个人中心"
+      }
+    ]
+  }
+}

@@ -4,10 +4,10 @@
  *  - token: API的token
  *  - appId: API的appId
  */
-const cloud = require('wx-server-sdk')
-const request = require('request-promise');
-cloud.init()
-const db = cloud.database();
+import { init, database } from 'wx-server-sdk';
+import request from 'request-promise';
+init()
+const db = database();
 const colYjs = db.collection('yjs');
 let result;
 
@@ -63,7 +63,7 @@ const cRequest = async() => {
 }
 
 //云函数入口函数
-exports.main = async(event, context) => {
+export asyncfunction main(event, context) {
   await getYjsCounter();
   await cRequest();
 }

@@ -1,0 +1,14 @@
+<!--pages/yjs/counter.wxml-->
+<view class="page">
+	<view class="page__hd">
+		<view class="page__title">List</view>
+		<view class="page__desc">研究生数量列表</view>
+	</view>
+	<view class="page__bd">
+		<view wx:for="{{result}}" wx:key="date">
+			<mp-cells title="按{{item.name}}分类">
+				<mp-cell wx:for="{{item.list}}" wx:key="datas" title="{{item.name}}数量" footer="{{item.counter}}人"></mp-cell>
+			</mp-cells>
+		</view>
+	</view>
+</view>

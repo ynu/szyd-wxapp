@@ -1,0 +1,13 @@
+<view class="page">
+	<view class="page__hd">
+		<view class="page__title">虚拟化平台</view>
+	</view>
+	<view class="page__bd">
+		<mp-cells title="运行中的虚拟机">
+			<mp-cell wx:for="{{datas1}}" wx:key="datas" title="{{item.name}}" footer="{{item.vm.length}}" link></mp-cell>
+		</mp-cells>
+		<mp-cells title="已停止的虚拟机">
+			<mp-cell wx:for="{{datas2}}" wx:key="datas" title="{{item.name}}" footer="{{item.vm.length}}" link></mp-cell>
+		</mp-cells>
+	</view>
+</view>
