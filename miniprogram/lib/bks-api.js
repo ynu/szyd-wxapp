@@ -1,39 +1,54 @@
 /**
  * 本科生API
  */
-
+import config from '../config.default.js';
+const app = getApp();
 class BksApi {
   //通过云数据库获取对应条件的研究生数量
-  counter() {
+  async counter() {
     const db = wx.cloud.database();
-    return db.collection('bks').get().then((res) => {
+    try {
+      const res = await db.collection('bks').get();
       return res.data[0].bksCounter;
-    }).catch(() => []);
+    }
+    catch (e) {
+      return [];
+    }
   }
-  //通过传递参数到云函数查询排课时间教师表中的信息
+  //此函数用来获取排课时间教师信息查询
   courseSchedulingTeacherInfoQuery(param) {
     return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "bksApiCourseSchedulingTeacherInfoQuery",
-          data: param
-        })
-        .then(res => {
-          resolve(res.result.dataSet);
-        })
-        .catch(err => reject(err));
-    });
+      app.wxp.request({
+        url: config.apis.bksUrl.bksCourseSchedulingTeacherInfoQuery,
+        data: param,
+        method: "POST",
+        header: {
+          'accessToken': config.apis.token,
+          'appId': config.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      }).then(res => {
+        resolve(res.data.dataSet)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
-  //通过传递参数到云函数查询本科生课程表中的信息
+  //此函数用来获取本科生课程表信息
   kcbQuery(param) {
     return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "bksApiKcbQuery",
-          data: param
-        })
+      app.wxp.request({
+        url: config.apis.bksUrl.bksKcbQuery,
+        data: param,
+        method: "POST",
+        header: {
+          'accessToken': config.apis.token,
+          'appId': config.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      })
         .then(res => {
-          resolve(res.result.dataSet);
+          resolve(res.data.dataSet);
         })
         .catch(err => reject(err));
     });

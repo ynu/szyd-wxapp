@@ -1,5 +1,6 @@
 import { ecardApi, zqApi, fcApi, weixinApi, appId, Roles, shopManagerRolePrefix, meansApi } from '../../utils/utils.js';
 let resData;
+const app = getApp();
 Page({
   data: {
     resData,

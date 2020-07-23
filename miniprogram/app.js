@@ -1,9 +1,14 @@
 //app.js
+import { promisifyAll, promisify } from 'miniprogram-api-promise';
 
+const wxp = {};
+// promisify化所有的wx api
+promisifyAll(wx, wxp);
 Array.prototype.flatMap = function(lambda) {
   return Array.prototype.concat.apply([], this.map(lambda));
 };
 App({
+  wxp, //让wxp作为全局变量
   onLaunch: function() {
     if (!wx.cloud) {
       console.error("请使用 2.2.3 或以上的基础库以使用云能力");
@@ -14,8 +19,6 @@ App({
       });
     }
     this.globalData = {};
-
-  
     // 获取用户信息
     wx.getSetting({
       success: res => {

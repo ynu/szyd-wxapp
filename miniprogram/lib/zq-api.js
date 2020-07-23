@@ -2,26 +2,25 @@
  * version: 1.0.1
  * 站群系统API
  */
+import config from '../config.default.js'
 class ZqApi {
 
   //总的站点数目
-  firmCount() {
+  async firmCount() {
     const db = wx.cloud.database();
-    return db.collection('kvs').where({
+    const res = await db.collection('kvs').where({
       _id: "index:zq-web-firm-count"
-    }).get().then((res) => {
-      return res.data[0].value || 0;
-    })
+    }).get();
+    return res.data[0].value || 0;
   }
 
   //总的文章数目
-  newsCount() {
+  async newsCount() {
     const db = wx.cloud.database();
-    return db.collection('kvs').where({
+    const res = await db.collection('kvs').where({
       _id: "index:zq-news-count"
-    }).get().then((res) => {
-      return res.data[0].value || 0;
-    })
+    }).get();
+    return res.data[0].value || 0;
   }
 
   //所有站名及其状态
@@ -36,13 +35,12 @@ class ZqApi {
   }
 
   //计算正在使用的站点的数量
-  runningCount() {
+  async runningCount() {
     const db = wx.cloud.database();
-    return db.collection('kvs').where({
+    const res = await db.collection('kvs').where({
       _id: "index:zq-running-firm-count"
-    }).get().then((res) => {
-      return res.data[0].value || 0;
-    })
+    }).get();
+    return res.data[0].value || 0;
   }
 
   //各个站点180天内站的文章数量

@@ -2,19 +2,25 @@
  * version: 1.0.0
  * Rs人事系统API
  */
-
+import config from '../config.default.js';
+const app = getApp();
 class RsApi {
   //查询人事基本信息方法
   infoQuery(param) {
     return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "rsApiInfoQuery", //通过云函数rsApiInfoQuery获取
-          data: param
-        })
+      app.wxp.request({
+        url: config.apis.rsUrl.rsInfoQuery,
+        data: param,
+        method: "POST",
+        header: {
+          'accessToken': config.apis.token,
+          'appId': config.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      })
         .then(res => {
-          if (res.result.dataSet) {
-            resolve(res.result.dataSet);           
+          if (res.data.dataSet) {
+            resolve(res.data.dataSet);
           } else {
             reject(res)
           }

@@ -61,7 +61,8 @@ typings/
 .next
 *.config.json
 /miniprogram/project.config.json
-
+/miniprogram/config.default.js
+/miniprogram/app.js
 
 /miniprogram/config.js
 /miniprogram/.eslintrc.js
