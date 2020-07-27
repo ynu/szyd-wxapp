@@ -1,5 +1,6 @@
 // pages/ecard/query/index.js
 import { ecardApi } from '../../../utils/utils.js';
+const app = getApp();
 
 Page({
   data: {
@@ -9,7 +10,7 @@ Page({
     result: []
   },
   searchInput: function() {
-    wx.showLoading({
+    app.wxp.showLoading({
       title: "正在加载",
       mask: true
     });
@@ -18,9 +19,9 @@ Page({
       ecardApi.cardInfoQuery(this.data.inputVal).catch(() => [])
     ]).then(
       ([result]) => {
-        wx.hideLoading();
+        app.wxp.hideLoading();
         if (result.length === 0) {
-          wx.showModal({
+          app.wxp.showModal({
             title: '提示',
             content: '查询结果为空',
             showCancel: false
@@ -32,7 +33,7 @@ Page({
           })
         }
       }).catch(error => {
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
   },
   clearInput: function() {

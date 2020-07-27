@@ -1,4 +1,5 @@
 import { ecardApi, shopManagerRolePrefix, meansApi } from '../../utils/utils.js';
+const app = getApp();
 
 Page({
   /**
@@ -28,7 +29,7 @@ Page({
         resolve(shopsIdArr);
       })
     });
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
       mask: true,
     });
@@ -47,7 +48,7 @@ Page({
         shops: myShops,
         totalShops: myShops.length,
       });
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
   },
 

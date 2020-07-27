@@ -1,53 +1,42 @@
-const { set, get } = require('./storage');
-
+import { set, get } from './storage';
+const app = getApp();
 // 微信相关API
 class WeixinApi {
   constructor(options) {
   }
-  /*
-    根据jscode获取session及openId
-    返回示例：
-    {
-      expires_in: 7200,
-      openid: "omnP80NPA7F1DWU6JJk6dGz0p3yw",
-      session_key: "jvKqrOwCQevBuZ+30hcL8w==",
-    }
-  */
   jscode2session(code) {
     return new Promise((resolve, reject) => {
-      wx.request({
+      app.wxp.request({
         url: `https://api3.ynu.edu.cn/weixin/jscode2session?appId=${this.appId}&secret=${this.secret}&code=${code}`,
-        success: (res) => {
-          resolve(res.data);
-        },
+      }).then((res) => {
+        resolve(res.data);
+      }).catch(err => {
+        reject(err)
       });
-    })
+    });
   }
+
   getOpenId() {
     return new Promise((resolve, reject) => {
-      wx.login({
-        success: (res) => {
-          const code = res.code;
-          const keyOpenId = 'weixin:openid';
-          try {
-            let openid = get(keyOpenId);
-            if (openid) resolve(openid);
-            else {
-              this.jscode2session(code).then((data) => {
-                set(keyOpenId, data.openid, 86400);
-                resolve(data.openid);
-              });
-            }
-          } catch (e) {
-            console.log('WeixinAPI:getOpenId', e.message);
-            reject(e);
+      app.wxp.login().then(res => {
+        const code = res.code;
+        const keyOpenId = 'weixin:openid';
+        try {
+          let openid = get(keyOpenId);
+          if (openid) resolve(openid);
+          else {
+            this.jscode2session(code).then((data) => {
+              set(keyOpenId, data.openid, 86400);
+              resolve(data.openid);
+            });
           }
-        },
-        fail: res => {
-          reject(res);
+        } catch (e) {
+          reject(e);
         }
-      });
-    })
+      }).catch(err => {
+        reject(err);
+      })
+    });
   }
   /*
     获取当前用户基本信息
@@ -62,29 +51,20 @@ class WeixinApi {
       else {
         new Promise((resolve, reject) => {
           // 调用getUserInfo之前必须先调用login
-          wx.login({
-            success: () => {
-              wx.getUserInfo({
-                success: res => {
-                  // 保存数据到缓存中
-                  set(keyUserInfo, res.userInfo, 86400);
-                  resolve(res.userInfo);
-                },
-                fail: res => {
-                  console.log('getUserInfo failed:', res);
-                  reject(res);
-                }
-              });
-            }
-          });
+          app.wxp.login().then(() => {
+            app.wxp.getUserInfo.then(res => {
+              // 保存数据到缓存中
+              set(keyUserInfo, res.userInfo, 86400);
+              resolve(res.userInfo);
+            }).catch(err => {
+              reject(err);
+            });
+          })
         });
       }
     } catch (e) {
-      console.log('getUserInfo failed:', e.message);
       reject(e);
     }
-    
   }
 }
-
 module.exports = WeixinApi;

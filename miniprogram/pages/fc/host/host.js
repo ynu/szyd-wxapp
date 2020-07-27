@@ -1,4 +1,5 @@
-import { ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles } from '../../../utils/utils.js';
+import {fcApi} from '../../../utils/utils.js';
+const app = getApp();
 
 Page({
 
@@ -14,7 +15,7 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
     });
     Promise.all([fcApi.SelectHostForClusters(options.host)]).then(hosts => {
@@ -25,14 +26,14 @@ Page({
           that.setData({
             datas:hosts[0]
           });
-          wx.hideLoading();
+          app.wxp.hideLoading();
         });
       }
     });
 
   },
   goToVm: function (event) {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: `../vm/vm?host=${event.currentTarget.dataset.host}&select=host`,
     });
   },

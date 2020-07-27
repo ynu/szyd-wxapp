@@ -5,16 +5,16 @@ changelog:
 
 - 0.3.1: 修复remove的bug
 */
-const moment = require('./moment');
-
+import moment from './moment';
+const app = getApp();
 const VALUE = ':storage:value';
 const EXPIRE = ':storage:expire';
 
 // 缓存一个有过期时间的键值对。过期时间单位为秒
 const set = (key, value, expire = 86400) => {
   try {
-    wx.setStorageSync(`${key}${VALUE}`, value);
-    wx.setStorageSync(`${key}${EXPIRE}`, moment().add(expire, 's'));
+    app.wxp.setStorageSync(`${key}${VALUE}`, value);
+    app.wxp.setStorageSync(`${key}${EXPIRE}`, moment().add(expire, 's'));
   } catch (e) {
     return false;
   }
@@ -22,12 +22,12 @@ const set = (key, value, expire = 86400) => {
 
 const get = (key) => {
   try {
-    const expiredDate = wx.getStorageSync(`${key}${EXPIRE}`);
+    const expiredDate = app.wxp.getStorageSync(`${key}${EXPIRE}`);
 
     if (expiredDate) {
       // 如果当前时间在过期时间之前，则数据还未过期
       if (moment().isBefore(expiredDate)) {
-        return wx.getStorageSync(`${key}${VALUE}`);
+        return app.wxp.getStorageSync(`${key}${VALUE}`);
       }
       // 数据已经过期，清除数据
       remove(`${key}${EXPIRE}`);
@@ -39,17 +39,17 @@ const get = (key) => {
   }
 };
 
-const has = key => !!wx.getStorageSync(key);
+const has = key => !!app.wxp.getStorageSync(key);
 
 const remove = key => {
   if (has(key)) {
-    wx.removeStorageSync(`${key}${EXPIRE}`);
-    wx.removeStorageSync(`${key}${VALUE}`);
+    app.wxp.removeStorageSync(`${key}${EXPIRE}`);
+    app.wxp.removeStorageSync(`${key}${VALUE}`);
   }
 
 }
 
-module.exports = {
+export default {
   set,
   get,
   has,

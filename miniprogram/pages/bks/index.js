@@ -1,4 +1,5 @@
 // pages/bks/index.js
+const app = getApp();
 Page({
 
   /**
@@ -8,17 +9,17 @@ Page({
 
   },
   toCounter() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/counter',
     })
   },
   toCourseSchedulingTeacherInfo() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/courseSchedulingTeacherInfo-param',
     })
   },
   toKcb() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/kcbxx/param',
     })
   },

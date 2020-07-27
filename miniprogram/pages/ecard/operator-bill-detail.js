@@ -1,5 +1,6 @@
 import { ecardApi } from '../../utils/utils.js';
 import { formatMoney, formatNumber } from '../../lib/accounting.js';
+const app = getApp();
 Page({
 
   /**
@@ -15,7 +16,7 @@ Page({
   onLoad: function (options) {
     const { date } = options;
     this.setData(options);
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
       mask: true,
     });
@@ -29,7 +30,7 @@ Page({
       bill,
       bills
     ]) => {
-      wx.hideLoading();
+      app.wxp.hideLoading();
       bill.amtText = formatMoney(bill.inamt - bill.outamt, '￥');
       bill.inamtText = formatMoney(bill.inamt, '￥');
       bill.outamtText = formatMoney(bill.outamt, '￥');

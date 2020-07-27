@@ -1,4 +1,5 @@
 import { fcApi } from '../../../utils/utils.js';
+const app = getApp();
 Page({
 
   /**
@@ -13,7 +14,7 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
     });
     if (options.select == "colony") {
@@ -23,7 +24,7 @@ Page({
             datas1: vm[0].start,
             datas2: vm[0].down
           });
-          wx.hideLoading();
+          app.wxp.hideLoading();
         });
       });
     } else {
@@ -31,7 +32,7 @@ Page({
         that.setData({
           datas1: vm[0]
         });
-        wx.hideLoading();
+        app.wxp.hideLoading();
       });
     }
 

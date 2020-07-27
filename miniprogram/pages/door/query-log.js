@@ -1,4 +1,5 @@
 // pages/door/query-log.js
+const app = getApp();
 Page({
 
   /**
@@ -8,12 +9,12 @@ Page({
 
   },
   toAllLogs() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/door/log',
     })
   },
   toKeyLogs() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/door/key-query',
     })
   },

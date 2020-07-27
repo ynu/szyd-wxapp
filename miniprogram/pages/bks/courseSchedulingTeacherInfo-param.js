@@ -1,4 +1,5 @@
 // pages/bks/courseSchedulingTeacherInfo-param.js
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -7,17 +8,17 @@ Page({
 
   },
   toJsh() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/courseSchedulingTeacherInfo?param=jsh',
     })
   },
   toKch() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/courseSchedulingTeacherInfo?param=kch',
     })
   },
   toXnxqdm() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/courseSchedulingTeacherInfo?param=xnxqdm',
     })
   },

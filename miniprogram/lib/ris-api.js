@@ -1,8 +1,7 @@
 /**
  * 风险防控系统API
  */
-const {get, set} = require('./storage');
-
+const app = getApp();
 class RisApi {
   constructor() {}
   // 为避免数据被人从内存读取，暂时不缓存token。
@@ -10,7 +9,7 @@ class RisApi {
     const key = 'RIS_ST_AUTH_TOKEN';
   }
   users(options) {
-    return wx.cloud.callFunction({
+    return app.wxp.cloud.callFunction({
       name: 'risGetUsers',
       data: options,
     });

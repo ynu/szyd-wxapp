@@ -1,5 +1,6 @@
 // pages/bks/counter.js
 import { bksApi } from '../../utils/utils.js';
+const app = getApp();
 
 Page({
 
@@ -14,14 +15,14 @@ Page({
    */
   onLoad: function(options) {
     const that = this;
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
     })
     bksApi.counter().then((res) => {
       that.setData({
         result: res
       });
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
   },
 

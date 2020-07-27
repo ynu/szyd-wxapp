@@ -1,5 +1,6 @@
 // pages/bks/kcbxx/index.js
 import { bksApi } from '../../../utils/utils.js';
+const app = getApp();
 Page({
   data: {
     inputShowed: true,
@@ -10,7 +11,7 @@ Page({
   //点击搜索按钮触发的方法
   searchInput: function () {
     const that = this;
-    wx.showLoading({
+    app.wxp.showLoading({
       title: "正在加载",
       mask: true
     });
@@ -20,7 +21,7 @@ Page({
     ]).then(
       ([result]) => {
         if (result.length === 0) {
-          wx.showModal({
+          app.wxp.showModal({
             title: '提示',
             content: '查询结果为空',
             showCancel: false
@@ -31,9 +32,9 @@ Page({
             result: result
           })
         }
-        wx.hideLoading();
+        app.wxp.hideLoading();
       }).catch(err => {
-        wx.hideLoading();
+        app.wxp.hideLoading();
       });
   },
   //清除按钮触发的方法

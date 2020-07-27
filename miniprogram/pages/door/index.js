@@ -1,6 +1,7 @@
 // pages/door/index.js
 
 import { doors, formatTime, meansApi, doorManagerRolePrefix } from '../../utils/utils.js';
+const app = getApp();
 Page({
 
   /**
@@ -19,7 +20,7 @@ Page({
   //当点击确认的时候，检查是否填写理由，填写了即开门成功后上传数据log
   getUserInfo(event) {
     if (this.data.reason === "") {
-      wx.showModal({
+      app.wxp.showModal({
         title: '提示',
         content: '请填写开门原因',
         showCancel: false,
@@ -29,7 +30,7 @@ Page({
         show: true
       });
     } else {
-      wx.showLoading({
+      app.wxp.showLoading({
         title: '正在开锁',
       });
       switch (this.data.name) {
@@ -56,16 +57,16 @@ Page({
   },
   //点击开门按钮执行开门，往云端传开门的数据用作log，因为开门的流程都是一样的，所以就编写一个函数包裹起来。
   openDoor(name, id) {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     const date = Date();
-    wx.cloud.callFunction({
+    app.wxp.cloud.callFunction({
       name: 'doorApiOpenDoor',
       data: {
         id: id
       }
     }).then(res => {
       if (res.result.code === 0) {
-        wx.showModal({
+        app.wxp.showModal({
           title: '提示',
           showCancel: false,
           content: `${name}，开锁成功`,
@@ -83,16 +84,16 @@ Page({
             }
           })
           .then(() => {})
-        wx.hideLoading();
+        app.wxp.hideLoading();
       } else {
-        wx.showModal({
+        app.wxp.showModal({
           title: '提示',
           showCancel: false,
           content: `${name}，开锁失败`,
           confirmColor: '#007500',
         })
       }
-      wx.hideLoading();
+      app.wxp.hideLoading();
       //resolve(res);
     }).catch(err => reject(err))
   },
@@ -113,7 +114,7 @@ Page({
   onLoad: function(options) {
     let doorIds;
     let info = {};
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
     })
     meansApi.getRoles().then((res) => {
@@ -160,7 +161,7 @@ Page({
       this.setData({
         doors: doors
       });
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
   },
 

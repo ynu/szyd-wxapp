@@ -1,5 +1,6 @@
 // pages/door/supervisor-index.js
 import { Roles, shopManagerRolePrefix, meansApi } from "../../utils/utils.js";
+const app = getApp();
 
 Page({
 
@@ -11,13 +12,13 @@ Page({
   },
   //去开门进入index
   toOpenDoor() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/door/index',
     })
   },
   //去查看日志进入log
   toDoorLogs() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/door/query-log',
     })
   },
@@ -27,7 +28,7 @@ Page({
    */
   onLoad: function(options) {
     const that = this;
-    wx.showLoading({
+    app.wxp.showLoading({
       title: "正在加载",
       mask: true
     });
@@ -42,7 +43,7 @@ Page({
             break;
         }
       });
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
 
   },

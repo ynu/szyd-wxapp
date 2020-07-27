@@ -1,4 +1,5 @@
-import { ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles } from '../../utils/utils.js';
+import {fcApi} from '../../utils/utils.js';
+const app = getApp();
 Page({
 
   /**
@@ -8,13 +9,13 @@ Page({
   },
 
   goToHost: function (event) {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: `./host/host?host=${event.currentTarget.dataset.host}`,
     });
   },
 
   goToVm: function (event) {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: `./vm/vm?colony=${event.currentTarget.dataset.vm.name}&select=colony`,
     });
   },
@@ -23,14 +24,14 @@ Page({
     let vm = [];
     let that = this;
     let host = [];
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
     });
     Promise.all([fcApi.setlist()]).then(vm=>{
       that.setData({
         datas:vm[0]
       });
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
   },
 });

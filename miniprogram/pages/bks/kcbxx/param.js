@@ -1,4 +1,5 @@
 // pages/bks/kcbxx/param.js
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -7,12 +8,12 @@ Page({
 
   },
   toKcm() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/kcbxx/index?param=kcm',
     })
   },
   toKch() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/bks/kcbxx/index?param=kch',
     })
   },

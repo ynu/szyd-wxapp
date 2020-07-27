@@ -1,5 +1,6 @@
 // pages/fa/index.js
 import { meansApi } from '../../utils/utils.js';
+const app = getApp();
 let modules = [{
   name: '虚拟化平台',
   value: 'szyd:fc-supervisor',
@@ -85,7 +86,7 @@ Page({
   },
   //将提示对话框提出，作为一个函数
   showModal(error) {
-    wx.showModal({
+    app.wxp.showModal({
       content: error.message,
       showCancel: false,
     })
@@ -100,7 +101,7 @@ Page({
   //点击提交按钮触发此函数
   submitForm() {
     const that = this;
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     that.selectComponent('#form').validate((valid, errors) => {
       //当校验规则不通过时执行if条件为真，执行下面语句
       if (!valid) {
@@ -112,7 +113,7 @@ Page({
       } else {
         //此处的if条件判断验证码与生成的验证码是否一致。
         if (that.data.formData.vcode !== that.data.sendCode) {
-          wx.showModal({
+          app.wxp.showModal({
             title: '提示',
             content: '请输入正确的验证码',
             showCancel: false
@@ -120,7 +121,7 @@ Page({
           return false;
           //此处的if条件判断收到验证码的手机号与填写的手机号是否一致
         } else if (that.data.formData.mobile !== that.data.mobileReceiveVcode) {
-          wx.showModal({
+          app.wxp.showModal({
             title: '提示',
             content: '输入的手机号并非是收到验证码的手机号',
             showCancel: false
@@ -143,17 +144,16 @@ Page({
                 }
               })
               .then(() => {
-                wx.showModal({
+                app.wxp.showModal({
                   title: '提示',
                   content: '您的申请已成功提交，请耐心等候审批',
                   showCancel: false,
                   confirmColor: '#007500',
-                  success(res) {
-                    wx.navigateBack({
+                }).then(res => {
+                    app.wxp.navigateBack({
                       delta: 1
                     })
-                  }
-                });
+                  })
               });
             //用户第一次申请
           } else {
@@ -168,17 +168,16 @@ Page({
                 }
               })
               .then(() => {
-                wx.showModal({
+                app.wxp.showModal({
                   title: '提示',
                   content: '您的申请已成功提交，请耐心等候审批',
                   showCancel: false,
                   confirmColor: '#007500',
-                  success(res) {
-                    wx.navigateBack({
+                }).then(res => {
+                    app.wxp.navigateBack({
                       delta: 1
                     })
-                  }
-                });
+                  })
               });
           }
         }
@@ -209,7 +208,7 @@ Page({
       mobile
     } = this.data.formData;
     if (this.isPoneAvailable(mobile)) {
-      wx.showModal({
+      app.wxp.showModal({
         title: '手机号码错误',
         content: '请填写正确的手机号码',
         showCancel: false,
@@ -226,7 +225,7 @@ Page({
       mobileReceiveVcode: mobile
     });
     // 发送验证码
-    wx.cloud.callFunction({
+    app.wxp.cloud.callFunction({
       name: 'qcSmsSendSingle',
       data: {
         mobile: this.data.mobile,
@@ -235,12 +234,12 @@ Page({
     })
       .then(result => {
         // 发送成功
-        wx.showToast({
+        app.wxp.showToast({
           title: '发送成功',
         });
       }).catch(err => {
         // 发送失败，可能原因是手机号码不对
-        wx.showModal({
+        app.wxp.showModal({
           title: '提示',
           content: '发送失败',
           showCancel: false
@@ -306,9 +305,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    const db = wx.cloud.database();
     const that = this;
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
       mask: true
     });
@@ -337,7 +335,7 @@ Page({
           _id: res.data[0]._id
         });
       }
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });;
   },
 

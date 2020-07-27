@@ -10,7 +10,7 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    canIUse: app.wxp.canIUse('button.open-type.getUserInfo'),
     modules: [],
     IsApply: false,
   },
@@ -18,7 +18,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function() {
+  onLoad: function () {
     this.setData({
       icon: icon20
     });
@@ -38,19 +38,17 @@ Page({
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
+      app.wxp.getUserInfo().then(res => {
+        app.globalData.userInfo = res.userInfo
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
       })
     }
   },
   //获取用户信息
-  getUserInfo: function(e) {
+  getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -90,18 +88,17 @@ Page({
       case "本科生信息查询":
         module = "bks/index";
         break;
-        case "统一身份认证系统":
+      case "统一身份认证系统":
         module = "idSystem/index";
         break;
     }
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: `/pages/${module}`,
     })
   },
   //获取当前用户的权限
   getPermission() {
     let obj = {};
-    const db = wx.cloud.database();
     const that = this;
     this.setData({
       IsApply: false
@@ -162,7 +159,7 @@ Page({
                 name: "本科生信息查询"
               });
               break;
-              case Roles.IdSystemSupervisor:
+            case Roles.IdSystemSupervisor:
               modules.push({
                 name: "统一身份认证系统"
               });
@@ -188,27 +185,27 @@ Page({
           modules: modules
         });
       }
-      wx.hideLoading();
+      app.wxp.hideLoading();
     })
   },
   //申请功能跳转
   toApply() {
-    wx.navigateTo({
+    app.wxp.navigateTo({
       url: '/pages/application/index'
     });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    wx.showLoading({
+  onShow: function () {
+    app.wxp.showLoading({
       title: '正在加载',
       mask: true
     });
@@ -219,22 +216,22 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
-    wx.showLoading({
+  onPullDownRefresh: function () {
+    app.wxp.showLoading({
       title: '正在加载',
       mask: true
     });
@@ -244,14 +241,14 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

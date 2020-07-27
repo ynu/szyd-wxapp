@@ -1,5 +1,6 @@
 // pages/bks/kcbxx/detail.js
 import { bksApi } from '../../../utils/utils.js';
+const app = getApp();
 Page({
 
   /**
@@ -13,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
+    app.wxp.showLoading({
       title: "正在加载",
       mask: true
     });
@@ -24,9 +25,9 @@ Page({
         this.setData({
           result: result[0]
         })
-        wx.hideLoading();
+        app.wxp.hideLoading();
       }).catch(err => {
-        wx.hideLoading();
+        app.wxp.hideLoading();
       });
 
   },

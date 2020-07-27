@@ -1,5 +1,6 @@
 // pages/ecard/query/ecard-detail.js
 import { ecardApi } from '../../../utils/utils.js';
+const app = getApp();
 
 Page({
 
@@ -14,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.showLoading({
+    app.wxp.showLoading({
       title: "正在加载",
       mask: true
     });
@@ -22,7 +23,7 @@ Page({
       ecardApi.cardInfo(options.stuempno).catch(() => [])
     ]).then(
       ([result]) => {
-        wx.hideLoading();
+        app.wxp.hideLoading();
         switch (result.cardstatus) {
           case "1":
             result.cardstatus = "正常";
@@ -41,7 +42,7 @@ Page({
           cardInfo: result
         })
       }).catch(error => {
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
   },
 

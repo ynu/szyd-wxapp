@@ -1,5 +1,5 @@
 // pages/door/key-query.js
-import { ecardApi } from '../../utils/utils.js';
+const app = getApp();
 Page({
 
   /**
@@ -20,11 +20,11 @@ Page({
   queryInfo() {
     let obj = {};
     let result = [];
-    wx.showLoading({
+    app.wxp.showLoading({
       title: "正在加载",
       mask: true
     });
-    const db = wx.cloud.database(); //初始化数据库
+    const db = app.wxp.cloud.database(); //初始化数据库
     //模糊查询，从对象的name,personName,time模糊查询得出结果
     db.collection("open-door-logs").orderBy('time', 'desc').where({
       name: db.RegExp({
@@ -55,13 +55,13 @@ Page({
             result: result
           })
           if (this.data.result.length === 0) {
-            wx.showModal({
+            app.wxp.showModal({
               title: '提示',
               content: '查询结果为空',
               showCancel: false
             });
           }
-          wx.hideLoading();
+          app.wxp.hideLoading();
         });
       });
     });

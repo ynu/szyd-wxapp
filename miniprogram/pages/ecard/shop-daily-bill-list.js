@@ -1,6 +1,7 @@
 import * as echarts from '../../lib/ec-canvas/echarts.js';
 import { ecardApi } from '../../utils/utils.js';
 import { formatMoney, formatNumber } from '../../lib/accounting.js';
+const app = getApp();
 
 Page({
 
@@ -19,7 +20,7 @@ Page({
    */
   onLoad: function(options) {
     this.setData(options);
-    wx.showLoading({
+    app.wxp.showLoading({
       title: '正在加载',
       mask: true,
     });
@@ -39,9 +40,9 @@ Page({
         billsCount: bills.length,
       });
       this.initChart();
-      wx.hideLoading();
+      app.wxp.hideLoading();
     }).catch(err => {
-      wx.hideLoading();
+      app.wxp.hideLoading();
     });
   },
 

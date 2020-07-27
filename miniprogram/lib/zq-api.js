@@ -3,11 +3,12 @@
  * 站群系统API
  */
 import config from '../config.default.js'
+const app = getApp();
 class ZqApi {
 
   //总的站点数目
   async firmCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     const res = await db.collection('kvs').where({
       _id: "index:zq-web-firm-count"
     }).get();
@@ -16,7 +17,7 @@ class ZqApi {
 
   //总的文章数目
   async newsCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     const res = await db.collection('kvs').where({
       _id: "index:zq-news-count"
     }).get();
@@ -26,7 +27,7 @@ class ZqApi {
   //所有站名及其状态
   webFirm() {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
+      app.wxp.cloud.callFunction({
         name: 'zqApiWebfirm'
       }).then(res => {
         resolve(res.result);
@@ -36,7 +37,7 @@ class ZqApi {
 
   //计算正在使用的站点的数量
   async runningCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     const res = await db.collection('kvs').where({
       _id: "index:zq-running-firm-count"
     }).get();
@@ -46,7 +47,7 @@ class ZqApi {
   //各个站点180天内站的文章数量
   webnewsCount() {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
+      app.wxp.cloud.callFunction({
         name: 'zqApiWebnewsCount'
       }).then(res => {
         resolve(res.result);
