@@ -6,7 +6,7 @@ const app = getApp();
 class BksApi {
   //通过云数据库获取对应条件的研究生数量
   async counter() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     try {
       const res = await db.collection('bks').get();
       return res.data[0].bksCounter;

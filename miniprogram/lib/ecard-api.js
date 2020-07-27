@@ -2,7 +2,7 @@
  * version: 1.0.0
  * 一卡通系统API
  */
-
+const app = getApp();
 const {
   get,
   set
@@ -12,7 +12,7 @@ class EcardApi {
   // 获取所有商户信息
   shops() {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiShopsInfo"
         })
@@ -25,7 +25,7 @@ class EcardApi {
 
   //商户数量
   shopsCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     return db.collection('kvs').where({
       _id: "index:ecard-shops-count"
     }).get().then((res) => {
@@ -36,7 +36,7 @@ class EcardApi {
   // 获取指定商户日账单列表
   dailyBills(shopId) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiDailyBills",
           data: {
@@ -53,7 +53,7 @@ class EcardApi {
   // 获取指定商户单日账单
   dailyBill(queryObject) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiDailyBill",
           data: {
@@ -70,7 +70,7 @@ class EcardApi {
   // 获取指定商户月账单列表
   monthlyBills(shopId) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiMonthlyBills",
           data: {
@@ -87,7 +87,7 @@ class EcardApi {
   // 获取指定商户单月账单
   monthlyBill(queryObject) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiMonthlyBill",
           data: {
@@ -170,7 +170,7 @@ class EcardApi {
   // 获取所属商户的设备的日账单列表
   deviceBillsByShop(shopId, date) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiDeviceBillsByShop",
           data: {
@@ -188,7 +188,7 @@ class EcardApi {
   // 获取所属商户的设备的月账单列表
   deviceMonthlyBillsByShop(shopId, date) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiDeviceMonthlyBillsByShop",
           data: {
@@ -208,7 +208,7 @@ class EcardApi {
     const key = `ecard:opeartion-bill:${date}`;
     return new Promise((resolve, reject) => {
       if (get(key)) return resolve(get(key));
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiOperatorBillsByDate",
           data: {
@@ -245,7 +245,7 @@ class EcardApi {
 
   //获取device信息
   deviceCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     return db.collection('kvs').where({
       _id: "index:ecard-device-count"
     }).get().then((res) => {
@@ -255,7 +255,7 @@ class EcardApi {
 
   //获取card信息
   cardCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     return db.collection('kvs').where({
       _id: "index:ecard-card-count"
     }).get().then((res) => {
@@ -266,7 +266,7 @@ class EcardApi {
   //搜索用户信息
   cardInfoQuery(data) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiCardQuery",
           data: {
@@ -283,7 +283,7 @@ class EcardApi {
   //获取制定用户的卡号信息
   cardInfo(data) {
     return new Promise((resolve, reject) => {
-      wx.cloud
+      app.wxp.cloud
         .callFunction({
           name: "ecardApiCardInfo",
           data: {

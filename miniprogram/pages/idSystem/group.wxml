@@ -6,16 +6,26 @@
 	</view>
 	<view class='weui-form-preview__bd weui-cells weui-cells_after-title' wx:for="{{data}}" wx:key="datas" style='border-top: 1rpx solid #D5D5D6'>
 		<view class="weui-form-preview__item">
-			<view class="weui-form-preview__label">名称</view>
-			<view class="weui-form-preview__value">{{item.NAME}}</view>
-      <view class="weui-form-preview__label">ID</view>
-			<view class="weui-form-preview__value">{{item.ID}}</view>
-      <view class="weui-form-preview__label">PID</view>
-			<view class="weui-form-preview__value">{{item.PID}}</view>
-      <view class="weui-form-preview__label">系统群组</view>
-			<view class="weui-form-preview__value">{{item.SYSTEM_GROUP }}</view>
-      <view class="weui-form-preview__label">密码策略</view>
-			<view class="weui-form-preview__value">{{item.PWDPOLICY}}</view>
+			<view class="weui-form-preview__item">
+				<view class="weui-form-preview__label">名称</view>
+				<view class="weui-form-preview__value">{{item.NAME}}</view>
+			</view>
+			<view class="weui-form-preview__item">
+				<view class="weui-form-preview__label">ID</view>
+				<view class="weui-form-preview__value">{{item.ID}}</view>
+			</view>
+			<view class="weui-form-preview__item">
+				<view class="weui-form-preview__label">PID</view>
+				<view class="weui-form-preview__value">{{item.PID}}</view>
+			</view>
+			<view class="weui-form-preview__item">
+				<view class="weui-form-preview__label">系统群组</view>
+				<view class="weui-form-preview__value">{{item.SYSTEM_GROUP }}</view>
+			</view>
+			<view class="weui-form-preview__item">
+				<view class="weui-form-preview__label">密码策略</view>
+				<view class="weui-form-preview__value">{{item.PWDPOLICY}}</view>
+			</view>
 		</view>
 	</view>
 	<include src="../footer.wxml" />

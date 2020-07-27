@@ -2,7 +2,7 @@
  * version: 1.0.2
  * FC虚拟化平台API
  */
-
+const app = getApp();
 class FcApi {
   // 获取所有虚拟机
   allvm() {
@@ -111,7 +111,7 @@ class FcApi {
   //通过云函数获取指定的虚拟机信息
   vms(options = {}) {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
+      app.wxp.cloud.callFunction({
         name: 'fcApiVms',
         data: {
           siteIdOptions: options.siteId,
@@ -125,7 +125,7 @@ class FcApi {
   }
   //获取虚拟机总数量
   vmCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     return db.collection('kvs').where({
       _id: "index:fc-vms-count"
     }).get().then((res) => {
@@ -136,7 +136,7 @@ class FcApi {
   //通过云函数获取集群
   clusters(options = {}) {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
+      app.wxp.cloud.callFunction({
         name: 'fcApiClusters',
         data: {
           siteIdOption: options.siteId
@@ -149,7 +149,7 @@ class FcApi {
 
   //通过云数据库调用获取集群数量
   clustersCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     return db.collection('kvs').where({
       _id: "index:fc-clusters-count"
     }).get().then((res) => {
@@ -160,7 +160,7 @@ class FcApi {
   //通过云函数获取主机信息
   hosts(options = {}) {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
+      app.wxp.cloud.callFunction({
         name: 'fcApiHosts',
         data: {
           siteIdOption: options.siteId,
@@ -175,7 +175,7 @@ class FcApi {
 
   //获取主机数量
   hostCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     return db.collection('kvs').where({
       _id: "index:fc-hosts-count"
     }).get().then((res) => {
@@ -185,7 +185,7 @@ class FcApi {
 
   //计算正在运行的虚拟机的数量
   runningVmCount() {
-    const db = wx.cloud.database();
+    const db = app.wxp.cloud.database();
     return db.collection('kvs').where({
       _id: "index:fc-running-vms-count"
     }).get().then((res) => {
@@ -196,7 +196,7 @@ class FcApi {
   //查询虚拟机详细信息
   vmDetails(vmId) {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
+      app.wxp.cloud.callFunction({
         name: 'fcApiVmDetails',
         data: {
           vmId: vmId
