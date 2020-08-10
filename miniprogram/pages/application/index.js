@@ -1,5 +1,6 @@
 // pages/fa/index.js
 import { meansApi } from '../../utils/utils.js';
+const app = getApp();
 let modules = [{
   name: '虚拟化平台',
   value: 'szyd:fc-supervisor',
@@ -143,18 +144,17 @@ Page({
                 }
               })
               .then(() => {
-                wx.showModal({
+                app.wxp.showModal({
                   title: '提示',
                   content: '您的申请已成功提交，请耐心等候审批',
                   showCancel: false,
-                  confirmColor: '#007500',
-                  success(res) {
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                  }
-                });
-              });
+                  confirmColor: '#007500'
+                }).then(res => {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                })
+              })
             //用户第一次申请
           } else {
             db.collection('user-permissions')
@@ -172,13 +172,12 @@ Page({
                   title: '提示',
                   content: '您的申请已成功提交，请耐心等候审批',
                   showCancel: false,
-                  confirmColor: '#007500',
-                  success(res) {
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                  }
-                });
+                  confirmColor: '#007500'
+                }).then(res => {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                })
               });
           }
         }

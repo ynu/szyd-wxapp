@@ -1,4 +1,4 @@
-import { ecardApi, zqApi, fcApi, uirApi, weixinApi, appId, Roles } from '../../utils/utils.js';
+import { fcApi } from '../../utils/utils.js';
 Page({
 
   /**

@@ -1,7 +1,7 @@
 /**
  * 本科生API
  */
-import config from '../config.default.js';
+import key from '../utils/key';
 const app = getApp();
 class BksApi {
   //通过云数据库获取对应条件的研究生数量
@@ -19,12 +19,12 @@ class BksApi {
   courseSchedulingTeacherInfoQuery(param) {
     return new Promise((resolve, reject) => {
       app.wxp.request({
-        url: config.apis.bksUrl.bksCourseSchedulingTeacherInfoQuery,
+        url: "https://apis.ynu.edu.cn/do/api/call/pksjjs_bks",
         data: param,
         method: "POST",
         header: {
-          'accessToken': config.apis.token,
-          'appId': config.apis.appId,
+          'accessToken': key.apis.token,
+          'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
       }).then(res => {
@@ -38,12 +38,12 @@ class BksApi {
   kcbQuery(param) {
     return new Promise((resolve, reject) => {
       app.wxp.request({
-        url: config.apis.bksUrl.bksKcbQuery,
+        url: "https://apis.ynu.edu.cn/do/api/call/kcb_bks",
         data: param,
         method: "POST",
         header: {
-          'accessToken': config.apis.token,
-          'appId': config.apis.appId,
+          'accessToken': key.apis.token,
+          'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
       })

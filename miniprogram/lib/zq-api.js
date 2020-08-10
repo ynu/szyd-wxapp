@@ -2,7 +2,6 @@
  * version: 1.0.1
  * 站群系统API
  */
-import config from '../config.default.js'
 class ZqApi {
 
   //总的站点数目

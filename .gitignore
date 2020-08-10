@@ -60,10 +60,7 @@ typings/
 # next.js build output
 .next
 *.config.json
-/miniprogram/project.config.json
-
-/miniprogram/config.default.js
 /miniprogram/config.js
 /miniprogram/.eslintrc.js
-/miniprogram/.eslintrc.js
 /miniprogram/utils/ip.js
+/miniprogram/utils/key.js

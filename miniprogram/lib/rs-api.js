@@ -2,19 +2,19 @@
  * version: 1.0.0
  * Rs人事系统API
  */
-import config from '../config.default.js';
+import key from '../utils/key';
 const app = getApp();
 class RsApi {
   //查询人事基本信息方法
   infoQuery(param) {
     return new Promise((resolve, reject) => {
       app.wxp.request({
-        url: config.apis.rsUrl.rsInfoQuery,
+        url: "http://apis.ynu.edu.cn/do/api/call/info_jzg_rs",
         data: param,
         method: "POST",
         header: {
-          'accessToken': config.apis.token,
-          'appId': config.apis.appId,
+          'accessToken': key.apis.token,
+          'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
       })

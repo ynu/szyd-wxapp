@@ -1,7 +1,7 @@
 /**
  * 研究生API
  */
-import config from '../config.default.js';
+import key from '../utils/key.js';
 const app = getApp();
 
 class YjsApi {
@@ -12,16 +12,16 @@ class YjsApi {
       return res.data[0].yjsCounter;
     }).catch(() => []);
   }
-  //通过传递参数到云函数查询研究生课程表中的信息
+  //通过传递参数发送request请求查询研究生课程表中的信息
   kcbQuery(param) {
     return new Promise((resolve, reject) => {
       app.wxp.request({
-        url: config.apis.yjsUrl.yjsKcbQuery,
+        url: "https://apis.ynu.edu.cn/do/api/call/kcjbxx_yjs",
         data: param,
         method: "POST",
         header: {
-          'accessToken': config.apis.token,
-          'appId': config.apis.appId,
+          'accessToken': key.apis.token,
+          'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
       })

@@ -5,8 +5,7 @@
 1.2 权限：查看指定商户及子商户和设备的日/月账单
 */
 
-const UirApi = require("../lib/user-in-role.js");
-const WeixinApi = require("../lib/weixin-api.js");
+const WeixinApi = require("../lib/weixin-api.js").default;
 const EcardApi = require("../lib/ecard-api.js");
 const ZqApi = require("../lib/zq-api.js");
 const FcApi = require("../lib/fc-api.js");
@@ -16,7 +15,6 @@ const BksApi = require('../lib/bks-api.js');
 const IdSystemApi = require('../lib/idSystem-api');
 const RsApi = require('../lib/rs-api.js');
 
-const uirApi = new UirApi();
 const weixinApi = new WeixinApi();
 const ecardApi = new EcardApi();
 const zqApi = new ZqApi();
@@ -100,7 +98,6 @@ const formatTime = date => {
 }
 
 module.exports = {
-  uirApi,
   weixinApi,
   ecardApi,
   zqApi,
