@@ -2,7 +2,8 @@
  * version: 1.0.0
  * 一卡通系统API
  */
-
+import keys from '../utils/key';
+const app = getApp();
 const {
   get,
   set
@@ -10,94 +11,66 @@ const {
 
 class EcardApi {
   // 获取所有商户信息
-  shops() {
-    return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiShopsInfo"
-        })
-        .then(res => {
-          resolve(res.result || []);
-        })
-        .catch(err => reject(err));
-    });
+  async shops() {
+    try {
+      const res = await app.wxp.request({
+        url: "https://apis.ynu.edu.cn/do/api/call/shops_ecard",
+        data: {},
+        method: "POST",
+        header: {
+          'accessToken': keys.apis.token,
+          'appId': keys.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      })
+      return res.data.dataSet
+    } catch (err) {
+      return err
+    }
   }
 
   //商户数量
-  shopsCount() {
+  async shopsCount() {
     const db = wx.cloud.database();
-    return db.collection('kvs').where({
+    const res = await db.collection('kvs').where({
       _id: "index:ecard-shops-count"
-    }).get().then((res) => {
-      return res.data[0].value || 0;
-    })
-  }
-
-  // 获取指定商户日账单列表
-  dailyBills(shopId) {
-    return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiDailyBills",
-          data: {
-            shopId: shopId
-          }
-        })
-        .then(res => {
-          resolve(res.result || []);
-        })
-        .catch(err => reject(err));
-    });
+    }).get();
+    return res.data[0].value || 0;
   }
 
   // 获取指定商户单日账单
   dailyBill(queryObject) {
     return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiDailyBill",
-          data: {
-            queryObject
-          }
-        })
-        .then(res => {
-          resolve(JSON.parse(res.result) || []);
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  // 获取指定商户月账单列表
-  monthlyBills(shopId) {
-    return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiMonthlyBills",
-          data: {
-            shopId: shopId
-          }
-        })
-        .then(res => {
-          resolve(res.result || []);
-        })
-        .catch(err => reject(err));
+      app.wxp.request({
+        url: "https://apis.ynu.edu.cn/do/api/call/shopBill_ecard",
+        method: "POST",
+        data: queryObject,
+        header: {
+          'accessToken': keys.apis.token,
+          'appId': keys.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      }).then(res => {
+        resolve(res.data.dataSet || []);
+      }).catch(err => reject(err))
     });
   }
 
   // 获取指定商户单月账单
   monthlyBill(queryObject) {
     return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiMonthlyBill",
-          data: {
-            queryObject
-          }
-        })
-        .then(res => {
-          resolve(JSON.parse(res.result) || []);
-        })
-        .catch(err => reject(err));
+      app.wxp.request({
+        url: "https://apis.ynu.edu.cn/do/api/call/shopBillMonth_ecard",
+        method: "POST",
+        data: queryObject,
+        header: {
+          'accessToken': keys.apis.token,
+          'appId': keys.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      }).then(res => {
+        resolve(res.data.dataSet || []);
+      }).catch(err => reject(err))
     });
   }
 
@@ -170,36 +143,21 @@ class EcardApi {
   // 获取所属商户的设备的日账单列表
   deviceBillsByShop(shopId, date) {
     return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiDeviceBillsByShop",
-          data: {
-            shopId: shopId,
-            date: date
-          }
-        })
-        .then(res => {
-          resolve(res.result || []);
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  // 获取所属商户的设备的月账单列表
-  deviceMonthlyBillsByShop(shopId, date) {
-    return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiDeviceMonthlyBillsByShop",
-          data: {
-            shopId: shopId,
-            date: date
-          }
-        })
-        .then(res => {
-          resolve([]);
-        })
-        .catch(err => reject(err));
+      app.wxp.request({
+        url: "https://apis.ynu.edu.cn/do/api/call/shopDeviceBill_ecard",
+        method: "POST",
+        data: {
+          "shopId": shopId,
+          "accdate": date
+        },
+        header: {
+          'accessToken': keys.apis.token,
+          'appId': keys.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      }).then(res => {
+        resolve(res.data.dataSet || []);
+      }).catch(err => reject(err))
     });
   }
 
@@ -208,17 +166,18 @@ class EcardApi {
     const key = `ecard:opeartion-bill:${date}`;
     return new Promise((resolve, reject) => {
       if (get(key)) return resolve(get(key));
-      wx.cloud
-        .callFunction({
-          name: "ecardApiOperatorBillsByDate",
-          data: {
-            date: date
-          }
-        })
-        .then(res => {
-          resolve(res.result || []);
-        })
-        .catch(err => reject(err));
+      app.wxp.request({
+        url: "https://apis.ynu.edu.cn/do/api/call/operatorBill_ecard",
+        method: "POST",
+        data: { "accdate": date },
+        header: {
+          'accessToken': keys.apis.token,
+          'appId': keys.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      }).then(res => {
+        resolve(res.data.dataSet || []);
+      }).catch(err => reject(err))
     });
   }
 
@@ -244,56 +203,55 @@ class EcardApi {
   }
 
   //获取device信息
-  deviceCount() {
+  async deviceCount() {
     const db = wx.cloud.database();
-    return db.collection('kvs').where({
+    const res = await db.collection('kvs').where({
       _id: "index:ecard-device-count"
-    }).get().then((res) => {
-      return res.data[0].value || 0;
-    })
+    }).get();
+    return res.data[0].value || 0;
   }
 
   //获取card信息
-  cardCount() {
+  async cardCount() {
     const db = wx.cloud.database();
-    return db.collection('kvs').where({
+    const res = await db.collection('kvs').where({
       _id: "index:ecard-card-count"
-    }).get().then((res) => {
-      return res.data[0].value || 0;
-    })
+    }).get();
+    return res.data[0].value || 0;
   }
 
   //搜索用户信息
-  cardInfoQuery(data) {
-    return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiCardQuery",
-          data: {
-            data
-          }
-        })
-        .then(res => {
-          resolve(res.result);
-        })
-        .catch(err => reject(err));
-    });
-  }
-
-  //获取制定用户的卡号信息
   cardInfo(data) {
     return new Promise((resolve, reject) => {
-      wx.cloud
-        .callFunction({
-          name: "ecardApiCardInfo",
-          data: {
-            stuempno: data
-          }
-        })
-        .then(res => {
-          resolve(res.result);
-        })
-        .catch(err => reject(err));
+      app.wxp.request({
+        url: "https://apis.ynu.edu.cn/do/api/call/info_ecard",
+        method: "POST",
+        data:{
+          "stuempno": data
+        },
+        header: {
+          'accessToken': keys.apis.token,
+          'appId': keys.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      }).then(res => {
+        if(res.data.dataSet.length === 0){
+          app.wxp.request({
+            url: "https://apis.ynu.edu.cn/do/api/call/info_ecard",
+            method: "POST",
+            data:{
+              "custname": data
+            },
+            header: {
+              'accessToken': keys.apis.token,
+              'appId': keys.apis.appId,
+              'content-type': 'application/json' // 默认值
+            },
+          }).then(res =>{resolve(res.data.dataSet || [])}).catch(err => {reject(err)})
+        }else {
+          resolve(res.data.dataSet || [])
+        }
+      }).catch(err => reject(err))
     });
   }
 }

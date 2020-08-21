@@ -15,7 +15,7 @@ Page({
     });
     //模糊查询，从对象的name模糊查询得出结果
     Promise.all([
-      ecardApi.cardInfoQuery(this.data.inputVal).catch(() => [])
+      ecardApi.cardInfo(this.data.inputVal).catch(() => [])
     ]).then(
       ([result]) => {
         wx.hideLoading();

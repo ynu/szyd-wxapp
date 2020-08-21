@@ -1,7 +1,7 @@
 import * as echarts from '../../lib/ec-canvas/echarts.js';
-import {ecardApi} from '../../utils/utils.js';
-import {moment} from '../../lib/moment.js';
-import {formatMoney, formatNumber} from '../../lib/accounting.js';
+const { ecardApi } = require('../../utils/utils.js');
+const moment = require('../../lib/moment.js');
+const { formatMoney, formatNumber } = require('../../lib/accounting.js');
 
 
 Page({
@@ -22,8 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-
+    this.ecComponent = this.selectComponent('#mychart-dom-bar');
     const setData = (date, bills) => {
       const bill = {
         date,
@@ -77,7 +76,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.ecComponent = this.selectComponent('#mychart-dom-bar');
   },
 
   initChart() {

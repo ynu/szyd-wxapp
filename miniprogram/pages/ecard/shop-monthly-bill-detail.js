@@ -16,6 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.ecComponent = this.selectComponent("#mychart-dom-bar");
     this.setData(options);
     wx.showLoading({
       title: "正在加载",
@@ -64,7 +65,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.ecComponent = this.selectComponent("#mychart-dom-bar");
+
   },
 
   initChart() {

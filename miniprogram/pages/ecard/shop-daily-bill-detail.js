@@ -17,6 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.ecComponent = this.selectComponent('#mychart-dom-bar');
     this.setData(options);
     wx.showLoading({
       title: '正在加载',
@@ -29,8 +30,8 @@ Page({
     Promise.all([
       // 获取商户账单
       ecardApi.dailyBill({
-        shopid: shopId,
-        accdate: date
+        "shopid": shopId,
+        "accdate": date
       }),
 
       // 获取所有子商户账单
@@ -70,7 +71,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.ecComponent = this.selectComponent('#mychart-dom-bar');
+    
   },
 
   initChart() {

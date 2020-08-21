@@ -63,7 +63,7 @@ const cRequest = async() => {
 }
 
 //云函数入口函数
-export asyncfunction main(event, context) {
+export async function main(event, context) {
   await getBksCounter();
   await cRequest();
 }

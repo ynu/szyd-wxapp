@@ -2,6 +2,8 @@
  * version: 1.0.1
  * 站群系统API
  */
+import key from '../utils/key';
+const app = getApp();
 class ZqApi {
 
   //总的站点数目
@@ -25,10 +27,17 @@ class ZqApi {
   //所有站名及其状态
   webFirm() {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
-        name: 'zqApiWebfirm'
+      app.wxp.request({
+        url: "http://apis.ynu.edu.cn/do/api/call/wbfirm_zq",
+        data: {},
+        method: "POST",
+        header: {
+          'accessToken': key.apis.token,
+          'appId': key.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
       }).then(res => {
-        resolve(res.result);
+        resolve(res.data.dataSet);
       }).catch(err => reject(err))
     })
   }
@@ -45,10 +54,19 @@ class ZqApi {
   //各个站点180天内站的文章数量
   webnewsCount() {
     return new Promise((resolve, reject) => {
-      wx.cloud.callFunction({
-        name: 'zqApiWebnewsCount'
+      app.wxp.request({
+        url: "http://apis.ynu.edu.cn/do/api/call/latestDaysUpdateCounts_wbnews_zq",
+        method: "POST",
+        data: {
+          "days": "180"
+        },
+        header: {
+          'accessToken': key.apis.token,
+          'appId': key.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
       }).then(res => {
-        resolve(res.result);
+        resolve(res.data.dataSet);
       }).catch(err => reject(err))
     })
   }
@@ -74,7 +92,7 @@ class ZqApi {
 
   //为一个对象数组里面对象的某一个属性（key）排序，并最后输出排序好的数组。key是对象数组中对象根据此属性名排序，desc当为false时是升序排序，当为true时是降序排序
   done(key, desc) {
-    return function(a, b) {　　　　
+    return function (a, b) {
       return desc ? ((parseInt(a[key]) < parseInt(b[key])) ? 1 : ((parseInt(a[key]) > parseInt(b[key])) ? -1 : 0)) : ((parseInt(a[key]) < parseInt(b[key])) ? -1 : ((parseInt(a[key]) > parseInt(b[key])) ? 1 : 0))
     }
   }

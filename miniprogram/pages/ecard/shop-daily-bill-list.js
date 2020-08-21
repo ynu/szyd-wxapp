@@ -23,7 +23,7 @@ Page({
       title: '正在加载',
       mask: true,
     });
-    ecardApi.dailyBills(options.shopId).then(bills => {
+    ecardApi.dailyBill({"shopid":options.shopId}).then(bills => {
       // 按日期降序排列
       bills.sort((a, b) => {
         if (a.accdate > b.accdate) return -1;

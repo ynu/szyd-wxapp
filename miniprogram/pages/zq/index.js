@@ -1,6 +1,5 @@
 // pages/wg/index.js
 import { zqApi } from '../../utils/utils.js';
-let datas1GreenWebCount = 0;
 Page({
   /**
    * 页面的初始数据
@@ -11,14 +10,16 @@ Page({
     datas1GreenWebCount: 0
   },
   onLoad: function () {
-    wx.showLoading({
-      title: '正在加载',
-      mask: true
-    });
+    // wx.showLoading({
+    //   title: '正在加载',
+    //   mask: true
+    // });
     let that = this;
+    let datas1GreenWebCount = 0;
     zqApi.webFirm().then(data => {
       //循环判断每一个站点的状态，并做属性赋值
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {        
+        data[i].count = 0;
         if (data[i].wbstate == 0) {
           data[i].wbstate = "正在使用";
         } else {
@@ -28,7 +29,6 @@ Page({
       zqApi.webnewsCount().then(function (dataa) {
         //循环的增加站点的count属性，用来记录站点180天内更新的文章数量
         for (let j = 0; j < data.length; j++) {
-          data[j].count = 0;
           for (let a = 0; a < dataa.length; a++) {
             if (data[j].wbfirmid === dataa[a].owner) {
               data[j].count = dataa[a].count;
