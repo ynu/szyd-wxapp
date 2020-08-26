@@ -24,7 +24,7 @@ Page({
       mask: true
     });
     ecardApi
-      .monthlyBill({"shopid":options.shopId})
+      .monthlyBill({"shopid":options.shopid})
       .then(bills => {
         // 按日期降序排列
         bills.sort((a, b) => {

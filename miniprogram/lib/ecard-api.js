@@ -147,7 +147,7 @@ class EcardApi {
         url: "https://apis.ynu.edu.cn/do/api/call/shopDeviceBill_ecard",
         method: "POST",
         data: {
-          "shopId": shopId,
+          "shopid": shopId,
           "accdate": date
         },
         header: {
@@ -192,9 +192,9 @@ class EcardApi {
           transCnt: 0
         };
         bills.reduce((acc, cur) => {
-          bill.inAmt += parseFloat(cur.inAmt || 0);
-          bill.outAmt += parseFloat(cur.outAmt || 0);
-          bill.transCnt += parseInt(cur.transCnt || 0);
+          bill.inAmt += parseFloat(cur.inamt || 0);
+          bill.outAmt += parseFloat(cur.outamt || 0);
+          bill.transCnt += parseInt(cur.transcnt || 0);
           return bill;
         }, bill);
         resolve(bill);

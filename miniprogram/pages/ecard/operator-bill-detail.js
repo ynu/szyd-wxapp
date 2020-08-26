@@ -7,6 +7,7 @@ Page({
    */
   data: {
     bills: [],
+    billAll:{}
   },
 
   /**
@@ -26,19 +27,20 @@ Page({
       // 获取单个操作员账单
       ecardApi.operatorBillsByDate(date)
     ]).then(([
-      bill,
+      billAll,
       bills
     ]) => {
-      wx.hideLoading();
-      bill.amtText = formatMoney(bill.inamt - bill.outamt, '￥');
-      bill.inamtText = formatMoney(bill.inamt, '￥');
-      bill.outamtText = formatMoney(bill.outamt, '￥');
-      bill.transcntText = formatNumber(bill.transcnt);
+      wx.hideLoading();      
+      billAll.amtText = formatMoney(billAll.inAmt - billAll.outAmt, '￥');
+      billAll.inamtText = formatMoney(billAll.inAmt, '￥');
+      billAll.outamtText = formatMoney(billAll.outAmt, '￥');
+      billAll.transcntText = formatNumber(billAll.transCnt);
       this.setData({
-        bill,
+        billAll,
         bills: bills.map(bill => {
           bill.inamtText = formatMoney(bill.inamt, '￥');
           bill.outamtText = formatMoney(bill.outamt, '￥');
+          bill.transcntText = formatNumber(bill.transcnt);
           return bill;
         }),
       });

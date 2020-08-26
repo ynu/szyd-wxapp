@@ -8,21 +8,21 @@
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">合计金额</view>
-                    <view class="weui-form-preview__value_in-hd">{{bill.amtText}}</view>
+                    <view class="weui-form-preview__value_in-hd">{{billAll.amtText}}</view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">收入金额</view>
-                    <view class="weui-form-preview__value">{{bill.inamtText}}</view>
+                    <view class="weui-form-preview__value">{{billAll.inamtText}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">支出金额</view>
-                    <view class="weui-form-preview__value">{{bill.outamtText}}</view>
+                    <view class="weui-form-preview__value">{{billAll.outamtText}}</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">交易次数</view>
-                    <view class="weui-form-preview__value">{{bill.transcntText}}笔</view>
+                    <view class="weui-form-preview__value">{{billAll.transcntText}}笔</view>
                 </view>
             </view>
         </view>

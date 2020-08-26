@@ -3,7 +3,6 @@ const { ecardApi } = require('../../utils/utils.js');
 const moment = require('../../lib/moment.js');
 const { formatMoney, formatNumber } = require('../../lib/accounting.js');
 
-
 Page({
 
   /**
@@ -23,7 +22,7 @@ Page({
    */
   onLoad: function (options) {
     this.ecComponent = this.selectComponent('#mychart-dom-bar');
-    const setData = (date, bills) => {
+    const setDataFun = (date, bills) => {
       const bill = {
         date,
         inamt: 0,
@@ -52,7 +51,7 @@ Page({
 
         // 这里不支持finally
         ecardApi.operatorBillsByDate(date).then(bills => {
-          if (bills.length) setData(date, bills);
+          if (bills.length) setDataFun(date, bills);
           const prevDay = moment(date).subtract(1, 'days').format('YYYYMMDD');
           getPrevBill(prevDay);
         }).catch(err => {
