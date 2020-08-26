@@ -39,9 +39,9 @@ class EcardApi {
   }
 
   // 获取指定商户单日账单
-  dailyBill(queryObject) {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async dailyBill(queryObject) {
+    try {
+      const res = await app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/shopBill_ecard",
         method: "POST",
         data: queryObject,
@@ -50,16 +50,18 @@ class EcardApi {
           'appId': keys.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        resolve(res.data.dataSet || []);
-      }).catch(err => reject(err))
-    });
+      });
+      return res.data.dataSet || [];
+    }
+    catch (err) {
+      return err;
+    }
   }
 
   // 获取指定商户单月账单
-  monthlyBill(queryObject) {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async monthlyBill(queryObject) {
+    try {
+      const res = await app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/shopBillMonth_ecard",
         method: "POST",
         data: queryObject,
@@ -68,10 +70,12 @@ class EcardApi {
           'appId': keys.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        resolve(res.data.dataSet || []);
-      }).catch(err => reject(err))
-    });
+      });
+      return res.data.dataSet || [];
+    }
+    catch (err) {
+      return err;
+    }
   }
 
   // 获取指定日期所有商户的日账单
@@ -141,9 +145,9 @@ class EcardApi {
   }
 
   // 获取所属商户的设备的日账单列表
-  deviceBillsByShop(shopId, date) {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async deviceBillsByShop(shopId, date) {
+    try {
+      const res = await app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/shopDeviceBill_ecard",
         method: "POST",
         data: {
@@ -155,18 +159,20 @@ class EcardApi {
           'appId': keys.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        resolve(res.data.dataSet || []);
-      }).catch(err => reject(err))
-    });
+      });
+      return res.data.dataSet || [];
+    }
+    catch (err) {
+      return err;
+    }
   }
 
   // 获取指定日期所有操作员的日账单
   operatorBillsByDate(date) {
     const key = `ecard:opeartion-bill:${date}`;
-    return new Promise((resolve, reject) => {
-      if (get(key)) return resolve(get(key));
-      app.wxp.request({
+    if (get(key)) return resolve(get(key));
+    else {
+      return app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/operatorBill_ecard",
         method: "POST",
         data: { "accdate": date },
@@ -175,10 +181,8 @@ class EcardApi {
           'appId': keys.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        resolve(res.data.dataSet || []);
-      }).catch(err => reject(err))
-    });
+      }).then(res => res.data.dataSet || []).catch(err => err)
+    }
   }
 
   // 指定日期的合并操作员账单
@@ -221,12 +225,12 @@ class EcardApi {
   }
 
   //搜索用户信息
-  cardInfo(data) {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async cardInfo(data) {
+    try {
+      const res = await app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/info_ecard",
         method: "POST",
-        data:{
+        data: {
           "stuempno": data
         },
         header: {
@@ -234,25 +238,28 @@ class EcardApi {
           'appId': keys.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        if(res.data.dataSet.length === 0){
-          app.wxp.request({
-            url: "https://apis.ynu.edu.cn/do/api/call/info_ecard",
-            method: "POST",
-            data:{
-              "custname": data
-            },
-            header: {
-              'accessToken': keys.apis.token,
-              'appId': keys.apis.appId,
-              'content-type': 'application/json' // 默认值
-            },
-          }).then(res =>{resolve(res.data.dataSet || [])}).catch(err => {reject(err)})
-        }else {
-          resolve(res.data.dataSet || [])
-        }
-      }).catch(err => reject(err))
-    });
+      });
+      if (res.data.dataSet.length === 0) {
+        app.wxp.request({
+          url: "https://apis.ynu.edu.cn/do/api/call/info_ecard",
+          method: "POST",
+          data: {
+            "custname": data
+          },
+          header: {
+            'accessToken': keys.apis.token,
+            'appId': keys.apis.appId,
+            'content-type': 'application/json' // 默认值
+          },
+        }).then(res_1 => res_1.data.dataSet || []).catch(err => err);
+      }
+      else {
+        return res.data.dataSet || [];
+      }
+    }
+    catch (err_1) {
+      return err_1;
+    }
   }
 }
 

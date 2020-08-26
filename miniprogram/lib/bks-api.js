@@ -16,9 +16,9 @@ class BksApi {
     }
   }
   //此函数用来获取排课时间教师信息查询
-  courseSchedulingTeacherInfoQuery(param) {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async courseSchedulingTeacherInfoQuery(param) {
+    try {
+      const res = await app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/pksjjs_bks",
         data: param,
         method: "POST",
@@ -27,17 +27,17 @@ class BksApi {
           'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        resolve(res.data.dataSet)
-      }).catch(err => {
-        reject(err)
-      })
-    })
+      });
+      return res.data.dataSet;
+    }
+    catch (err) {
+      return err;
+    }
   }
   //此函数用来获取本科生课程表信息
-  kcbQuery(param) {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async kcbQuery(param) {
+    try {
+      const res = await app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/kcb_bks",
         data: param,
         method: "POST",
@@ -46,12 +46,12 @@ class BksApi {
           'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      })
-        .then(res => {
-          resolve(res.data.dataSet);
-        })
-        .catch(err => reject(err));
-    });
+      });
+      return res.data.dataSet;
+    }
+    catch (err) {
+      return err;
+    }
   }
 }
 
