@@ -38,20 +38,20 @@ Page({
     ]).then(([bill, subShopBills, deviceBills]) => {
       // 格式化账单数据
       bill[0].cramtText = formatMoney(bill[0].cramt, "￥");
-      bill[0].dramtText = formatMoney(bill[0].drmant, "￥");
-      bill[0].amtText = formatMoney(bill[0].cramt - bill[0].drmant, "￥");
+      bill[0].dramtText = formatMoney(bill[0].dramt, "￥");
+      bill[0].amtText = formatMoney(bill[0].cramt - bill[0].dramt, "￥");
       bill[0].transcntText = formatNumber(bill[0].transcnt);
       this.setData({
         bill: bill[0],
         subShopBills: subShopBills.map(bill => {
           bill.transcntText = formatNumber(bill.transcnt);
-          bill.amtText = formatMoney(bill.cramt - bill.drmant, "￥");
+          bill.amtText = formatMoney(bill.cramt - bill.dramt, "￥");
           return bill;
         }),
         subShopCount: subShopBills.length,
         deviceBills: deviceBills.map(bill => {
           bill.transcntText = formatNumber(bill.transcnt);
-          bill.amtText = formatMoney(bill.cramt - bill.drmant, "￥");
+          bill.amtText = formatMoney(bill.cramt - bill.dramt, "￥");
           return bill;
         }),
         deviceCount: deviceBills.length

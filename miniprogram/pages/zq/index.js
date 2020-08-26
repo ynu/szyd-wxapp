@@ -10,10 +10,10 @@ Page({
     datas1GreenWebCount: 0
   },
   onLoad: function () {
-    // wx.showLoading({
-    //   title: '正在加载',
-    //   mask: true
-    // });
+    wx.showLoading({
+      title: '正在加载',
+      mask: true
+    });
     let that = this;
     let datas1GreenWebCount = 0;
     zqApi.webFirm().then(data => {

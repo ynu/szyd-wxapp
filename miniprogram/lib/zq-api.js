@@ -25,9 +25,9 @@ class ZqApi {
   }
 
   //所有站名及其状态
-  webFirm() {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async webFirm() {
+    try {
+      const res = await app.wxp.request({
         url: "http://apis.ynu.edu.cn/do/api/call/wbfirm_zq",
         data: {},
         method: "POST",
@@ -36,10 +36,12 @@ class ZqApi {
           'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        resolve(res.data.dataSet);
-      }).catch(err => reject(err))
-    })
+      });
+      return res.data.dataSet;
+    }
+    catch (err) {
+      return err;
+    }
   }
 
   //计算正在使用的站点的数量
@@ -52,9 +54,9 @@ class ZqApi {
   }
 
   //各个站点180天内站的文章数量
-  webnewsCount() {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async webnewsCount() {
+    try {
+      const res = await app.wxp.request({
         url: "http://apis.ynu.edu.cn/do/api/call/latestDaysUpdateCounts_wbnews_zq",
         method: "POST",
         data: {
@@ -65,10 +67,12 @@ class ZqApi {
           'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      }).then(res => {
-        resolve(res.data.dataSet);
-      }).catch(err => reject(err))
-    })
+      });
+      return res.data.dataSet;
+    }
+    catch (err) {
+      return err;
+    }
   }
 
   //此方法返回已停用和正在使用的排好序的数组对象

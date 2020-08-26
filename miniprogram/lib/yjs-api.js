@@ -13,9 +13,9 @@ class YjsApi {
     }).catch(() => []);
   }
   //通过传递参数发送request请求查询研究生课程表中的信息
-  kcbQuery(param) {
-    return new Promise((resolve, reject) => {
-      app.wxp.request({
+  async kcbQuery(param) {
+    try {
+      const res = await app.wxp.request({
         url: "https://apis.ynu.edu.cn/do/api/call/kcjbxx_yjs",
         data: param,
         method: "POST",
@@ -24,12 +24,12 @@ class YjsApi {
           'appId': key.apis.appId,
           'content-type': 'application/json' // 默认值
         },
-      })
-        .then(res => {
-          resolve(res.data.dataSet);
-        })
-        .catch(err => reject(err));
-    });
+      });
+      return res.data.dataSet;
+    }
+    catch (err) {
+      return err;
+    }
   }
 }
 
