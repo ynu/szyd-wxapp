@@ -28,7 +28,7 @@ class ZqApi {
   async webFirm() {
     try {
       const res = await app.wxp.request({
-        url: "http://apis.ynu.edu.cn/do/api/call/wbfirm_zq",
+        url: "https://apis.ynu.edu.cn/do/api/call/wbfirm_zq",
         data: {},
         method: "POST",
         header: {
@@ -57,7 +57,7 @@ class ZqApi {
   async webnewsCount() {
     try {
       const res = await app.wxp.request({
-        url: "http://apis.ynu.edu.cn/do/api/call/latestDaysUpdateCounts_wbnews_zq",
+        url: "https://apis.ynu.edu.cn/do/api/call/latestDaysUpdateCounts_wbnews_zq",
         method: "POST",
         data: {
           "days": "180"
