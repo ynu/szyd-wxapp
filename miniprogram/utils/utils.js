@@ -57,13 +57,13 @@ const meansApi = {
       return err;
     }
   },
-  getInfo(id) {
+  getInfo(name, id) {
     const db = wx.cloud.database();
     //获取log的云端数据
-    return db.collection('open-door-logs').where({
+    return db.collection(name).where({
       _id: id
     }).get()
-  }
+  },
 }
 
 //门的数组

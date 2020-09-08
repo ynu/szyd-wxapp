@@ -102,7 +102,6 @@ Page({
   //获取当前用户的权限
   getPermission() {
     let obj = {};
-    const db = wx.cloud.database();
     const that = this;
     this.setData({
       IsApply: false

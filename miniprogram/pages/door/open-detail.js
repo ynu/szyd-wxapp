@@ -11,7 +11,7 @@ Page({
   },
   //初始化的时候根据_id获取当前log的具体信息
   initPage() {
-    meansApi.getInfo(this.data.id).then((res) => {
+    meansApi.getInfo('open-door-logs', this.data.id).then((res) => {
       this.setData({
         info: res.data[0]
       })
