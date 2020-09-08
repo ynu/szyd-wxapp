@@ -91,6 +91,9 @@ Page({
       case "统一身份认证系统":
         module = "idSystem/index";
         break;
+      case "权限管理":
+        module = "authority/index";
+        break;
     }
     wx.navigateTo({
       url: `/pages/${module}`,
@@ -163,6 +166,11 @@ Page({
             case Roles.IdSystemSupervisor:
               modules.push({
                 name: "统一身份认证系统"
+              });
+              break;
+            case Roles.AuthorityManager:
+              modules.push({
+                name: "权限管理"
               });
               break;
             default:

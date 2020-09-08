@@ -52,7 +52,10 @@
     "pages/rs/index",
     "pages/rs/jbxx/index",
     "pages/rs/jbxx/detail",
-    "pages/rs/jbxx/query"
+    "pages/rs/jbxx/query",
+    "pages/authority/index",
+    "pages/authority/allData/list",
+    "pages/authority/allData/list-detail"
   ],
   "useExtendedLib": {
     "weui": true

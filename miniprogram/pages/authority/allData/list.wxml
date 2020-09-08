@@ -1,0 +1,13 @@
+<!--miniprogram/pages/authority/allData/list.wxml-->
+<view class="page">
+  <view>
+    <view class="weui-cells weui-cells_after-title">
+      <navigator wx:for="{{logs}}" wx:key="date" url="/pages/authority/allData/list-detail?id={{item._id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          {{item.name}}
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">{{item.unit}}</view>
+      </navigator>
+    </view>
+  </view>
+</view>

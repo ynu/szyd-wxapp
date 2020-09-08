@@ -5,7 +5,6 @@
 1.2 权限：查看指定商户及子商户和设备的日/月账单
 */
 
-const WeixinApi = require("../lib/weixin-api.js").default;
 const EcardApi = require("../lib/ecard-api.js");
 const ZqApi = require("../lib/zq-api.js");
 const FcApi = require("../lib/fc-api.js");
@@ -15,7 +14,6 @@ const BksApi = require('../lib/bks-api.js');
 const IdSystemApi = require('../lib/idSystem-api');
 const RsApi = require('../lib/rs-api.js');
 
-const weixinApi = new WeixinApi();
 const ecardApi = new EcardApi();
 const zqApi = new ZqApi();
 const fcApi = new FcApi();
@@ -40,14 +38,24 @@ const Roles = {
   YjsSupervisor: 'szyd:yjs-supervisor', //研究生信息管理员权限，进入yjs/index
   BksSupervisor: 'szyd:bks-supervisor', //本科生生信息管理员权限，进入bks/index
   IdSystemSupervisor: 'szyd:IdSystem-supervisor',//统一身份认证系统管理员权限，进入idSystem/index
-  RsSupervisor:'szyd:rs-supervisor' //人事系统管理员权限，进入rs/index
+  RsSupervisor: 'szyd:rs-supervisor', //人事系统管理员权限，进入rs/index
+  AuthorityManager: 'szyd:authority-manager' //权限管理员仅限，进入authority/index
 };
 
 const meansApi = {
-  getRoles() {
+  async getRoles() {
     const db = wx.cloud.database();
-    //获取云端数据库判断当前用户拥有哪些模块的权限
-    return db.collection('user-permissions').where({}).get()
+    try {
+      //通过云函数获取openid
+      const res = await wx.cloud.callFunction({
+        name: 'getOpenId'
+      });
+      //获取云端数据库判断当前用户拥有哪些模块的权限
+      return db.collection('user-permissions').where({ _openid: res.result.OPENID }).get();
+    }
+    catch (err) {
+      return err;
+    }
   },
   getInfo(id) {
     const db = wx.cloud.database();
@@ -98,7 +106,6 @@ const formatTime = date => {
 }
 
 module.exports = {
-  weixinApi,
   ecardApi,
   zqApi,
   fcApi,
