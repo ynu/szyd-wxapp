@@ -1,19 +1,57 @@
 // miniprogram/pages/authority/allData/list-detail.js
-import { Roles, meansApi, shopManagerRolePrefix, doorManagerRolePrefix } from '../../../utils/utils.js';
-let roles = [];
+import { doors, Roles, meansApi, shopManagerRolePrefix, doorManagerRolePrefix } from '../../../utils/utils.js';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    shopId: "",//一卡通权限的商户id
     _id: "",
-    modules: [],
-    roles: []
+    modules: [], //模块数组对象
+    roles: [],  //授权的权限数组
+    formData: {},
+    isEcardSupervisor: false, //是否申请了一卡通权限，如果申请过了就会出现输入商户id的输入框
+    isDoorSupervisor: false,//是否申请了门禁权限，如果申请过了就会出现门禁管理多选框
+    doors: [],  //门禁的数组对象
+    doorIdArr: [], //存储复选框选择门禁的id数组
+    doorIdArrDatabase: [] //从数据库中选择出来的id数组
   },
+  //当申请模块发生改变时触发此函数
+  checkboxChange(e) {
+    let arr = this.data.roles;
+    if (this.data.doorIdArrDatabase.length > e.detail.value.length) {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].indexOf(doorManagerRolePrefix) != -1) {
+          const index = arr.findIndex(item => item == arr[i]);
+          arr.splice(index, 1);
+        }
+      }
+    }
+    this.setData({
+      doorIdArr: e.detail.value,
+      roles: arr
+    });
+  },
+  //当商户id输入框发生变化时触发此函数
+  formInputChange(e) {
+    const { field } = e.currentTarget.dataset;
+    this.setData({
+      [`formData.${field}`]: e.detail.value
+    });
+  },
+  //点击提交时
   submitForm() {
     const that = this;
     const db = wx.cloud.database();
+    const arr = that.data.roles;
+    arr.push(`ecard:shop-manager:${that.data.formData.shopId}`);
+    that.data.doorIdArr.forEach(id => {
+      arr.push(`${doorManagerRolePrefix}${id}`)
+    });
+    this.setData({
+      roles: [...new Set(arr)] //权限数组去重
+    });
     db.collection('user-permissions')
       .doc(that.data._id)
       .update({
@@ -21,7 +59,7 @@ Page({
           roles: this.data.roles
         }
       })
-      .then(() => {
+      .then((res) => {
         wx.showModal({
           title: '提示',
           content: '修改权限成功',
@@ -32,8 +70,9 @@ Page({
             delta: 1
           })
         })
-      })
+      }).catch((err) => err)
   },
+  //权限管理开关发生改变时触发此函数
   switchChange(event) {
     //当开关为true时增加roles数组中的某项权限
     if (event.detail.value) {
@@ -47,6 +86,15 @@ Page({
       const arr = this.data.roles;
       const index = arr.findIndex(item => item == event.target.id);
       arr.splice(index, 1);
+      //如果关闭了数据中心门禁权限，则要删除role数组里面的所有:door-manager:项
+      if(event.target.id == "szyd:door-supervisor"){
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].indexOf(doorManagerRolePrefix) != -1) {
+            const index = arr.findIndex(item => item == arr[i]);
+            arr.splice(index, 1);
+          }
+        }
+      }
       this.setData({
         roles: arr
       })
@@ -63,7 +111,7 @@ Page({
     let obj = {};
     const that = this;
     //获取云端数据库判断当前用户拥有哪些模块的权限
-    meansApi.getInfo('user-permissions', options.id).then(res => {
+    meansApi.getInfo('user-permissions', this.data._id).then(res => {
       let modules = [];
       res.data[0].module.forEach(role => {
         switch (role) {
@@ -144,18 +192,56 @@ Page({
               });
             }
         }
-      })
+      });
       //比较一个集合对象的module和roles，如果roles中已经存在module则，checked为true
       for (let i = 0; i < modules.length; i++) {
         if (res.data[0].roles.includes(modules[i].module)) {
           modules[i].checked = true;
         }
       }
+      //筛选管理的权限
+      let rolesArr = res.data[0].roles.filter(role => {
+        return role.indexOf(doorManagerRolePrefix) != -1;
+      });
+      //筛选商户id
+      let shopManager = res.data[0].roles.filter(role => {
+        return role.indexOf(shopManagerRolePrefix) != -1;
+      });
+      //分离权限中的商户id
+      let shopIdArr = shopManager.map(role => {
+        return role.substring(19);
+      });
+
+      //分离权限中的门id
+      let doorIdArr = rolesArr.map(role => {
+        return role.substring(18);
+      });
+      doorIdArr.forEach(doorId => {
+        switch (doorId) {
+          case "1":
+            doors[0].isSupervisor = true;
+            break;
+          case "2":
+            doors[1].isSupervisor = true;
+            break;
+          case "3":
+            doors[2].isSupervisor = true;
+            break;
+          case "4":
+            doors[3].isSupervisor = true;
+            break;
+        }
+      })
       modules = modules.reduce((item, next) => {
         obj[next.name] ? '' : obj[next.name] = true && item.push(next);
         return item;
       }, []);
       that.setData({
+        doorIdArrDatabase: doorIdArr,
+        shopId: shopIdArr[0],
+        doors: doors,
+        isEcardSupervisor: res.data[0].module.includes("szyd:ecard-supervisor"),
+        isDoorSupervisor: res.data[0].module.includes("szyd:door-supervisor"),
         roles: res.data[0].roles,
         modules: modules
       });

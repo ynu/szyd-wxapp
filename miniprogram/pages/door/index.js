@@ -17,7 +17,7 @@ Page({
     id: 0
   },
   //当点击确认的时候，检查是否填写理由，填写了即开门成功后上传数据log
-  getUserInfo(event) {
+  getUserInfo() {
     if (this.data.reason === "") {
       wx.showModal({
         title: '提示',
@@ -104,7 +104,7 @@ Page({
       name: e.currentTarget.dataset.name,
       id: e.currentTarget.dataset.id
     });
-
+    getUserInfo();
   },
 
   /**
@@ -123,7 +123,7 @@ Page({
       });
     });
     // 定义方法：获取当前用户有权限的门ID列表
-    const getShopIds = () => new Promise((resolve, reject) => {
+    const getDoorIds = () => new Promise((resolve, reject) => {
       //获取云端数据库判断当前用户拥有哪些权限
       meansApi.getRoles().then(res => {
         //筛选管理的权限
@@ -138,7 +138,7 @@ Page({
       })
     });
     Promise.all([
-      getShopIds().catch(() => [])
+      getDoorIds().catch(() => [])
     ]).then(([doorIds]) => {
       doorIds = doorIds;
       doorIds.forEach(doorId => {
