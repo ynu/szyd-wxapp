@@ -87,16 +87,16 @@ Page({
       let arr = this.data.roles;
       const index = arr.findIndex(item => item == event.target.id);
       arr.splice(index, 1);
-      let [...arrCurrent] = arr;
-      //如果关闭了数据中心门禁权限，则要删除role数组里面的所有:door-manager:项
-      if(event.target.id == "szyd:door-supervisor"){   
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i].indexOf(doorManagerRolePrefix) != -1) {
-            const index = arrCurrent.findIndex(item => item == arr[i]);
-            arrCurrent.splice(index, 1);
-          }
-        }
-      }
+      let [...arrCurrent] = arr;//es6写法创建同一数组内容的不同存储地址不同名的数组
+      // //如果关闭了数据中心门禁权限，则要删除role数组里面的所有:door-manager:项
+      // if(event.target.id == "szyd:door-supervisor"){   
+      //   for (let i = 0; i < arr.length; i++) {
+      //     if (arr[i].indexOf(doorManagerRolePrefix) != -1) {
+      //       const index = arrCurrent.findIndex(item => item == arr[i]);
+      //       arrCurrent.splice(index, 1);
+      //     }
+      //   }
+      // }
       this.setData({
         roles: arrCurrent
       })
@@ -194,7 +194,7 @@ Page({
               });
             } else if (role.indexOf(doorManagerRolePrefix) != -1) {
               modules.push({
-                name: "数据中心门禁"
+                name: "数据中心门禁（可查看日志权限）"
               });
             }
         }

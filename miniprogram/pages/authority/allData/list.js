@@ -5,11 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    logs: [],
+    inputShowed: false,
+    inputVal: "",
+    display: true
   },
   async getDatas() {
     wx.showLoading({
-      title: '加载中',
+      title: '正在加载',
+      mask: true
     });
     const db = wx.cloud.database()
     //定义每次获取的条数
@@ -21,11 +25,11 @@ Page({
     const batchTimes = Math.ceil(total / MAX_LIMIT)
     // 承载所有读操作的 promise 的数组
     const arraypro = []
-   //初次循环获取云端数据库的分次数的promise数组
+    //初次循环获取云端数据库的分次数的promise数组
     for (let i = 0; i < batchTimes; i++) {
       const promise = await db.collection('user-permissions').skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
-     //二次循环根据获取的promise数组的数据长度获取全部数据push到arraypro数组中
-      for (let j = 0; j < promise.data.length;j++){
+      //二次循环根据获取的promise数组的数据长度获取全部数据push到arraypro数组中
+      for (let j = 0; j < promise.data.length; j++) {
         arraypro.push(promise.data[j])
       }
     }
@@ -33,7 +37,7 @@ Page({
     this.setData({
       logs: arraypro,
     });
-    wx.hideLoading()
+    wx.hideLoading();
   },
 
   /**
@@ -41,6 +45,43 @@ Page({
    */
   onLoad: function (options) {
     this.getDatas();
+    this.setData({
+      search: this.search.bind(this)
+    })
+  },
+  search: function (value) {
+    let arr = [];
+    return new Promise((resolve, reject) => {
+      let rolesArr = this.data.logs.filter(role => {
+        return role.name.indexOf(value) != -1;
+      });
+      if (value == "") {
+        rolesArr = this.data.logs;
+      }
+      rolesArr.forEach(role => {
+        arr.push({ text: role.name, value: role._id });
+      });
+      resolve(arr);
+    })
+  },
+  selectResult: function (e) {
+    wx.navigateTo({
+      url: `/pages/authority/allData/list-detail?id=${e.detail.item.value}`,
+    })
+    console.log('select result', e.detail.item.value)
+  },
+  bindFocus: function (e) {    
+    this.setData({
+      display: false
+    });
+    this.onLoad();
+  },
+  bindBlur: function (e) {
+    this.search;
+    this.setData({
+      display: true
+    });
+    this.onLoad();
   },
 
   /**
