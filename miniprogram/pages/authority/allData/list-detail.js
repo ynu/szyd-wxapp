@@ -19,18 +19,19 @@ Page({
   },
   //当申请模块发生改变时触发此函数
   checkboxChange(e) {
-    let arr = this.data.roles;
+    let arr = this.data.roles;    
+    let [...arrCurrent] = arr; //深拷贝数组成为一个新的数组
     if (this.data.doorIdArrDatabase.length > e.detail.value.length) {
       for (let i = 0; i < arr.length; i++) {
         if (arr[i].indexOf(doorManagerRolePrefix) != -1) {
-          const index = arr.findIndex(item => item == arr[i]);
-          arr.splice(index, 1);
+          const index = arrCurrent.findIndex(item => item == arr[i]);
+          arrCurrent.splice(index, 1);
         }
       }
     }
     this.setData({
       doorIdArr: e.detail.value,
-      roles: arr
+      roles: arrCurrent
     });
   },
   //当商户id输入框发生变化时触发此函数
@@ -44,7 +45,7 @@ Page({
   submitForm() {
     const that = this;
     const db = wx.cloud.database();
-    const arr = that.data.roles;
+    let arr = that.data.roles;
     arr.push(`ecard:shop-manager:${that.data.formData.shopId}`);
     that.data.doorIdArr.forEach(id => {
       arr.push(`${doorManagerRolePrefix}${id}`)
@@ -76,27 +77,28 @@ Page({
   switchChange(event) {
     //当开关为true时增加roles数组中的某项权限
     if (event.detail.value) {
-      const arr = this.data.roles;
+      let arr = this.data.roles;
       arr.push(event.target.id);
       this.setData({
         roles: arr
       })
     } else {
       //当开关为false时删除roles数组中的某项权限
-      const arr = this.data.roles;
+      let arr = this.data.roles;
       const index = arr.findIndex(item => item == event.target.id);
       arr.splice(index, 1);
+      let [...arrCurrent] = arr;
       //如果关闭了数据中心门禁权限，则要删除role数组里面的所有:door-manager:项
-      if(event.target.id == "szyd:door-supervisor"){
+      if(event.target.id == "szyd:door-supervisor"){   
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].indexOf(doorManagerRolePrefix) != -1) {
-            const index = arr.findIndex(item => item == arr[i]);
-            arr.splice(index, 1);
+            const index = arrCurrent.findIndex(item => item == arr[i]);
+            arrCurrent.splice(index, 1);
           }
         }
       }
       this.setData({
-        roles: arr
+        roles: arrCurrent
       })
     }
   },
@@ -105,6 +107,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+      mask: true
+    });
     this.setData({
       _id: options.id
     });
