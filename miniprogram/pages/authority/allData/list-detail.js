@@ -6,20 +6,22 @@ Page({
    * 页面的初始数据
    */
   data: {
+    modulesUnclaimed: "",
+    namePerson: "", //人名
     shopId: "",//一卡通权限的商户id
     _id: "",
-    modules: [], //模块数组对象
+    modulesApplied: [], //模块数组对象
     roles: [],  //授权的权限数组
     formData: {},
-    isEcardSupervisor: false, //是否申请了一卡通权限，如果申请过了就会出现输入商户id的输入框
-    isDoorSupervisor: false,//是否申请了门禁权限，如果申请过了就会出现门禁管理多选框
+    // isEcardSupervisor: false, //是否申请了一卡通权限，如果申请过了就会出现输入商户id的输入框
+    // isDoorSupervisor: false,//是否申请了门禁权限，如果申请过了就会出现门禁管理多选框
     doors: [],  //门禁的数组对象
     doorIdArr: [], //存储复选框选择门禁的id数组
     doorIdArrDatabase: [] //从数据库中选择出来的id数组
   },
   //当申请模块发生改变时触发此函数
   checkboxChange(e) {
-    let arr = this.data.roles;    
+    let arr = this.data.roles;
     let [...arrCurrent] = arr; //深拷贝数组成为一个新的数组
     if (this.data.doorIdArrDatabase.length > e.detail.value.length) {
       for (let i = 0; i < arr.length; i++) {
@@ -50,6 +52,13 @@ Page({
     that.data.doorIdArr.forEach(id => {
       arr.push(`${doorManagerRolePrefix}${id}`)
     });
+    //去除无效项
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].indexOf("ecard:shop-manager:undefined") != -1) {
+        const index = arr.findIndex(item => item == arr[i]);
+        arr.splice(index, 1);
+      }
+    }
     this.setData({
       roles: [...new Set(arr)] //权限数组去重
     });
@@ -102,104 +111,122 @@ Page({
       })
     }
   },
+  forEachFunc(arr) {
+    let modules = [];
+    arr.forEach(role => {
+      switch (role) {
+        case Roles.RsSupervisor:
+          modules.push({
+            name: "人事",
+            module: Roles.RsSupervisor
+          });
+          break;
+        case Roles.FcSupervisor:
+          modules.push({
+            name: "虚拟化平台",
+            module: Roles.FcSupervisor
+          });
+          break;
+        case Roles.ZqSupervisor:
+          modules.push({
+            name: "站群系统",
+            module: Roles.ZqSupervisor
+          });
+          break;
+        case Roles.EcardSupervisor:
+          modules.push({
+            name: "一卡通",
+            module: Roles.EcardSupervisor
+          });
+          break;
+        case Roles.RisSupervisor:
+          modules.push({
+            name: "风控系统",
+            module: Roles.RisSupervisor
+          });
+          break;
+        case Roles.IpSupervisor:
+          modules.push({
+            name: "IP地址段查询",
+            module: Roles.IpSupervisor
+          });
+          break;
+        case Roles.DoorManager:
+          modules.push({
+            name: "数据中心门禁",
+            module: Roles.DoorManager
+          });
+          break;
+        case Roles.YjsSupervisor:
+          modules.push({
+            name: "研究生信息查询",
+            module: Roles.YjsSupervisor
+          });
+          break;
+        case Roles.BksSupervisor:
+          modules.push({
+            name: "本科生信息查询",
+            module: Roles.BksSupervisor
+          });
+          break;
+        case Roles.IdSystemSupervisor:
+          modules.push({
+            name: "统一身份认证系统",
+            module: Roles.IdSystemSupervisor
+          });
+          break;
+        case Roles.AuthorityManager:
+          modules.push({
+            name: "权限管理",
+            module: Roles.AuthorityManager
+          });
+          break;
+        default:
+          if (role.indexOf(shopManagerRolePrefix) != -1) {
+            modules.push({
+              name: "一卡通"
+            });
+          } else if (role.indexOf(doorManagerRolePrefix) != -1) {
+            modules.push({
+              name: "数据中心门禁（可查看日志权限）"
+            });
+          }
+      }
+    });
+    return modules;
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '正在加载',
-      mask: true
-    });
+    // wx.showLoading({
+    //   title: '正在加载',
+    //   mask: true
+    // });
     this.setData({
-      _id: options.id
+      _id: options.id,
+      namePerson: options.name
     });
     let obj = {};
     const that = this;
+    let modulesUnclaimed = [Roles.FcSupervisor, Roles.EcardSupervisor, Roles.ZqSupervisor, Roles.RisSupervisor, Roles.IpSupervisor, Roles.DoorManager, Roles.YjsSupervisor, Roles.BksSupervisor, Roles.IdSystemSupervisor, Roles.RsSupervisor, Roles.AuthorityManager];
     //获取云端数据库判断当前用户拥有哪些模块的权限
-    meansApi.getInfo('user-permissions', this.data._id).then(res => {
-      let modules = [];
-      res.data[0].module.forEach(role => {
-        switch (role) {
-          case Roles.RsSupervisor:
-            modules.push({
-              name: "人事",
-              module: Roles.RsSupervisor
-            });
-            break;
-          case Roles.FcSupervisor:
-            modules.push({
-              name: "虚拟化平台",
-              module: Roles.FcSupervisor
-            });
-            break;
-          case Roles.ZqSupervisor:
-            modules.push({
-              name: "站群系统",
-              module: Roles.ZqSupervisor
-            });
-            break;
-          case Roles.EcardSupervisor:
-            modules.push({
-              name: "一卡通",
-              module: Roles.EcardSupervisor
-            });
-            break;
-          case Roles.RisSupervisor:
-            modules.push({
-              name: "风控系统",
-              module: Roles.RisSupervisor
-            });
-            break;
-          case Roles.IpSupervisor:
-            modules.push({
-              name: "IP地址段查询",
-              module: Roles.IpSupervisor
-            });
-            break;
-          case Roles.DoorManager:
-            modules.push({
-              name: "数据中心门禁",
-              module: Roles.DoorManager
-            });
-            break;
-          case Roles.YjsSupervisor:
-            modules.push({
-              name: "研究生信息查询",
-              module: Roles.YjsSupervisor
-            });
-            break;
-          case Roles.BksSupervisor:
-            modules.push({
-              name: "本科生信息查询",
-              module: Roles.BksSupervisor
-            });
-            break;
-          case Roles.IdSystemSupervisor:
-            modules.push({
-              name: "统一身份认证系统",
-              module: Roles.IdSystemSupervisor
-            });
-            break;
-          case Roles.AuthorityManager:
-            modules.push({
-              name: "权限管理",
-              module: Roles.AuthorityManager
-            });
-            break;
-          default:
-            if (role.indexOf(shopManagerRolePrefix) != -1) {
-              modules.push({
-                name: "一卡通"
-              });
-            } else if (role.indexOf(doorManagerRolePrefix) != -1) {
-              modules.push({
-                name: "数据中心门禁（可查看日志权限）"
-              });
-            }
+    meansApi.getInfo('user-permissions', that.data._id).then(res => {
+      let modules = res.data[0].module;
+      for (let i = 0; i < modules.length; i++) {
+        const index = modulesUnclaimed.findIndex(item => item == modules[i]);
+        modulesUnclaimed.splice(index, 1);
+      }
+      modulesUnclaimed = that.forEachFunc(modulesUnclaimed);
+      modules = that.forEachFunc(modules);
+      //比较一个集合对象的modulesUnclaimed和roles，如果roles中已经存在modulesUnclaimed则，checked为true
+      for (let i = 0; i < modulesUnclaimed.length; i++) {
+        if (res.data[0].roles.includes(modulesUnclaimed[i].module)) {
+          modulesUnclaimed[i].checked = true;
         }
-      });
-      //比较一个集合对象的module和roles，如果roles中已经存在module则，checked为true
+      }
+      //比较一个集合对象的modules和roles，如果roles中已经存在modules则，checked为true
       for (let i = 0; i < modules.length; i++) {
         if (res.data[0].roles.includes(modules[i].module)) {
           modules[i].checked = true;
@@ -237,19 +264,21 @@ Page({
             doors[3].isSupervisor = true;
             break;
         }
-      })
+      });
       modules = modules.reduce((item, next) => {
         obj[next.name] ? '' : obj[next.name] = true && item.push(next);
         return item;
       }, []);
+
       that.setData({
         doorIdArrDatabase: doorIdArr,
         shopId: shopIdArr[0],
         doors: doors,
-        isEcardSupervisor: res.data[0].module.includes("szyd:ecard-supervisor"),
-        isDoorSupervisor: res.data[0].module.includes("szyd:door-supervisor"),
+        // isEcardSupervisor: res.data[0].module.includes("szyd:ecard-supervisor"),
+        // isDoorSupervisor: res.data[0].module.includes("szyd:door-supervisor"),
         roles: res.data[0].roles,
-        modules: modules
+        modulesApplied: modules,
+        modulesUnclaimed,
       });
       wx.hideLoading();
     })
