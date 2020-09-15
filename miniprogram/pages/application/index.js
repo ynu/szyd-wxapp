@@ -132,7 +132,6 @@ Page({
         else {
           //判断是否为第一次提交，如果不是执行if条件为真
           if (that.data.length === 1) {
-            const _ = db.command;
             db.collection('user-permissions')
               .doc(that.data._id)
               .update({

@@ -1,0 +1,19 @@
+<!--miniprogram/pages/authority/allData/list.wxml-->
+<view class="page">
+	<view class="page__hd">
+		<view class="page__title">列表</view>
+		<view class="page__desc">搜索栏</view>
+	</view>
+	<view class="page__bd">
+		<mp-searchbar bindselectresult="selectResult" bindfocus="bindFocus" bindblur="bindBlur" search="{{search}}"></mp-searchbar>
+		<view wx:if="{{display}}">
+			<view class="weui-cells weui-cells_after-title">
+				<navigator wx:for="{{logs}}" wx:key="date" url="/pages/authority/allData/list-detail?id={{item._id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+					<view class="weui-cell__bd">
+						{{item.name}}
+					</view>
+				</navigator>
+			</view>
+		</view>
+	</view>
+</view>
