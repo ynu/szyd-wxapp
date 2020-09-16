@@ -9,7 +9,7 @@ class RsApi {
   infoQuery(param) {
     return new Promise((resolve, reject) => {
       app.wxp.request({
-        url: "http://apis.ynu.edu.cn/do/api/call/info_jzg_rs",
+        url: "https://apis.ynu.edu.cn/do/api/call/info_jzg_rs",
         data: param,
         method: "POST",
         header: {
