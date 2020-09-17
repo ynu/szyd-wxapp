@@ -1,13 +1,12 @@
 <!--miniprogram/pages/authority/allData/list-detail.wxml-->
 <view class="page">
 	<view class="page__hd">
-		<view class="page__title">权限管理</view>
-		<view class="page__desc">系统管理员</view>
+		<view class="page__title">{{namePerson}}</view>
 	</view>
 	<view class="page__bd">
 		<mp-form id="form" rules="{{rules}}" models="{{formData}}">
-			<view class="weui-cells__title">权限开关</view>
-			<view class="weui-cells weui-cells_after-title" wx:for="{{modules}}">
+			<view class="weui-cells__title">已申请的权限</view>
+			<view class="weui-cells weui-cells_after-title" wx:for="{{modulesApplied}}">
 				<view class="weui-cell weui-cell_switch">
 					<view class="weui-cell__bd">{{item.name}}</view>
 					<view class="weui-cell__ft">
@@ -15,12 +14,21 @@
 					</view>
 				</view>
 			</view>
-			<mp-cells  title="一卡通权限设置商户id" wx:if="{{isEcardSupervisor}}">
+			<view class="weui-cells__title">未申请的权限</view>
+			<view class="weui-cells weui-cells_after-title" wx:for="{{modulesUnclaimed}}">
+				<view class="weui-cell weui-cell_switch">
+					<view class="weui-cell__bd">{{item.name}}</view>
+					<view class="weui-cell__ft">
+						<switch id="{{item.module}}" checked="{{item.checked}}" bindchange="switchChange" />
+					</view>
+				</view>
+			</view>
+			<mp-cells  title="一卡通权限设置商户id" wx:if="{{true}}">
 				<mp-cell prop="name" title="商户id" ext-class="">
 					<input bindinput="formInputChange" value="{{shopId}}" data-field="shopId" class="weui-input" placeholder="请输入id" />
 				</mp-cell>
 			</mp-cells>
-			<mp-cells title="信息中心门禁管理（可多选）" wx:if="{{isDoorSupervisor}}">
+			<mp-cells title="信息中心门禁管理（可多选）" wx:if="{{true}}">
 				<mp-checkbox-group prop="checkbox" multi="{{true}}" bindchange="checkboxChange">
 					<mp-checkbox data-field="checkbox" wx:for="{{doors}}" wx:key="value"  label="{{item.name}}" value="{{item.id}}" checked="{{item.isSupervisor}}"></mp-checkbox>
 				</mp-checkbox-group>

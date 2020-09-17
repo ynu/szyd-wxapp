@@ -8,7 +8,7 @@ Page({
     logs: [],
     inputShowed: false,
     inputVal: "",
-    display: true
+    value: ""
   },
   async getDatas() {
     wx.showLoading({
@@ -72,16 +72,8 @@ Page({
   },
   bindFocus: function (e) {    
     this.setData({
-      display: false
+      value: ""
     });
-    this.onLoad();
-  },
-  bindBlur: function (e) {
-    this.search;
-    this.setData({
-      display: true
-    });
-    this.onLoad();
   },
 
   /**
