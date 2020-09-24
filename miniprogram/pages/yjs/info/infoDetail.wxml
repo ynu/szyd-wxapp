@@ -1,0 +1,149 @@
+<view class="page">
+	<view class="page__hd">
+		<view class="weui-form-preview__value_in-hd">研究生	{{result.XM}}</view>
+	</view>
+	<view class="page__bd">
+		<view class="weui-form-preview">
+
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">学号</view>
+					<view class="weui-form-preview__value">{{result.XH}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">民族</view>
+					<view class="weui-form-preview__value">{{result.MZDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">政治面貌</view>
+					<view class="weui-form-preview__value">{{result.ZZMMM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">入党时间</view>
+					<view class="weui-form-preview__value">{{result.RDSJ}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">证件号码</view>
+					<view class="weui-form-preview__value">{{result.ZJHM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">出生地</view>
+					<view class="weui-form-preview__value">{{result.CSD}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">生源地</view>
+					<view class="weui-form-preview__value">{{result.SYD}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">户口所在地</view>
+					<view class="weui-form-preview__value">{{result.HKSZDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">健康状况</view>
+					<view class="weui-form-preview__value">{{result.JKZKDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">婚姻状况</view>
+					<view class="weui-form-preview__value">{{result.HYZKDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">院系</view>
+					<view class="weui-form-preview__value">{{result.YXDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">专业</view>
+					<view class="weui-form-preview__value">{{result.ZYDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">研究方向</view>
+					<view class="weui-form-preview__value">{{result.YJFX}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">导师</view>
+					<view class="weui-form-preview__value">{{result.DSZGH}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">学制</view>
+					<view class="weui-form-preview__value">{{result.XZ}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">培养方式</view>
+					<view class="weui-form-preview__value">{{result.PYFSDM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">在校标识</view>
+					<view class="weui-form-preview__value">{{result.LXBZ}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">注册状态</view>
+					<view class="weui-form-preview__value">{{result.ZCZT}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">学籍状态</view>
+					<view class="weui-form-preview__value">{{result.XJZT}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">档案状态</view>
+					<view class="weui-form-preview__value">{{result.DAZT}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">手机号码</view>
+					<view class="weui-form-preview__value">{{result.SJHM}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">电子信箱</view>
+					<view class="weui-form-preview__value">{{result.DZXX}}</view>
+				</view>
+			</view>
+			<view class="weui-form-preview__bd">
+				<view class="weui-form-preview__item">
+					<view class="weui-form-preview__label">是否在校</view>
+					<view class="weui-form-preview__value">{{result.SFZX}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+

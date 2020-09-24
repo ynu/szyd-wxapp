@@ -55,7 +55,13 @@
     "pages/rs/jbxx/query",
     "pages/authority/index",
     "pages/authority/allData/list",
-    "pages/authority/allData/list-detail"
+    "pages/authority/allData/list-detail",
+    "pages/yjs/info/index",
+    "pages/yjs/info/infoDetail",
+    "pages/yjs/info/query",
+    "pages/bks/info/index",
+    "pages/bks/info/query",
+    "pages/bks/info/detail"
   ],
   "useExtendedLib": {
     "weui": true

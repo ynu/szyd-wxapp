@@ -1,0 +1,15 @@
+<!--miniprogram/pages/bks/info/index.wxml-->
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">本科生基本信息</view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="button-sp-area" >
+           <button class="weui-btn" type="default" plain="true" bindtap='toName'>通过姓名查询</button>
+           <button class="weui-btn" type="default" plain="true" bindtap='toNumber'>通过学号查询</button>
+        </view>
+    </view>
+    <include src="../../footer.wxml" />
+</view>
+
+

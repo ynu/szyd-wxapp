@@ -1,4 +1,4 @@
-<!--pages/rs/jbxx/query.wxml-->
+<!--miniprogram/pages/yjs/info/query.wxml-->
 <!-- 搜索框 -->
 <view class="page">
 	<view class="page__bd">
@@ -6,7 +6,7 @@
 			<view class="weui-search-bar__form">
 				<view class="weui-search-bar__box">
 					<icon class="weui-icon-search_in-box" type="search" size="18"></icon>
-					<input type="text" class="weui-search-bar__input" placeholder="请输入职工号" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" confirm-type="search" bindconfirm="searchInput" />
+					<input type="text" class="weui-search-bar__input" placeholder="请输入{{placeholder}}" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" confirm-type="search" bindconfirm="searchInput" />
 					<view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
 						<icon type="clear" size="16"></icon>
 					</view>
@@ -17,11 +17,11 @@
 		<view>
 			<view class="weui-cells__title">搜索结果列表({{resultCount}})</view>
 			<view class="weui-cells searchbar-result">
-				<navigator wx:for="{{result}}" wx:key="date" url="/pages/rs/jbxx/detail?ZGH={{item.ZGH}}" class="weui-cell" hover-class="weui-cell_active">
+				<navigator wx:for="{{result}}" wx:key="date" url="/pages/yjs/info/infoDetail?XH={{item.XH}}" class="weui-cell" hover-class="weui-cell_active">
 					<view class="weui-cell__bd">
 						{{item.XM}}
 					</view>
-					<view class="weui-cell__ft weui-cell__ft_in-access">{{item.ZGH}}</view>
+					<view class="weui-cell__ft weui-cell__ft_in-access">{{item.XH}}</view>
 				</navigator>
 			</view>
 		</view>

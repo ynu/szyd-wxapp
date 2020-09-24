@@ -1,31 +1,35 @@
-// pages/yjs/index.js
+// miniprogram/pages/yjs/info/infoDetail.js
+import { yjsApi } from '../../../utils/utils.js';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    result: {}
+  },
 
-  },
-  toCounter() {
-    wx.navigateTo({
-      url: '/pages/yjs/counter',
-    })
-  },
-  toKcb() {
-    wx.navigateTo({
-      url: '/pages/yjs/kcbxx/index-detail',
-    })
-  },
-  toStudentInfo() {
-    wx.navigateTo({
-      url: '/pages/yjs/info/index',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: "正在加载",
+      mask: true
+    });
+    Promise.all([
+      //通过infoQuery函数查询对应职工号的全部信息
+      yjsApi.yjsInfo({"xh":options.XH}).catch(() => [])
+    ]).then(
+      ([result]) => {
+        this.setData({
+          result: result[0]
+        })
+        wx.hideLoading();
+      }).catch(err => {
+        wx.hideLoading();
+      });
 
   },
 
