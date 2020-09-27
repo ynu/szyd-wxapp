@@ -53,6 +53,25 @@ class BksApi {
       return err;
     }
   }
+  //此方法用来获取本科生基本信息
+  async bksInfo(param) {
+    try {
+      const res = await app.wxp.request({
+        url: "https://apis.ynu.edu.cn/do/api/call/query_bks",
+        data: param,
+        method: "POST",
+        header: {
+          'accessToken': key.apis.token,
+          'appId': key.apis.appId,
+          'content-type': 'application/json' // 默认值
+        },
+      });
+      return res.data.dataSet;
+    }
+    catch (err) {
+      return err;
+    }
+  }
 }
 
 
